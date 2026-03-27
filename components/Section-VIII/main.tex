@@ -1,0 +1,31 @@
+\newpage
+\section{\textbf{HIỆN THỰC VÀ DEMO KIỂM THỬ TỰ ĐỘNG}}
+
+\subsection{Công cụ và môi trường sử dụng}
+Hệ thống được hiện thực bằng ba khối chính:
+\begin{itemize}
+	\item \textbf{Backend}: Node.js 20, Express, MongoDB/Mongoose, JWT, bcrypt, Cloudinary, Multer và express-validator.
+	\item \textbf{Frontend}: Next.js 16, React 19, TypeScript, Tailwind CSS.
+	\item \textbf{Kiểm thử tự động}: Playwright với mô hình Page Object Model, dùng để chạy các kịch bản E2E và hỗ trợ demo.
+\end{itemize}
+
+\subsection{Tóm tắt cách cài đặt và chạy hệ thống}
+Từ tài liệu dự án, quy trình cơ bản gồm ba bước: khởi động backend ở cổng \texttt{3001}, khởi động frontend ở cổng \texttt{3000}, sau đó cài đặt và chạy Playwright trong thư mục \texttt{playwright}. Các biến môi trường cần thiết gồm kết nối MongoDB, \texttt{JWT\_SECRET}, đường dẫn frontend và cấu hình Cloudinary cho các chức năng upload ảnh.
+
+\subsection{Định hướng demo kiểm thử tự động}
+Phần demo trực tiếp khi chấm báo cáo sẽ bám theo các test case đã xây dựng ở Chương 2, nhưng \textbf{không đưa chi tiết vào Word/PDF}. Nhóm nên ưu tiên demo các kịch bản đã có bằng chứng kiểm thử rõ hơn trong repo như áp mã giảm giá, thay đổi thông tin profile, phân quyền truy cập trang quản trị và một số luồng kiểm tra tồn kho sản phẩm. Hiện tại repo đã có một số spec Playwright cho coupon, profile, RBAC quản trị và inventory; vì vậy phần trình bày nên mô tả đây là phạm vi hỗ trợ demo hiện có, không diễn đạt như đã bao phủ hoàn chỉnh toàn bộ luồng nghiệp vụ.
+
+\subsection{Liên hệ giữa hiện thực và kiểm thử}
+Một ưu điểm của dự án Baby Bliss là phần frontend, backend và Playwright được tách độc lập thành ba module. Nhờ vậy, nhóm có thể sử dụng cùng một tập chức năng để đi từ thiết kế test case, phân tích hộp đen, hộp trắng đến demo tự động mà không cần đổi phạm vi giữa các chương.
+
+\begin{figure}[H]
+	\centering
+	\fbox{\parbox{0.82\textwidth}{\centering
+			Vị trí chèn ảnh hoặc sơ đồ mô tả luồng demo kiểm thử tự động\\
+			(ví dụ: Login $\rightarrow$ Checkout $\rightarrow$ Apply Coupon $\rightarrow$ Create Order).}}
+	\caption{Minh họa luồng demo kiểm thử tự động khi chấm báo cáo}
+	\label{fig:auto-test-demo}
+\end{figure}
+
+\subsection{Lưu ý khi trình bày trước hội đồng}
+Khi demo, nhóm cần chuẩn bị sẵn dữ liệu test, tài khoản user hoặc admin, mã giảm giá còn hiệu lực và trạng thái đơn hàng phù hợp để tránh gián đoạn. Phần Word/PDF chỉ đóng vai trò tài liệu nền; còn tính thuyết phục của chương này đến từ việc chạy được kịch bản kiểm thử trên hệ thống thật.

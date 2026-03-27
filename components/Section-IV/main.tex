@@ -1,0 +1,47 @@
+\newpage
+
+\section{\textbf{THIẾT KẾ TEST CASE CHO CÁC CHỨC NĂNG CHÍNH}}
+
+\subsection{Mục tiêu của chương}
+Mục tiêu của chương này là xác định các chức năng trọng tâm, mô tả yêu cầu kiểm thử và quy ước xây dựng test case trước khi chuyển toàn bộ test case chi tiết sang file Excel. Việc tách test case ra khỏi báo cáo giúp giảm số trang, đồng thời vẫn bảo đảm bài làm bám sát yêu cầu môn học.
+
+\subsection{Mẫu test case và nguyên tắc thực hiện}
+Nhóm sử dụng một mẫu test case thống nhất cho tất cả chức năng, gồm các cột chính: Test Case ID, Mục tiêu, Tiền điều kiện, Dữ liệu đầu vào, Các bước thực hiện, Kết quả mong đợi, Mức ưu tiên, Trạng thái. Mỗi chức năng được thiết kế tối thiểu \textbf{10 test case}. Các test case chi tiết được lập trong file Excel theo đúng chức năng mà từng thành viên phụ trách ở Chương 1.
+
+\subsection{Danh sách chức năng được thiết kế test case}
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.3}
+	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{3.1cm}|>{\centering\arraybackslash}p{1.8cm}|>{\centering\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}X|}
+		\hline
+		\textbf{Chức năng}       & \textbf{Phụ trách} & \textbf{Tối thiểu TC} & \textbf{Nội dung cần bao phủ}                                                                                  \\
+		\hline
+		Quản lý tồn kho sản phẩm & Toại               & 10                    & Cập nhật số lượng, kiểm tra dữ liệu rỗng, dữ liệu âm, tìm kiếm sản phẩm và theo dõi tình trạng tồn.            \\
+		\hline
+		CRUD khuyến mãi          & Ty                 & 10                    & Tạo mã, sửa mã, xóa mã, kiểm tra điều kiện áp dụng, thời hạn và trạng thái hoạt động.                          \\
+		\hline
+		Thanh toán - giỏ hàng    & Thành              & 10                    & Thêm vào giỏ, cập nhật số lượng, xóa khỏi giỏ, tạo đơn hàng, chọn phương thức thanh toán.                      \\
+		\hline
+		Yêu thích                & Trọng              & 10                    & Thêm yêu thích, bỏ yêu thích, hiển thị danh sách cho guest hoặc user và đồng bộ dữ liệu theo ngữ cảnh sử dụng. \\
+		\hline
+		Profile                  & Tấn Tài            & 10                    & Cập nhật hồ sơ, đổi mật khẩu, đổi ảnh đại diện, xem lịch sử đơn hàng và kiểm tra dữ liệu sai.                  \\
+		\hline
+		Đăng ký đăng nhập        & Yến                & 10                    & Trường bắt buộc, email sai định dạng, mật khẩu ngắn, xác nhận sai, đăng nhập thất bại và thành công.           \\
+		\hline
+		CRUD danh mục            & Toàn               & 10                    & Tạo, sửa, xóa, kiểm tra trùng tên, kiểm tra dữ liệu bắt buộc và hiển thị danh mục.                             \\
+		\hline
+		Bình luận đánh giá       & Thiên              & 10                    & Số sao không hợp lệ, bình luận ngắn, quá số ảnh cho phép, đánh giá trùng, xóa đánh giá.                        \\
+		\hline
+		Admin CRUD sản phẩm      & Đạt                & 10                    & Tạo sản phẩm, cập nhật thông tin, xóa sản phẩm, kiểm tra trường bắt buộc và quản lý ảnh.                       \\
+		\hline
+	\end{tabularx}
+	\caption{Danh sách chức năng được thiết kế test case trong file Excel}
+	\label{tab:testcase-design-list}
+\end{table}
+
+\subsection{Tổ chức file Excel và cách liên kết với báo cáo}
+Trong báo cáo Word/PDF chỉ trình bày định hướng thiết kế và phạm vi bao phủ. Toàn bộ test case chi tiết được lưu trong file Excel riêng, mỗi chức năng tương ứng một worksheet hoặc một cụm worksheet tùy mức độ phức tạp. Tên worksheet nên đồng bộ với tên chức năng và tên người phụ trách trong Chương 1 để thuận lợi khi trình bày, phân công và demo trực tiếp.
+
+\subsection{Kết quả mong đợi của chương}
+Đầu ra chính của chương này là một bộ test case có thể dùng lại cho kiểm thử thủ công, kiểm thử hộp đen và làm cơ sở tham chiếu khi xây dựng kiểm thử tự động. Việc chuẩn hóa ngay từ Chương 2 giúp các chương sau không cần lặp lại phần mô tả dữ liệu kiểm thử chi tiết.

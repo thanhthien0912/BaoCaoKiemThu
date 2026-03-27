@@ -1,0 +1,41 @@
+\newpage
+\section{\textbf{ÁP DỤNG THIẾT KẾ TEST CASE WHITE BOX}}
+
+\subsection{Mục tiêu phân tích white box}
+Khác với Chương 3, chương này chỉ chọn 4 nhóm chức năng tiêu biểu trong 9 chức năng đã nêu trước đó để đi sâu vào \textbf{cấu trúc điều khiển trong mã nguồn}. Bốn nhóm được chọn gồm CRUD khuyến mãi, thanh toán - giỏ hàng, bình luận đánh giá và profile. Mỗi nhóm chức năng được đại diện bởi một hàm nghiệp vụ cụ thể và được gắn với một tiêu chí độ phủ riêng nhằm phản ánh đúng đặc điểm luồng xử lý.
+
+\subsection{Phủ đường -- Nhóm chức năng profile}
+Hàm \texttt{changePassword} trong \texttt{userService.js} đại diện cho nhóm chức năng profile vì có nhiều đường xử lý phụ thuộc vào việc người dùng có tồn tại hay không, mật khẩu hiện tại có đúng không và mật khẩu mới có đạt yêu cầu hay không. Chức năng này phù hợp với phủ đường vì nhóm có thể xác định các đường cơ sở như: đổi mật khẩu thành công, không tìm thấy người dùng, mật khẩu hiện tại sai và mật khẩu mới không đạt độ dài tối thiểu.
+
+\subsection{Phủ nhánh -- Nhóm chức năng bình luận đánh giá}
+Hàm \texttt{createReview} đại diện cho nhóm chức năng bình luận đánh giá vì có các quyết định rõ ràng: sản phẩm có tồn tại hay không, người dùng đã đánh giá chưa, số sao hợp lệ hay chưa, bình luận có đạt ngưỡng tối thiểu và tối đa hay không, số ảnh có vượt quá giới hạn không. Mỗi quyết định chỉ cần hai nhánh đúng hoặc sai, vì vậy chức năng này phù hợp với phủ nhánh. Bộ ca kiểm thử white box cần bảo đảm ít nhất một lần đi qua mỗi nhánh lỗi và mỗi nhánh thành công.
+
+\subsection{Phủ điều kiện -- Nhóm chức năng CRUD khuyến mãi}
+Hàm \texttt{validateCoupon} là đại diện tiêu biểu cho nhóm chức năng CRUD khuyến mãi vì quyết định cuối cùng phụ thuộc vào nhiều điều kiện logic liên tiếp: mã tồn tại, còn hoạt động, nằm trong thời gian hiệu lực, chưa vượt \texttt{usageLimit}, chưa vượt \texttt{perUserLimit} và đạt \texttt{minimumOrderAmount}. Mục tiêu của phân tích là bảo đảm từng điều kiện nguyên tử đều được kiểm tra ở cả trạng thái đúng và sai.
+
+\subsection{Phủ nhánh và điều kiện -- Nhóm chức năng thanh toán - giỏ hàng}
+Hàm \texttt{createOrder} đại diện cho nhóm chức năng thanh toán - giỏ hàng vì có số lượng nhánh đủ lớn và còn chứa các điều kiện kết hợp liên quan đến danh sách sản phẩm, mã sản phẩm hợp lệ, số lượng, phí vận chuyển, phương thức thanh toán và khuyến mãi. Vì vậy chức năng này được chọn cho tiêu chí phủ nhánh và điều kiện. Thiết kế white box cần chứng minh rằng từng nhánh lớn đều được thực thi, đồng thời các điều kiện con trong nhánh cũng được bao phủ đầy đủ.
+
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.3}
+	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{4.2cm}|>{\centering\arraybackslash}p{2.7cm}|>{\raggedright\arraybackslash}X|}
+		\hline
+		\textbf{Nhóm chức năng}                        & \textbf{Tiêu chí độ phủ} & \textbf{Mục tiêu kiểm tra}                                                            \\
+		\hline
+		Profile qua \texttt{changePassword}            & Phủ đường                & Bao phủ các đường thành công và các đường lỗi khi xác thực mật khẩu và đổi mật khẩu.  \\
+		\hline
+		Bình luận đánh giá qua \texttt{createReview}   & Phủ nhánh                & Bao phủ toàn bộ nhánh hợp lệ và nhánh lỗi của dữ liệu nhập.                           \\
+		\hline
+		CRUD khuyến mãi qua \texttt{validateCoupon}    & Phủ điều kiện            & Bao phủ từng điều kiện logic nguyên tử trong quá trình xác thực mã.                   \\
+		\hline
+		Thanh toán - giỏ hàng qua \texttt{createOrder} & Phủ nhánh và điều kiện   & Bao phủ cả nhánh lớn lẫn các điều kiện con ảnh hưởng đến tổng tiền và trạng thái đơn. \\
+		\hline
+	\end{tabularx}
+	\caption{Ánh xạ chức năng và tiêu chí white box được sử dụng trong báo cáo}
+	\label{tab:whitebox-mapping}
+\end{table}
+
+\subsection{Nhận xét chương}
+Thiết kế white box giúp chuyển các quy tắc nghiệp vụ đã nêu ở Chương 3 thành mục tiêu độ phủ cụ thể, qua đó tạo cơ sở trực tiếp cho việc xây dựng unit test ở chương tiếp theo. Việc thu hẹp từ 9 chức năng tổng thể xuống 4 nhóm chức năng tiêu biểu giúp báo cáo đi sâu hơn vào mã nguồn mà vẫn giữ được sự liên kết với phạm vi chung của toàn dự án.
