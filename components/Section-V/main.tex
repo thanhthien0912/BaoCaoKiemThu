@@ -1,64 +1,71 @@
 \newpage
 \section{\textbf{ÁP DỤNG THIẾT KẾ TEST CASE BLACK BOX}}
 
-\subsection{Nguyên tắc trình bày}
-Trong chương này, mỗi chức năng được trình bày theo thứ tự: \textbf{mô tả yêu cầu} trước, sau đó mới đến \textbf{phân tích black box}. Các bảng test case chi tiết không đưa vào báo cáo mà chỉ giữ lại kết quả phân tích, nhóm dữ liệu và cơ sở chọn kỹ thuật.
+\subsection{Bảng quyết định -- Chức năng quản lý mã khuyến mãi}
+\textbf{Mô tả yêu cầu.} Dựa trên mã nguồn của hệ thống, chức năng quản lý khuyến mãi được triển khai tại trang quản trị \texttt{/admin/coupons}. Quản trị viên có thể tạo mới, chỉnh sửa, bật/tắt trạng thái và xóa mã khuyến mãi. Form nhập liệu gồm các trường chính: \texttt{code}, \texttt{name}, \texttt{description}, \texttt{discountType}, \texttt{discountValue}, \texttt{maximumDiscount}, \texttt{minimumOrderAmount}, \texttt{usageLimit}, \texttt{perUserLimit}, \texttt{validFrom}, \texttt{validUntil}, \texttt{isActive}. Ở tầng backend, hệ thống chỉ chấp nhận lưu khi mã và tên không rỗng, loại giảm giá hợp lệ, mã được chuẩn hóa sang chữ hoa và không bị trùng, giá trị phần trăm không vượt quá \texttt{100}, các giá trị số không âm, đồng thời bản ghi cần thao tác phải tồn tại. Riêng thao tác xóa chỉ được phép khi mã khuyến mãi chưa từng được sử dụng; nếu \texttt{usageCount > 0} thì hệ thống từ chối xóa và yêu cầu vô hiệu hóa thay thế.
 
-\subsection{Chức năng 1 -- CRUD khuyến mãi bằng bảng quyết định}
-\textbf{Mô tả yêu cầu.} Quản trị viên thực hiện thêm, sửa, xóa và cập nhật trạng thái của mã khuyến mãi. Khi tạo hoặc cập nhật một chương trình khuyến mãi, hệ thống phải kiểm tra tên mã, loại giảm giá, giá trị giảm, thời gian hiệu lực, số lượng sử dụng và trạng thái hoạt động trước khi lưu dữ liệu.
+\textbf{Cơ sở chọn kỹ thuật.} Chức năng này phù hợp với \textbf{bảng quyết định} vì kết quả xử lý phụ thuộc vào nhiều điều kiện kết hợp như thao tác thực hiện, dữ liệu bắt buộc, mã trùng, giá trị phần trăm, bản ghi tồn tại và trạng thái đã sử dụng. Bảng quyết định giúp rút gọn các tổ hợp chính thành các luật đại diện để sinh test case trong file Excel.
 
-\textbf{Phân tích.} Chức năng này phù hợp với bảng quyết định vì kết quả lưu khuyến mãi phụ thuộc vào nhiều điều kiện đồng thời như: mã có bị trùng hay không, ngày bắt đầu có hợp lệ không, ngày kết thúc có lớn hơn ngày bắt đầu không, giá trị giảm có đúng định dạng không, và trạng thái áp dụng có được kích hoạt hay không. Từ đó có thể xây dựng các luật kiểm thử đại diện cho các trường hợp tạo mới hợp lệ, mã trùng, thời gian không hợp lệ, giá trị giảm sai, và cập nhật trạng thái thành công hoặc thất bại.
+\textbf{Các điều kiện quyết định chính.}
+\begin{itemize}
+	\item \textbf{C1}: thao tác đang thực hiện là tạo/cập nhật hay xóa.
+	\item \textbf{C2}: dữ liệu bắt buộc hợp lệ, tối thiểu gồm mã và tên không rỗng.
+	\item \textbf{C3}: loại giảm giá hợp lệ theo tập \texttt{percentage}, \texttt{fixed\_amount}, \texttt{free\_shipping}.
+	\item \textbf{C4}: nếu loại giảm là \texttt{percentage} thì \texttt{discountValue} không vượt quá \texttt{100}.
+	\item \textbf{C5}: mã khuyến mãi không bị trùng với bản ghi khác sau khi chuẩn hóa sang chữ hoa.
+	\item \textbf{C6}: bản ghi mục tiêu tồn tại khi cập nhật hoặc xóa.
+	\item \textbf{C7}: mã khuyến mãi chưa có lượt sử dụng khi thực hiện xóa.
+\end{itemize}
 
-\subsection{Chức năng 2 -- Bình luận đánh giá bằng phân tích giá trị biên}
-\textbf{Mô tả yêu cầu.} Người dùng đã đăng nhập được phép tạo bình luận và đánh giá sản phẩm với số sao trong miền cho phép, nội dung nhận xét đạt độ dài tối thiểu và số lượng ảnh đính kèm không vượt quá giới hạn hệ thống.
-
-\textbf{Phân tích.} Chức năng này phù hợp với giá trị biên vì có nhiều ràng buộc định lượng. Các biên tiêu biểu gồm: số sao ở các mức 0, 1, 5, 6; độ dài bình luận ở ngưỡng tối thiểu và tối đa; số lượng ảnh ở các mức hợp lệ tối đa và vượt ngưỡng. Kiểm thử giá trị biên giúp phát hiện tốt các lỗi nhập liệu sát ngưỡng và lỗi xử lý upload ảnh.
-
-\subsection{Chức năng 3 -- Yêu thích bằng kiểm thử chuyển trạng thái}
-\textbf{Mô tả yêu cầu.} Người dùng hoặc khách truy cập đều có thể thêm sản phẩm vào danh sách yêu thích, bỏ yêu thích hoặc xem lại danh sách đã lưu. Trạng thái của một sản phẩm sẽ chuyển qua lại giữa hai trạng thái chính là \texttt{chưa yêu thích} và \texttt{đã yêu thích}, trong đó dữ liệu được lưu theo ngữ cảnh guest hoặc tài khoản đã đăng nhập.
-
-\textbf{Phân tích.} Đây là trường hợp phù hợp với kiểm thử chuyển trạng thái vì kết quả thao tác phụ thuộc vào trạng thái hiện tại của sản phẩm trong danh sách yêu thích và ngữ cảnh sử dụng. Các test case cần bao phủ các chuyển trạng thái chính như: từ \texttt{chưa yêu thích} sang \texttt{đã yêu thích}, từ \texttt{đã yêu thích} sang \texttt{chưa yêu thích}, thao tác lặp lại nhiều lần, và việc chuyển giữa guest với người dùng đã đăng nhập.
-
-\begin{figure}[H]
+\begin{table}[H]
 	\centering
-	\fbox{\parbox{0.82\textwidth}{\centering
-			chưa yêu thích $\rightarrow$ đã yêu thích\\
-			đã yêu thích $\rightarrow$ chưa yêu thích\\
-			guest $\rightarrow$ lưu localStorage\\
-			user $\rightarrow$ lưu theo tài khoản}}
-	\caption{Sơ đồ chuyển trạng thái dùng cho kiểm thử hộp đen chức năng yêu thích}
-	\label{fig:wishlist-state-blackbox}
-\end{figure}
+	\caption{Bảng quyết định rút gọn cho chức năng quản lý mã khuyến mãi}
+	\footnotesize
+	\renewcommand{\arraystretch}{1.25}
+	\setlength{\tabcolsep}{3pt}
+	\begin{tabular}{|>{\raggedright\arraybackslash}p{5.3cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|}
+		\hline
+		\textbf{Điều kiện / Hành động} & \textbf{R1} & \textbf{R2} & \textbf{R3} & \textbf{R4} & \textbf{R5} & \textbf{R6} & \textbf{R7} & \textbf{R8} \\
+		\hline
+		\multicolumn{9}{|l|}{\textbf{Nhóm điều kiện}} \\
+		\hline
+		C1. Thao tác là tạo hoặc cập nhật & Y & Y & Y & Y & Y & N & N & N \\
+		\hline
+		C1. Thao tác là xóa & N & N & N & N & N & Y & Y & Y \\
+		\hline
+		C2. Dữ liệu bắt buộc hợp lệ & Y & Y & Y & Y & Y & - & - & - \\
+		\hline
+		C3. Loại giảm giá hợp lệ & Y & Y & Y & Y & Y & - & - & - \\
+		\hline
+		C4. Nếu là percentage thì discountValue $\leq$ 100 & Y & Y & N & Y & Y & - & - & - \\
+		\hline
+		C5. Mã không trùng & Y & N & Y & Y & Y & - & - & - \\
+		\hline
+		C6. Bản ghi mục tiêu tồn tại & - & - & - & Y & N & Y & Y & N \\
+		\hline
+		C7. Chưa phát sinh usageCount & - & - & - & - & - & Y & N & - \\
+		\hline
+		\multicolumn{9}{|l|}{\textbf{Nhóm hành động / kết quả mong đợi}} \\
+		\hline
+		Lưu thành công & X &  &  & X &  &  &  &  \\
+		\hline
+		Xóa thành công &  &  &  &  &  & X &  &  \\
+		\hline
+		Báo lỗi trùng mã &  & X &  &  &  &  &  &  \\
+		\hline
+		Báo lỗi dữ liệu giảm giá không hợp lệ &  &  & X &  &  &  &  &  \\
+		\hline
+		Báo lỗi không tìm thấy bản ghi &  &  &  &  & X &  &  & X \\
+		\hline
+		Từ chối xóa, yêu cầu vô hiệu hóa thay thế &  &  &  &  &  &  & X &  \\
+		\hline
+	\end{tabular}
 
-\subsection{Chức năng 4 -- Đăng ký đăng nhập}
-\textbf{Mô tả yêu cầu.} Người dùng đăng ký tài khoản bằng cách nhập họ tên, email, số điện thoại, mật khẩu và xác nhận mật khẩu; sau đó đăng nhập bằng email và mật khẩu đã được tạo. Hệ thống chỉ chấp nhận dữ liệu hợp lệ và phải từ chối các trường hợp thiếu thông tin, sai định dạng hoặc sai thông tin xác thực.
+	\vspace{0.35em}
+	\parbox{0.98\textwidth}{\footnotesize\textit{Chú thích ký hiệu:} \textbf{Y} = điều kiện xảy ra hoặc thỏa mãn; \textbf{N} = điều kiện không xảy ra hoặc không thỏa mãn; \textbf{-} = điều kiện không áp dụng trong luật đó; \textbf{X} = hành động hoặc kết quả mong đợi được kích hoạt.}
+\end{table}
 
-\textbf{Phân tích.} Chức năng này phù hợp với phân hoạch tương đương vì dữ liệu đầu vào có thể chia thành các lớp hợp lệ và không hợp lệ khá rõ ràng. Ví dụ: email được chia thành lớp đúng định dạng và sai định dạng; mật khẩu được chia thành lớp đạt độ dài yêu cầu và không đạt; xác nhận mật khẩu được chia thành lớp khớp và không khớp; thông tin đăng nhập được chia thành lớp tài khoản hợp lệ và không hợp lệ. Cách tiếp cận này giúp giảm số lượng test case nhưng vẫn bao phủ tốt các nhóm lỗi điển hình.
-
-\subsection{Chức năng 5 -- Quản lý tồn kho sản phẩm}
-\textbf{Mô tả yêu cầu.} Quản trị viên quản lý số lượng tồn gắn với từng sản phẩm thông qua thao tác cập nhật và theo dõi số lượng hiện tại trong khu vực quản trị. Hệ thống phải kiểm tra mã sản phẩm, số lượng nhập, số lượng điều chỉnh và các giá trị không hợp lệ như rỗng, âm hoặc vượt giới hạn.
-
-\textbf{Phân tích.} Chức năng này phù hợp với phân hoạch tương đương vì dữ liệu số lượng tồn có thể chia thành các lớp rõ ràng như lớp hợp lệ (số nguyên không âm, sản phẩm tồn tại) và lớp không hợp lệ (sản phẩm không tồn tại, số âm, ký tự, rỗng). Kiểm thử theo lớp tương đương giúp bao phủ nhanh các tình huống phát sinh khi cập nhật số lượng tồn của sản phẩm.
-
-\subsection{Chức năng 6 -- Thanh toán - giỏ hàng bằng bảng quyết định}
-\textbf{Mô tả yêu cầu.} Người dùng thêm sản phẩm vào giỏ hàng, điều chỉnh số lượng, áp dụng dữ liệu nhận hàng và chọn phương thức thanh toán để hoàn tất đơn. Kết quả xử lý phụ thuộc vào tình trạng giỏ hàng, thông tin nhận hàng, phương thức thanh toán và các điều kiện hợp lệ của từng sản phẩm.
-
-\textbf{Phân tích.} Chức năng này phù hợp với bảng quyết định vì hệ thống phải ra quyết định dựa trên nhiều điều kiện kết hợp như giỏ hàng có rỗng hay không, số lượng có hợp lệ không, thông tin nhận hàng đã đủ chưa, phương thức thanh toán có hợp lệ không và người dùng đã đăng nhập hay chưa. Mỗi tổ hợp điều kiện sẽ dẫn tới một kết quả khác nhau như tạo đơn thành công, yêu cầu nhập lại dữ liệu hoặc từ chối thanh toán.
-
-\subsection{Chức năng 7 -- Profile bằng giá trị biên và phân hoạch tương đương}
-\textbf{Mô tả yêu cầu.} Người dùng được phép cập nhật thông tin cá nhân, thay đổi mật khẩu, thay ảnh đại diện và theo dõi lịch sử đơn hàng. Hệ thống phải kiểm tra họ tên, số điện thoại, nội dung giới thiệu cá nhân, mật khẩu hiện tại và mật khẩu mới trước khi chấp nhận cập nhật.
-
-\textbf{Phân tích.} Chức năng này phù hợp với việc kết hợp giá trị biên và phân hoạch tương đương. Các trường như tên, số điện thoại, bio hoặc mật khẩu mới đều có các ngưỡng độ dài và các lớp hợp lệ hoặc không hợp lệ khá rõ. Cách phân tích này giúp bao phủ tốt cả lỗi định dạng lẫn lỗi sát ngưỡng thường gặp trong form hồ sơ cá nhân.
-
-\subsection{Chức năng 8 -- CRUD danh mục bằng phân hoạch tương đương}
-\textbf{Mô tả yêu cầu.} Quản trị viên quản lý danh mục sản phẩm thông qua thao tác thêm, sửa, xóa và hiển thị danh sách danh mục. Hệ thống phải bảo đảm tên danh mục không rỗng, không trùng và dữ liệu thay đổi được phản ánh đúng trên giao diện quản trị.
-
-\textbf{Phân tích.} Chức năng này phù hợp với phân hoạch tương đương vì các đầu vào có thể chia thành lớp hợp lệ như tên danh mục mới, duy nhất, đúng định dạng và lớp không hợp lệ như tên rỗng, trùng tên, quá dài hoặc không đúng chuẩn. Cách tiếp cận này giúp giảm số lượng test case nhưng vẫn mô tả được đầy đủ các nhóm lỗi chính.
-
-\subsection{Chức năng 9 -- Admin CRUD sản phẩm bằng bảng quyết định và phân hoạch tương đương}
-\textbf{Mô tả yêu cầu.} Quản trị viên thêm mới, chỉnh sửa, xóa và quản lý thông tin sản phẩm gồm tên, giá, danh mục, mô tả, hình ảnh, trạng thái hiển thị và dữ liệu tồn kho liên quan. Hệ thống chỉ cho phép lưu sản phẩm khi các trường bắt buộc hợp lệ và dữ liệu không vi phạm ràng buộc nghiệp vụ.
-
-\textbf{Phân tích.} Chức năng này phù hợp với việc kết hợp bảng quyết định và phân hoạch tương đương. Các nhóm dữ liệu như tên sản phẩm, giá bán, danh mục, ảnh sản phẩm và trạng thái hiển thị đều có thể chia thành lớp hợp lệ và không hợp lệ; đồng thời quyết định lưu hay từ chối còn phụ thuộc vào tổ hợp nhiều điều kiện cùng lúc. Vì vậy nhóm có thể dùng lớp tương đương để gom dữ liệu và dùng bảng quyết định để mô tả các tổ hợp quan trọng.
+\textbf{Hướng sinh test case từ bảng quyết định.} Từ tám luật trên, nhóm sinh các test case đại diện như tạo mã hợp lệ, tạo mã trùng, tạo mã phần trăm vượt \texttt{100\%}, cập nhật coupon không tồn tại, xóa coupon chưa dùng và xóa coupon đã có \texttt{usageCount}. Test case chi tiết được lưu trong file Excel; báo cáo chỉ giữ phần phân tích.
 
 \subsection{Nhận xét chương}
-Chương này đã mở rộng phân tích black-box cho toàn bộ nhóm chức năng chính đã nêu ở Chương 1. Các kỹ thuật được sử dụng gồm bảng quyết định, giá trị biên, kiểm thử chuyển trạng thái và phân hoạch tương đương. Việc chọn kỹ thuật theo đặc trưng từng chức năng giúp nhóm vừa bám đúng phân công thực hiện, vừa tạo nền tảng rõ ràng để chuyển sang phân tích white-box và unit test ở các chương sau.
+Chương này tập trung vào phân tích black box cho riêng chức năng quản lý mã khuyến mãi bằng kỹ thuật bảng quyết định. Kết quả phân tích là cơ sở để đối chiếu với các test case chi tiết trong file Excel và làm nền cho phần white box ở chương tiếp theo.

@@ -19,38 +19,27 @@ Mã nguồn cho thấy backend được tổ chức theo kiến trúc phân lớ
 \end{figure}
 
 \subsection{Các chức năng chính của hệ thống}
-Từ mã nguồn thực tế và theo phạm vi phân công của nhóm, các chức năng chính của hệ thống được chia theo từng thành viên như sau:
+Từ mã nguồn thực tế và theo phạm vi báo cáo hiện tại, nhóm giữ lại 5 chức năng chính để trình bày như sau:
 
 \begin{table}[H]
 	\centering
 	\small
 	\renewcommand{\arraystretch}{1.3}
-	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{3.9cm}|>{\centering\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}X|}
+	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{4.4cm}|>{\raggedright\arraybackslash}X|}
 		\hline
-		\textbf{Chức năng}       & \textbf{Thành viên} & \textbf{Phạm vi thực hiện}                                                                 \\
+		\textbf{Chức năng} & \textbf{Phạm vi thực hiện} \\
 		\hline
-		Quản lý tồn kho sản phẩm & Toại                & Cập nhật số lượng tồn gắn với sản phẩm và theo dõi trạng thái hàng trong khu vực quản trị. \\
+		Quản lý mã khuyến mãi & Quản lý mã giảm giá, điều kiện áp dụng và trạng thái hiệu lực. \\
 		\hline
-		CRUD khuyến mãi          & Ty                  & Quản lý mã giảm giá, điều kiện áp dụng và trạng thái hiệu lực.                             \\
+		Thanh toán - giỏ hàng & Thêm sản phẩm vào giỏ, cập nhật giỏ, áp dụng quy tắc thanh toán và tạo đơn hàng. \\
 		\hline
-		Thanh toán - giỏ hàng    & Thành               & Thêm sản phẩm vào giỏ, cập nhật giỏ và tạo đơn thanh toán.                                 \\
+		Yêu thích & Lưu, bỏ lưu và quản lý danh sách sản phẩm yêu thích của người dùng. \\
 		\hline
-		Yêu thích                & Trọng               & Lưu, bỏ lưu và quản lý danh sách sản phẩm yêu thích của người dùng.                        \\
+		Profile & Cập nhật thông tin cá nhân, ảnh đại diện, đổi mật khẩu và xem lịch sử đơn hàng. \\
 		\hline
-		Profile                  & Tấn Tài             & Cập nhật thông tin cá nhân, ảnh đại diện, đổi mật khẩu và xem lịch sử đơn hàng.            \\
-		\hline
-		Đăng ký đăng nhập        & Yến                 & Đăng ký tài khoản, đăng nhập và xác thực người dùng.                                       \\
-		\hline
-		CRUD danh mục            & Toàn                & Quản trị danh mục sản phẩm và phân loại hàng hóa.                                          \\
-		\hline
-		Bình luận đánh giá       & Thiên               & Tạo, hiển thị, xóa và tương tác với đánh giá sản phẩm.                                     \\
-		\hline
-		Admin CRUD sản phẩm      & Đạt                 & Quản trị thông tin sản phẩm ở khu vực quản trị viên.                                       \\
+		Đăng ký đăng nhập & Đăng ký tài khoản, đăng nhập và xác thực người dùng trước khi sử dụng các chức năng cá nhân. \\
 		\hline
 	\end{tabularx}
-	\caption{Danh sách chức năng chính và phân công thực hiện của nhóm}
+	\caption{Danh sách 5 chức năng chính được sử dụng trong báo cáo}
 	\label{tab:core-functions}
 \end{table}
-
-\subsection{Phạm vi kiểm thử được sử dụng cho các chương sau}
-Chương 2 tập trung vào thiết kế test case cho toàn bộ 9 chức năng đã được phân công ở trên, mỗi chức năng tối thiểu 10 test case và được quản lý trong file Excel riêng. Chương 3 tiếp tục áp dụng kiểm thử hộp đen cho cả 9 chức năng ở mức khái quát. Từ Chương 4 trở đi, báo cáo thu hẹp phạm vi để đi sâu vào 4 nhóm chức năng tiêu biểu là CRUD khuyến mãi, thanh toán - giỏ hàng, bình luận đánh giá và profile nhằm phục vụ phân tích white box, unit test và demo kiểm thử tự động.

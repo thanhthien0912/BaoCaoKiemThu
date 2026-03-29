@@ -1,0 +1,16 @@
+ID,Items,Sub-items,Description,PreCondition,Steps to Excute,Expected output,Test Data/Parameters,IE11,Edge,Chrome,Safari,IphoneX,Samsung S7,Ipad,HTC Tablet,Date,Note
+TC-ADMIN-16,Admin coupon UI,Tạo coupon,Tạo mã khuyến mãi bị trùng mã,Admin đã đăng nhập và danh sách đã có coupon GIAM10,"1. Truy cập /admin/coupons
+2. Nhấn nút Tạo mã khuyến mãi
+3. Nhập code GIAM10
+4. Nhập tên và các trường còn lại hợp lệ
+5. Nhấn Tạo mới",Hệ thống báo lỗi mã khuyến mãi đã tồn tại và không tạo bản ghi mới,"code=GIAM10; discountType=percentage; discountValue=10",,,Pass,,,,,,29/03/2026,Bổ sung để bám luật bảng quyết định về mã trùng.
+TC-ADMIN-17,Admin coupon UI,Cập nhật coupon,Cập nhật coupon thành mã đã tồn tại,Admin đã đăng nhập và danh sách có ít nhất 2 coupon khác nhau,"1. Truy cập /admin/coupons
+2. Chọn Sửa tại một coupon bất kỳ không phải GIAM10
+3. Sửa trường code thành GIAM10
+4. Nhấn Cập nhật",Hệ thống báo lỗi mã khuyến mãi đã tồn tại và không lưu thay đổi,"target code -> GIAM10",,,Pass,,,,,,29/03/2026,Bổ sung để bám luật bảng quyết định về mã trùng khi cập nhật.
+TC-ADMIN-18,Admin coupon UI,Tạo hoặc cập nhật coupon,Giá trị giảm phần trăm vượt quá 100,Admin đã đăng nhập và modal tạo mới hoặc chỉnh sửa đang mở,"1. Chọn discount type là percentage
+2. Nhập discountValue = 101
+3. Nhấn Tạo mới hoặc Cập nhật",Hệ thống báo lỗi giá trị giảm phần trăm không hợp lệ và không lưu dữ liệu,"discountType=percentage; discountValue=101",,,Pass,,,,,,29/03/2026,Bổ sung để bám luật bảng quyết định về discountValue > 100.
+TC-ADMIN-19,Admin coupon UI,Xóa coupon,Xóa coupon đã có lượt sử dụng,Admin đã đăng nhập và tồn tại coupon có usageCount > 0,"1. Truy cập /admin/coupons
+2. Chọn Xóa tại coupon đã có lượt sử dụng
+3. Xác nhận xóa",Hệ thống từ chối xóa và yêu cầu vô hiệu hóa thay thế,"usageCount > 0",,,Pass,,,,,,29/03/2026,Bổ sung để bám luật bảng quyết định về coupon đã được sử dụng.
