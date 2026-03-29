@@ -1,0 +1,103 @@
+Chương 3. ÁP DỤNG THIẾT KẾ TEST CASE BLACK BOX
+3.2. Phân vùng tương đương - Chức năng đăng nhập 
+Mô tả yêu cầu: chức năng đăng nhập tại /login yêu cầu xác thực qua email và password. Hệ thống chỉ xử lý khi dữ liệu không trống và email đúng định dạng. Để bảo mật, mật khẩu được ẩn mặc định và mọi lỗi xác thực đều trả về thông báo chung "Email hoặc mật khẩu không đúng". Ngoài ra, giao diện hỗ trợ bật/tắt hiển thị mật khẩu và tự động xóa thông báo lỗi ngay khi người dùng bắt đầu chỉnh sửa lại thông tin.
+Cơ sở chọn kỹ thuật: chức năng này phù hợp với phân vùng tương đương do các trường đầu vào có tập hợp giá trị lớn. Kỹ thuật này giúp chia dữ liệu thành các nhóm đại diện hợp lệ và không hợp lệ, từ đó rút gọn số lượng test case mà vẫn đảm bảo bao phủ toàn bộ các nhánh xử lý của hệ thống, tránh việc kiểm thử lặp lại dư thừa.
+Các test case đăng nhập : 
+TC01: Đăng nhập thành công với tài khoản hợp lệ
+TC02: Đăng nhập thất bại do sai Mật khẩu
+TC03: Đăng nhập thất bại do Email chưa đăng ký
+TC04: Kiểm tra thông báo lỗi khi để trống Email
+TC05: Kiểm tra thông báo lỗi khi để trống Mật khẩu
+TC06: Kiểm tra lỗi khi để trống cả Email và Mật khẩu
+TC07: Kiểm tra lỗi khi nhập Email sai định dạng
+TC08: Kiểm tra tính bảo mật (Mật khẩu ẩn mặc định)
+TC09: Kiểm tra chức năng Bật/Tắt hiển thị mật khẩu
+TC10: Kiểm tra tự động xóa thông báo lỗi khi sửa dữ liệu
+Bảng phân vùng tương đương chức năng đăng nhập 
+TC01
+TC02
+TC03
+TC04
+TC05
+TC06
+TC07
+TC08
+TC09
+TC10
+Kết quả 
+Thành công 
+Báo lỗi sai thông tin
+Báo lỗi sai thông tin
+Báo lỗi trống Email
+Báo lỗi trống Pass
+Báo lỗi cả 2 trường
+Báo lỗi định dạng
+Hiển thị dạng password
+ Đổi ẩn và hiện
+Thông báo lỗi biến mất
+Lớp tương đương 
+Hợp lệ 
+Không hợp lệ
+Không hợp lệ
+Không hợp lệ
+Không hợp lệ
+Không hợp lệ
+Không hợp lệ
+Hợp lệ 
+Hợp lệ 
+Hợp lệ 
+Đánh dấu 
+V1
+I1
+I2
+I3
+I4
+I5
+I6
+V2
+V3
+V4
+Chú thích : 
+V (Valid): Lớp hợp lệ. Mong đợi xử lý thành công hoặc đúng tính năng
+I (Invalid): Lớp không hợp lệ. Mong đợi hệ thống báo lỗi hoặc ngăn chặn
+Bảng phân vùng tương đương chức năng đăng nhập chi tiết 
+Đánh dấu
+Đầu vào
+Kết quả mong đợi
+V1
+Email: admin@gmail.com
+Password: Aa@123456
+Đăng nhập thành công và chuyển hướng về trang chủ
+I1
+Email: admin@gmail.com
+Password: WrongPassword
+Hiển thị thông báo lỗi: "Email hoặc mật khẩu không đúng"
+I2
+Email: notexist@gmail.com
+Password: Aa@123456
+Hiển thị thông báo lỗi: "Email hoặc mật khẩu không đúng"
+I3
+Email:
+Password: Aa@123456
+Hiển thị thông báo lỗi ngay dưới ô Email: "Vui lòng nhập email"
+I4
+Email: admin@gmail.com
+Password: 
+Hiển thị thông báo lỗi ngay dưới ô Mật khẩu: "Vui lòng nhập mật khẩu"
+I5
+Email: 
+Password: 
+Hiển thị thông báo lỗi tại cả hai trường nhập liệu
+I6
+Email: invalid-email.com
+Password: Aa@123456
+Hiển thị thông báo: "Email không hợp lệ"
+V2
+Password : Aa@123456
+Ký tự mật khẩu phải được ẩn mặc định 
+V3
+Click vào icon con mắt
+Mật khẩu chuyển đổi ẩn và hiện 
+V4
+Email : admin@gmail.com
+Thông báo lỗi đỏ phải tự động biến mất 

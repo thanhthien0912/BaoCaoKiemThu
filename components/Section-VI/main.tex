@@ -1,17 +1,30 @@
 \newpage
 \section{\textbf{ÁP DỤNG THIẾT KẾ TEST CASE WHITE BOX}}
 
-\subsection{Phủ điều kiện -- Chức năng quản lý mã khuyến mãi}
-\textbf{Mô tả yêu cầu.} Ở góc nhìn mã nguồn, nhóm chức năng quản lý mã khuyến mãi được đại diện bởi hàm \texttt{validateCoupon(code, subtotal, userId)} trong tầng service. Hàm này chịu trách nhiệm xác thực một mã khuyến mãi trước khi áp dụng vào đơn hàng. Kết quả chỉ hợp lệ khi mã không rỗng, coupon tồn tại, đang hoạt động, nằm trong thời gian hiệu lực, chưa vượt giới hạn sử dụng tổng, chưa vượt giới hạn theo người dùng và đơn hàng đạt mức tối thiểu yêu cầu. Nếu vi phạm một trong các điều kiện trên, hàm dừng ngay tại nhánh lỗi tương ứng và trả về thông báo thất bại.
+\subsection{Phủ nhánh và điều kiện -- Chức năng quản lý mã khuyến mãi}
+\textbf{Mô tả yêu cầu.} Ở góc nhìn mã nguồn, chức năng quản lý mã khuyến mãi được đại diện bởi hàm \texttt{validateCoupon(code, subtotal, userId)} trong tầng service. Hàm này xác thực mã khuyến mãi trước khi áp dụng vào đơn hàng. Kết quả chỉ hợp lệ khi mã không rỗng, coupon tồn tại, đang hoạt động, nằm trong thời gian hiệu lực, chưa vượt giới hạn sử dụng tổng, chưa vượt giới hạn theo người dùng và đơn hàng đạt mức tối thiểu yêu cầu.
 
-\textbf{Cơ sở chọn tiêu chí.} Hàm \texttt{validateCoupon} phù hợp với \textbf{phủ điều kiện} vì có nhiều câu lệnh \texttt{if} nối tiếp và nhiều biểu thức ghép cần kiểm tra cả hai trạng thái đúng/sai, tiêu biểu như:
+\textbf{Cơ sở chọn tiêu chí.} Hàm \texttt{validateCoupon} phù hợp với \textbf{phủ nhánh và điều kiện} vì có chuỗi câu lệnh \texttt{if} nối tiếp nhau và nhiều biểu thức ghép cần kiểm tra cả nhánh đúng/sai lẫn từng điều kiện con. Nhóm tập trung vào các biểu thức tiêu biểu sau:
 \begin{itemize}
 	\item coupon có \texttt{validFrom} và thời điểm hiện tại chưa tới ngày hiệu lực
+	\item coupon có \texttt{validUntil} và đã quá ngày hết hạn
 	\item coupon có giới hạn lượt dùng và \texttt{usageCount} đã chạm ngưỡng
-	\item có \texttt{userId} và coupon có \texttt{perUserLimit}
+	\item có \texttt{userId}, coupon có \texttt{perUserLimit} và người dùng đã dùng hết giới hạn
 	\item coupon có \texttt{minimumOrderAmount} và \texttt{subtotal} chưa đạt mức tối thiểu
 \end{itemize}
-Mục tiêu của phần này là bảo đảm từng điều kiện con trong các biểu thức trên đều xuất hiện ở cả hai trạng thái.
+
+\textbf{Các nhánh chính cần bao phủ.}
+\begin{itemize}
+	\item \textbf{B1}: \texttt{!code}
+	\item \textbf{B2}: \texttt{!coupon}
+	\item \textbf{B3}: \texttt{!coupon.isActive}
+	\item \textbf{B4}: coupon chưa tới ngày hiệu lực
+	\item \textbf{B5}: coupon đã hết hạn
+	\item \textbf{B6}: coupon đã hết lượt sử dụng
+	\item \textbf{B7}: người dùng đã vượt \texttt{perUserLimit}
+	\item \textbf{B8}: đơn hàng chưa đạt \texttt{minimumOrderAmount}
+	\item \textbf{B9}: coupon hợp lệ
+\end{itemize}
 
 \textbf{Các điều kiện nguyên tử cần bao phủ.}
 \begin{itemize}
@@ -35,32 +48,46 @@ Mục tiêu của phần này là bảo đảm từng điều kiện con trong c
 	\centering
 	\small
 	\renewcommand{\arraystretch}{1.25}
-	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.1cm}|>{\raggedright\arraybackslash}p{4.5cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{2.6cm}|}
+	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.0cm}|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{2.8cm}|}
 		\hline
-		\textbf{Điều kiện} & \textbf{Biểu thức trong mã} & \textbf{Test case đại diện để bao phủ} & \textbf{Giá trị cần thấy} \\
+		\textbf{Nhóm} & \textbf{Biểu thức trong mã} & \textbf{Test case đại diện để bao phủ} & \textbf{Giá trị cần thấy} \\
 		\hline
-		D1 & \texttt{!code} & Gửi mã rỗng; gửi mã hợp lệ như \texttt{GIAM10}. & True, False \\
+		B1 / D1 & \texttt{!code} & Gửi mã rỗng; gửi mã hợp lệ. & True, False \\
 		\hline
-		D2 & \texttt{!coupon} & Mã không tồn tại; mã tồn tại trong cơ sở dữ liệu. & True, False \\
+		B2 / D2 & \texttt{!coupon} & Mã không tồn tại; mã tồn tại. & True, False \\
 		\hline
-		D3 & \texttt{!coupon.isActive} & Coupon bị vô hiệu hóa; coupon đang hoạt động. & True, False \\
+		B3 / D3 & \texttt{!coupon.isActive} & Coupon bị vô hiệu hóa; coupon đang hoạt động. & True, False \\
 		\hline
-		D4, D5 & Có \texttt{validFrom} và chưa tới ngày hiệu lực & Coupon có ngày bắt đầu trong tương lai; coupon không thiết lập \texttt{validFrom} hoặc đã đến ngày hiệu lực. & True, False \\
+		B4 / D4, D5 & Có \texttt{validFrom} và chưa tới ngày hiệu lực & Coupon có ngày bắt đầu trong tương lai; coupon không có \texttt{validFrom} hoặc đã tới ngày hiệu lực. & True, False \\
 		\hline
-		D6, D7 & Có \texttt{validUntil} và đã quá ngày hết hạn & Coupon đã hết hạn; coupon chưa hết hạn hoặc không đặt \texttt{validUntil}. & True, False \\
+		B5 / D6, D7 & Có \texttt{validUntil} và đã quá ngày hết hạn & Coupon đã hết hạn; coupon chưa hết hạn hoặc không đặt \texttt{validUntil}. & True, False \\
 		\hline
-		D8, D9 & Có \texttt{usageLimit} và \texttt{usageCount} đã chạm ngưỡng & Coupon đã chạm giới hạn lượt dùng; coupon không giới hạn hoặc chưa chạm ngưỡng. & True, False \\
+		B6 / D8, D9 & Có \texttt{usageLimit} và \texttt{usageCount} đã chạm ngưỡng & Coupon đã hết lượt dùng; coupon chưa chạm ngưỡng hoặc không giới hạn. & True, False \\
 		\hline
-		D10, D11, D12 & Có \texttt{userId}, có \texttt{perUserLimit} và người dùng đã dùng hết giới hạn & Người dùng đã dùng hết giới hạn; người dùng chưa dùng hoặc không truyền \texttt{userId}. & True, False \\
+		B7 / D10, D11, D12 & Có \texttt{userId}, có \texttt{perUserLimit} và người dùng đã dùng hết giới hạn & Người dùng đã dùng hết giới hạn; người dùng chưa dùng hoặc không truyền \texttt{userId}. & True, False \\
 		\hline
-		D13, D14 & Có \texttt{minimumOrderAmount} và \texttt{subtotal} chưa đạt mức tối thiểu & Đơn hàng thấp hơn mức tối thiểu; đơn hàng đạt hoặc không có ràng buộc tối thiểu. & True, False \\
+		B8 / D13, D14 & Có \texttt{minimumOrderAmount} và \texttt{subtotal} chưa đạt mức tối thiểu & Đơn hàng chưa đạt mức tối thiểu; đơn hàng đạt mức tối thiểu hoặc không có ràng buộc. & True, False \\
+		\hline
+		B9 & Trường hợp hợp lệ & Coupon hợp lệ hoàn toàn và được chấp nhận. & Thành công \\
 		\hline
 	\end{tabularx}
-	\caption{Các điều kiện nguyên tử cần bao phủ trong hàm \texttt{validateCoupon}}
-	\label{tab:coupon-condition-coverage}
+	\caption{Các nhánh và điều kiện cần bao phủ trong hàm \texttt{validateCoupon}}
+	\label{tab:coupon-branch-condition-coverage}
 \end{table}
 
-\textbf{Bộ test case tối thiểu.} Nhóm sử dụng các test case đại diện gồm: mã rỗng, mã không tồn tại, coupon bị vô hiệu hóa, coupon chưa hiệu lực, coupon hết hạn, coupon hết lượt dùng, vượt \texttt{perUserLimit}, chưa đạt \texttt{minimumOrderAmount} và một test case hợp lệ. Tập test case này đủ để bao phủ các điều kiện nguyên tử chính của hàm.
+\textbf{Bộ test case tối thiểu.} Nhóm sử dụng các test case đại diện gồm: mã rỗng, mã không tồn tại, coupon bị vô hiệu hóa, coupon chưa hiệu lực, coupon hết hạn, coupon hết lượt dùng, vượt \texttt{perUserLimit}, chưa đạt \texttt{minimumOrderAmount} và một test case hợp lệ. Tập test case này đủ để đi qua các nhánh chính và bao phủ các điều kiện nguyên tử quan trọng của hàm.
 
-\subsection{Nhận xét chương}
-Chương này tập trung vào một hàm đại diện của chức năng quản lý mã khuyến mãi là \texttt{validateCoupon}. Kết quả phân tích là cơ sở trực tiếp để hiện thực unit test ở chương sau.
+\subsection{Phủ nhánh -- Chức năng đăng nhập}
+\textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
+
+\textbf{Phân tích.} Nội dung sẽ được bổ sung sau.
+
+\subsection{Phủ điều kiện -- Chức năng profile}
+\textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
+
+\textbf{Phân tích.} Nội dung sẽ được bổ sung sau.
+
+\subsection{Phủ đường -- Chức năng inventory}
+\textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
+
+\textbf{Phân tích.} Nội dung sẽ được bổ sung sau.

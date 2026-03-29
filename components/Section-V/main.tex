@@ -67,5 +67,104 @@
 
 \textbf{Hướng sinh test case từ bảng quyết định.} Từ tám luật trên, nhóm sinh các test case đại diện như tạo mã hợp lệ, tạo mã trùng, tạo mã phần trăm vượt \texttt{100\%}, cập nhật coupon không tồn tại, xóa coupon chưa dùng và xóa coupon đã có \texttt{usageCount}. Test case chi tiết được lưu trong file Excel; báo cáo chỉ giữ phần phân tích.
 
-\subsection{Nhận xét chương}
-Chương này tập trung vào phân tích black box cho riêng chức năng quản lý mã khuyến mãi bằng kỹ thuật bảng quyết định. Kết quả phân tích là cơ sở để đối chiếu với các test case chi tiết trong file Excel và làm nền cho phần white box ở chương tiếp theo.
+\subsection{Phân vùng tương đương -- Chức năng đăng nhập}
+\textbf{Mô tả yêu cầu:} chức năng đăng nhập tại \texttt{/login} yêu cầu xác thực qua email và password. Hệ thống chỉ xử lý khi dữ liệu không trống và email đúng định dạng. Để bảo mật, mật khẩu được ẩn mặc định và mọi lỗi xác thực đều trả về thông báo chung ``Email hoặc mật khẩu không đúng''. Ngoài ra, giao diện hỗ trợ bật/tắt hiển thị mật khẩu và tự động xóa thông báo lỗi ngay khi người dùng bắt đầu chỉnh sửa lại thông tin.
+
+\textbf{Cơ sở chọn kỹ thuật:} chức năng này phù hợp với phân vùng tương đương do các trường đầu vào có tập hợp giá trị lớn. Kỹ thuật này giúp chia dữ liệu thành các nhóm đại diện hợp lệ và không hợp lệ, từ đó rút gọn số lượng test case mà vẫn đảm bảo bao phủ toàn bộ các nhánh xử lý của hệ thống, tránh việc kiểm thử lặp lại dư thừa.
+
+\textbf{Các test case đăng nhập:}
+\begin{itemize}
+	\item TC01: Đăng nhập thành công với tài khoản hợp lệ
+	\item TC02: Đăng nhập thất bại do sai Mật khẩu
+	\item TC03: Đăng nhập thất bại do Email chưa đăng ký
+	\item TC04: Kiểm tra thông báo lỗi khi để trống Email
+	\item TC05: Kiểm tra thông báo lỗi khi để trống Mật khẩu
+	\item TC06: Kiểm tra lỗi khi để trống cả Email và Mật khẩu
+	\item TC07: Kiểm tra lỗi khi nhập Email sai định dạng
+	\item TC08: Kiểm tra tính bảo mật (Mật khẩu ẩn mặc định)
+	\item TC09: Kiểm tra chức năng Bật/Tắt hiển thị mật khẩu
+	\item TC10: Kiểm tra tự động xóa thông báo lỗi khi sửa dữ liệu
+\end{itemize}
+
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.25}
+	\setlength{\tabcolsep}{5pt}
+	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{3.0cm}|>{\centering\arraybackslash}p{2.1cm}|}
+		\hline
+		\textbf{TC} & \textbf{Kết quả} & \textbf{Lớp tương đương} & \textbf{Đánh dấu} \\
+		\hline
+		TC01 & Thành công & Hợp lệ & V1 \\
+		\hline
+		TC02 & Báo lỗi sai thông tin & Không hợp lệ & I1 \\
+		\hline
+		TC03 & Báo lỗi sai thông tin & Không hợp lệ & I2 \\
+		\hline
+		TC04 & Báo lỗi trống Email & Không hợp lệ & I3 \\
+		\hline
+		TC05 & Báo lỗi trống Pass & Không hợp lệ & I4 \\
+		\hline
+		TC06 & Báo lỗi cả 2 trường & Không hợp lệ & I5 \\
+		\hline
+		TC07 & Báo lỗi định dạng & Không hợp lệ & I6 \\
+		\hline
+		TC08 & Hiển thị dạng password & Hợp lệ & V2 \\
+		\hline
+		TC09 & Đổi ẩn và hiện & Hợp lệ & V3 \\
+		\hline
+		TC10 & Thông báo lỗi biến mất & Hợp lệ & V4 \\
+		\hline
+	\end{tabularx}
+	\caption{Phân vùng tương đương cho chức năng đăng nhập}
+\end{table}
+
+\textbf{Chú thích :}
+\begin{itemize}
+	\item \textbf{V (Valid):} Lớp hợp lệ. Mong đợi xử lý thành công hoặc đúng tính năng
+	\item \textbf{I (Invalid):} Lớp không hợp lệ. Mong đợi hệ thống báo lỗi hoặc ngăn chặn
+\end{itemize}
+
+\textbf{Bảng phân vùng tương đương chức năng đăng nhập chi tiết}
+\begin{table}[H]
+	\centering
+	\footnotesize
+	\renewcommand{\arraystretch}{1.25}
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}p{3.8cm}|>{\raggedright\arraybackslash}X|}
+		\hline
+		\textbf{Đánh dấu} & \textbf{Đầu vào} & \textbf{Kết quả mong đợi} \\
+		\hline
+		V1 & \makecell[l]{Email:\\admin@gmail.com\\Password:\\Aa@123456} & Đăng nhập thành công và chuyển hướng về trang chủ \\
+		\hline
+		I1 & \makecell[l]{Email:\\admin@gmail.com\\Password:\\WrongPassword} & Hiển thị thông báo lỗi: ``Email hoặc mật khẩu không đúng'' \\
+		\hline
+		I2 & \makecell[l]{Email:\\notexist@gmail.com\\Password:\\Aa@123456} & Hiển thị thông báo lỗi: ``Email hoặc mật khẩu không đúng'' \\
+		\hline
+		I3 & \makecell[l]{Email:\\<trống>\\Password:\\Aa@123456} & Hiển thị thông báo lỗi ngay dưới ô Email: ``Vui lòng nhập email'' \\
+		\hline
+		I4 & \makecell[l]{Email:\\admin@gmail.com\\Password:\\<trống>} & Hiển thị thông báo lỗi ngay dưới ô Mật khẩu: ``Vui lòng nhập mật khẩu'' \\
+		\hline
+		I5 & \makecell[l]{Email:\\<trống>\\Password:\\<trống>} & Hiển thị thông báo lỗi tại cả hai trường nhập liệu \\
+		\hline
+		I6 & \makecell[l]{Email:\\invalid-email.com\\Password:\\Aa@123456} & Hiển thị thông báo: ``Email không hợp lệ'' \\
+		\hline
+		V2 & \makecell[l]{Password:\\Aa@123456} & Ký tự mật khẩu phải được ẩn mặc định \\
+		\hline
+		V3 & \makecell[l]{Click vào\\icon con mắt} & Mật khẩu chuyển đổi ẩn và hiện \\
+		\hline
+		V4 & \makecell[l]{Email:\\admin@gmail.com} & Thông báo lỗi đỏ phải tự động biến mất \\
+		\hline
+	\end{tabularx}
+	\caption{Chi tiết các lớp tương đương của chức năng đăng nhập}
+\end{table}
+
+\subsection{Giá trị biên -- Chức năng profile}
+\textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
+
+\textbf{Phân tích.} Nội dung sẽ được bổ sung sau.
+
+\subsection{Dịch chuyển trạng thái -- Chức năng yêu thích}
+\textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
+
+\textbf{Phân tích.} Nội dung sẽ được bổ sung sau.
