@@ -4,83 +4,179 @@
 \subsection{Phủ nhánh và điều kiện -- Chức năng quản lý mã khuyến mãi}
 \textbf{Mô tả yêu cầu.} Ở góc nhìn mã nguồn, chức năng quản lý mã khuyến mãi được đại diện bởi hàm \texttt{validateCoupon(code, subtotal, userId)} trong tầng service. Hàm này xác thực mã khuyến mãi trước khi áp dụng vào đơn hàng. Kết quả chỉ hợp lệ khi mã không rỗng, coupon tồn tại, đang hoạt động, nằm trong thời gian hiệu lực, chưa vượt giới hạn sử dụng tổng, chưa vượt giới hạn theo người dùng và đơn hàng đạt mức tối thiểu yêu cầu.
 
-\textbf{Cơ sở chọn tiêu chí.} Hàm \texttt{validateCoupon} phù hợp với \textbf{phủ nhánh và điều kiện} vì có chuỗi câu lệnh \texttt{if} nối tiếp nhau và nhiều biểu thức ghép cần kiểm tra cả nhánh đúng/sai lẫn từng điều kiện con. Nhóm tập trung vào các biểu thức tiêu biểu sau:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{image/anhcodechuongwhitebox/new.png}
+	\caption{Mã nguồn hàm \texttt{validateCoupon} dùng cho phân tích}
+	\label{fig:validate-coupon-code}
+\end{figure}
+
+\textbf{Phân tích.} Dựa vào Hình 2, nhóm tiến hành áp dụng kiểm thử phủ nhánh và phủ điều kiện cho hàm \texttt{validateCoupon}. Viết theo đúng cấu trúc source, các điểm kiểm tra và điều kiện tương ứng trong hàm được xác định như sau:
 \begin{itemize}
-	\item coupon có \texttt{validFrom} và thời điểm hiện tại chưa tới ngày hiệu lực
-	\item coupon có \texttt{validUntil} và đã quá ngày hết hạn
-	\item coupon có giới hạn lượt dùng và \texttt{usageCount} đã chạm ngưỡng
-	\item có \texttt{userId}, coupon có \texttt{perUserLimit} và người dùng đã dùng hết giới hạn
-	\item coupon có \texttt{minimumOrderAmount} và \texttt{subtotal} chưa đạt mức tối thiểu
+	\item \textbf{1}: \texttt{!code}
+	\item \textbf{2}: \texttt{!coupon}
+	\item \textbf{3}: \texttt{!coupon.isActive}
+	\item \textbf{4.1}: \texttt{coupon.validFrom}
+	\item \textbf{4.2}: \texttt{now < coupon.validFrom}
+	\item \textbf{5.1}: \texttt{coupon.validUntil}
+	\item \textbf{5.2}: \texttt{now > coupon.validUntil}
+	\item \textbf{6.1}: \texttt{coupon.usageLimit !== null}
+	\item \textbf{6.2}: \texttt{coupon.usageCount >= coupon.usageLimit}
+	\item \textbf{7.1}: \texttt{userId}
+	\item \textbf{7.2}: \texttt{coupon.perUserLimit}
+	\item \textbf{8}: \texttt{userUsageCount >= coupon.perUserLimit}
+	\item \textbf{9.1}: \texttt{coupon.minimumOrderAmount > 0}
+	\item \textbf{9.2}: \texttt{subtotal < coupon.minimumOrderAmount}
+	\item \textbf{10}: \texttt{return \{ valid: true, ... \}}
+\end{itemize}
+
+\textbf{Độ phức tạp Cyclomatic:}
+\[
+V(G) = P + 1 = 14 + 1 = 15
+\]
+
+\textbf{Suy ra số test case.} Từ giá trị \(V(G)=15\), nhóm xác định bộ test case tương ứng như sau:
+
+\begin{table}[H]
+	\centering
+	\scriptsize
+	\renewcommand{\arraystretch}{1.25}
+	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.1cm}|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{4.4cm}|}
+		\hline
+		\textbf{STT TC} & \textbf{Đường dẫn} & \textbf{Đầu vào} & \textbf{Đầu ra mong muốn} \\
+		\hline
+		TC01 & \texttt{1: T} & \texttt{code = ""}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Coupon code is required} \\
+		\hline
+		TC02 & \texttt{1: F, 2: T} & \texttt{code = "XYZ"}, \texttt{coupon = null}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi không tồn tại} \\
+		\hline
+		TC03 & \texttt{1: F, 2: F, 3: T} & \texttt{code = "TEST10"}, coupon tồn tại, \texttt{isActive = false}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi đã bị vô hiệu hóa} \\
+		\hline
+		TC04 & \texttt{1: F, 2: F, 3: F, 4.1: T, 4.2: T} & \texttt{code = "TEST10"}, coupon tồn tại, \texttt{isActive = true}, \texttt{validFrom} ở tương lai, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi chưa có hiệu lực} \\
+		\hline
+		TC05 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: T, 5.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil} đã qua hạn, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi đã hết hạn} \\
+		\hline
+		TC06 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: T, 6.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = 10}, \texttt{usageCount = 10}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi đã hết lượt sử dụng} \\
+		\hline
+		TC07 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: T, 8: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = "U1"}, \texttt{perUserLimit = 1}, \texttt{usedBy = ["U1"]}, \texttt{subtotal = 100000} & Quăng lỗi \texttt{Bạn đã sử dụng mã khuyến mãi này} \\
+		\hline
+		TC08 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: T, 9.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{minimumOrderAmount = 100000}, \texttt{subtotal = 50000} & Quăng lỗi \texttt{Đơn hàng tối thiểu 100.000đ để sử dụng mã này} \\
+		\hline
+		TC09 & \texttt{1: F, 2: F, 3: F, 4.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null} & Bỏ qua cụm kiểm tra \texttt{validFrom}, đi tiếp sang các điều kiện sau \\
+		\hline
+		TC10 & \texttt{1: F, 2: F, 3: F, 4.1: T, 4.2: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom} ở quá khứ, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null} & Không lỗi tại cụm \texttt{validFrom}, đi tiếp sang các điều kiện sau \\
+		\hline
+		TC11 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null} & Bỏ qua cụm kiểm tra \texttt{validUntil}, đi tiếp \\
+		\hline
+		TC12 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{subtotal = 200000}, \texttt{userId = null} & Bỏ qua cụm kiểm tra giới hạn hệ thống, đi tiếp \\
+		\hline
+		TC13 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{subtotal = 200000} & Bỏ qua cụm kiểm tra theo user, đi tiếp \\
+		\hline
+		TC14 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = "U1"}, \texttt{perUserLimit = null}, \texttt{subtotal = 200000} & Bỏ qua kiểm tra \texttt{userUsageCount}, đi tiếp \\
+		\hline
+		TC15 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{minimumOrderAmount = 0}, \texttt{subtotal = 200000} & Mã hợp lệ, hàm trả về kết quả thành công với \texttt{valid = true} \\
+		\hline
+	\end{tabularx}
+	\caption{Phân tích test case suy ra từ độ phức tạp Cyclomatic của hàm \texttt{validateCoupon}}
+	\label{tab:validate-coupon-cyclomatic-testcases}
+\end{table}
+
+\subsection{Phủ nhánh -- Chức năng đăng nhập}
+\textbf{Mô tả yêu cầu.} Ở góc nhìn mã nguồn, chức năng đăng nhập được đại diện bởi hàm \texttt{login(\{ email, password \})} trong \texttt{authService}. Hàm tiếp nhận thông tin đăng nhập, tìm người dùng theo email, kiểm tra mật khẩu và trả về thông tin người dùng kèm token nếu xác thực thành công.
+
+\textbf{Hàm được chọn để phân tích.} Nhóm chọn hàm \texttt{login(\{ email, password \})} để thực hiện phân tích phủ nhánh cho chức năng đăng nhập.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{image/anhcodechuongwhitebox/codelogin.png}
+	\caption{Mã nguồn hàm \texttt{login} dùng cho phân tích}
+	\label{fig:login-code}
+\end{figure}
+
+\textbf{Cơ sở chọn tiêu chí.} Hàm \texttt{login} phù hợp với \textbf{phủ nhánh} vì cấu trúc xử lý ngắn, rõ ràng và gồm ba nhánh nghiệp vụ chính:
+\begin{itemize}
+	\item không tìm thấy người dùng theo email
+	\item tìm thấy người dùng nhưng mật khẩu không khớp
+	\item tìm thấy người dùng, mật khẩu đúng và đăng nhập thành công
 \end{itemize}
 
 \textbf{Các nhánh chính cần bao phủ.}
 \begin{itemize}
-	\item \textbf{B1}: \texttt{!code}
-	\item \textbf{B2}: \texttt{!coupon}
-	\item \textbf{B3}: \texttt{!coupon.isActive}
-	\item \textbf{B4}: coupon chưa tới ngày hiệu lực
-	\item \textbf{B5}: coupon đã hết hạn
-	\item \textbf{B6}: coupon đã hết lượt sử dụng
-	\item \textbf{B7}: người dùng đã vượt \texttt{perUserLimit}
-	\item \textbf{B8}: đơn hàng chưa đạt \texttt{minimumOrderAmount}
-	\item \textbf{B9}: coupon hợp lệ
+	\item \textbf{B1}: \texttt{!user}
+	\item \textbf{B2}: \texttt{!isMatch}
+	\item \textbf{B3}: đăng nhập thành công, tạo token và trả về kết quả
 \end{itemize}
 
-\textbf{Các điều kiện nguyên tử cần bao phủ.}
-\begin{itemize}
-	\item \textbf{D1}: \texttt{!code}
-	\item \textbf{D2}: \texttt{!coupon}
-	\item \textbf{D3}: \texttt{!coupon.isActive}
-	\item \textbf{D4}: \texttt{coupon.validFrom}
-	\item \textbf{D5}: \texttt{now < coupon.validFrom}
-	\item \textbf{D6}: \texttt{coupon.validUntil}
-	\item \textbf{D7}: \texttt{now > coupon.validUntil}
-	\item \textbf{D8}: \texttt{coupon.usageLimit !== null}
-	\item \textbf{D9}: \texttt{coupon.usageCount >= coupon.usageLimit}
-	\item \textbf{D10}: \texttt{userId}
-	\item \textbf{D11}: \texttt{coupon.perUserLimit}
-	\item \textbf{D12}: \texttt{userUsageCount >= coupon.perUserLimit}
-	\item \textbf{D13}: \texttt{coupon.minimumOrderAmount > 0}
-	\item \textbf{D14}: \texttt{subtotal < coupon.minimumOrderAmount}
-\end{itemize}
+\textbf{Sơ đồ luồng xử lý chính của hàm \texttt{login}.}
+\begin{figure}[H]
+	\centering
+	\resizebox{0.72\textwidth}{!}{
+	\begin{tikzpicture}[
+		node distance=8mm and 12mm,
+		proc/.style={rectangle, rounded corners, draw, align=center, minimum width=34mm, minimum height=8mm},
+		dec/.style={diamond, draw, aspect=2, align=center, inner sep=1pt, text width=24mm},
+		line/.style={->, thick},
+		yesno/.style={font=\footnotesize}
+	]
+	\node[proc] (start) {Bắt đầu};
+	\node[proc, below=of start] (find) {Tìm user theo email};
+	\node[dec, below=of find] (user) {Tồn tại\\user?};
+	\node[proc, right=23mm of user] (erruser) {Lỗi:\\Email hoặc mật khẩu\\không đúng};
+	\node[proc, below=of user] (compare) {So sánh mật khẩu\\với bcrypt};
+	\node[dec, below=of compare] (match) {Mật khẩu\\khớp?};
+	\node[proc, right=23mm of match] (errpass) {Lỗi:\\Email hoặc mật khẩu\\không đúng};
+	\node[proc, below=of match] (token) {Tạo token};
+	\node[proc, below=of token] (success) {Trả về user\\và token};
+
+	\draw[line] (start) -- (find);
+	\draw[line] (find) -- (user);
+	\draw[line] (user) -- node[yesno, left] {Có} (compare);
+	\draw[line] (user) -- node[yesno, above] {Không} (erruser);
+	\draw[line] (compare) -- (match);
+	\draw[line] (match) -- node[yesno, left] {Có} (token);
+	\draw[line] (match) -- node[yesno, above] {Không} (errpass);
+	\draw[line] (token) -- (success);
+	\end{tikzpicture}}
+	\caption{Sơ đồ luồng xử lý chính của hàm \texttt{login}}
+	\label{fig:login-flow}
+\end{figure}
 
 \begin{table}[H]
 	\centering
 	\small
 	\renewcommand{\arraystretch}{1.25}
-	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.0cm}|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{2.8cm}|}
+	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.0cm}|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{2.6cm}|}
 		\hline
-		\textbf{Nhóm} & \textbf{Biểu thức trong mã} & \textbf{Test case đại diện để bao phủ} & \textbf{Giá trị cần thấy} \\
+		\textbf{Nhánh} & \textbf{Biểu thức trong mã} & \textbf{Test case đại diện để bao phủ} & \textbf{Kết quả mong đợi} \\
 		\hline
-		B1 / D1 & \texttt{!code} & Gửi mã rỗng; gửi mã hợp lệ. & True, False \\
+		B1 & \texttt{!user} & Email không tồn tại trong hệ thống. & Ném lỗi đăng nhập sai thông tin \\
 		\hline
-		B2 / D2 & \texttt{!coupon} & Mã không tồn tại; mã tồn tại. & True, False \\
+		B2 & \texttt{!isMatch} & Email tồn tại nhưng mật khẩu sai. & Ném lỗi đăng nhập sai thông tin \\
 		\hline
-		B3 / D3 & \texttt{!coupon.isActive} & Coupon bị vô hiệu hóa; coupon đang hoạt động. & True, False \\
-		\hline
-		B4 / D4, D5 & Có \texttt{validFrom} và chưa tới ngày hiệu lực & Coupon có ngày bắt đầu trong tương lai; coupon không có \texttt{validFrom} hoặc đã tới ngày hiệu lực. & True, False \\
-		\hline
-		B5 / D6, D7 & Có \texttt{validUntil} và đã quá ngày hết hạn & Coupon đã hết hạn; coupon chưa hết hạn hoặc không đặt \texttt{validUntil}. & True, False \\
-		\hline
-		B6 / D8, D9 & Có \texttt{usageLimit} và \texttt{usageCount} đã chạm ngưỡng & Coupon đã hết lượt dùng; coupon chưa chạm ngưỡng hoặc không giới hạn. & True, False \\
-		\hline
-		B7 / D10, D11, D12 & Có \texttt{userId}, có \texttt{perUserLimit} và người dùng đã dùng hết giới hạn & Người dùng đã dùng hết giới hạn; người dùng chưa dùng hoặc không truyền \texttt{userId}. & True, False \\
-		\hline
-		B8 / D13, D14 & Có \texttt{minimumOrderAmount} và \texttt{subtotal} chưa đạt mức tối thiểu & Đơn hàng chưa đạt mức tối thiểu; đơn hàng đạt mức tối thiểu hoặc không có ràng buộc. & True, False \\
-		\hline
-		B9 & Trường hợp hợp lệ & Coupon hợp lệ hoàn toàn và được chấp nhận. & Thành công \\
+		B3 & Nhánh thành công sau khi mật khẩu khớp & Email tồn tại và mật khẩu đúng. & Trả về \texttt{user} và \texttt{token} \\
 		\hline
 	\end{tabularx}
-	\caption{Các nhánh và điều kiện cần bao phủ trong hàm \texttt{validateCoupon}}
-	\label{tab:coupon-branch-condition-coverage}
+	\caption{Các nhánh cần bao phủ trong hàm \texttt{login}}
+	\label{tab:login-branch-coverage}
 \end{table}
 
-\textbf{Bộ test case tối thiểu.} Nhóm sử dụng các test case đại diện gồm: mã rỗng, mã không tồn tại, coupon bị vô hiệu hóa, coupon chưa hiệu lực, coupon hết hạn, coupon hết lượt dùng, vượt \texttt{perUserLimit}, chưa đạt \texttt{minimumOrderAmount} và một test case hợp lệ. Tập test case này đủ để đi qua các nhánh chính và bao phủ các điều kiện nguyên tử quan trọng của hàm.
-
-\subsection{Phủ nhánh -- Chức năng đăng nhập}
-\textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
-
-\textbf{Phân tích.} Nội dung sẽ được bổ sung sau.
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.25}
+	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{3.6cm}|}
+		\hline
+		\textbf{TC} & \textbf{Dữ liệu / tình huống} & \textbf{Nhánh tương ứng} \\
+		\hline
+		TC01 & Email không tồn tại trong hệ thống & B1 \\
+		\hline
+		TC02 & Email đúng nhưng mật khẩu sai & B2 \\
+		\hline
+		TC03 & Email đúng và mật khẩu đúng & B3 \\
+		\hline
+	\end{tabularx}
+	\caption{Bộ test case tương ứng với hàm \texttt{login}}
+	\label{tab:login-testcases}
+\end{table}
 
 \subsection{Phủ điều kiện -- Chức năng profile}
 \textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
