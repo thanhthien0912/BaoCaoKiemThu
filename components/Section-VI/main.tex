@@ -11,6 +11,8 @@
 	\label{fig:validate-coupon-code}
 \end{figure}
 
+\textbf{Link sơ đồ chi tiết:} \href{https://mermaid.live/edit#pako:eNqNlU9v2zYYxr8KwaGAEjiGqH-UNGDAmrSntZeml81FoUm0RVSiMkpq6gY59dDDLg2GYegtQVAULTasW3uyDjvIyPfQNxlpWZFNJdhkwPBLvs_D30vRL09gmEUE-nCaZMdhHPACHB5MGBDPo0JEmna3WfxZgOVZs3hf7uyAvb1vANI0tLMzYW3enTtgv74IAasXBUAjYIyAKfKvPjXVZSiF1a8UFHF9zmIQ17-L74LXfzMxRDIwrz-WIJTerRkSC4Dd3cPd3dVK95Dv-4TzjD8UmFsp99cphqYZPYyh6I2h3tjWm5pm9npT0ZtDvbmtt56K7bDGyoY01bsUPA8SGt3nWdqOi8xtd-upIaUr_K2EztuW3nbr3Sao9VlDvuukDZeb0R6zgibthK2y2ZLN7tlslc2RbE7PZg_Y7CGbrbI5N7CVeTAj39GUFu2Eo7I5ks3p2RyVDUs23LM5AzZnyOaobPgGtsc54WCDDatsWLLhng2rbJ5k83o2rLK5muYOJjfU7YyrFISHBbk3SJVyHlAGvk2zkq3L8dRyPFmO15fjqeUgXSycl2FI8rxf2htsuDvk89TikL4B-LCp3lIQlWzWdpakqX6j4Hl93vWSsP7CZm36PfTDYcyzYx_sZ-VRxoBsaoDmgJOfSspJ9GSdZ3R5D-pL8Cwu583iHwbS-pKKSPqBoql-Eb2pWVzQTmTeLlqeiaEfm-pnAfYFxLSpXpeiyX0OOq11uzaMrz4FoorPnU5U-FfYCe3_WDQWcSG_L1gncf6XJFk15gLkTfUHiMQpYLPOAHcGd6VtK9pIk1aKL6vP553a7dTLN1dCLV_SajvPZPcXFb4qwXg8Xp6troRXA-MNK6SLC0b3weHGi95qr8s3YsvFDJvFyw-BuKnmyfpMhUmQ5wdkCq7PGpjSJPG_mk5D8YzygmfPiAx18azDvWMaFbFvHb34WnHZONhrnzCUTtc-uh4Et_vkEqy9SDsMT36u5aZpwhGccRpBv-AlGcGU8DSQITyRHhMorsmUTKAvfkZkGpRJMYETdipkRwH7PsvSTsmzchZDfxokuYjKoygoyAENZjzoUwiLCN-X_3fom7rprUygfwJfQH_Psuwx1nXLQZ6DbeSiEZyLYYSwPXZMw3aRhy2E0ekIvlyta4xNz9FdbNiOiXVkWO7pv0znmj4}{Mermaid Live Editor}.
+
 \textbf{Phân tích.} Dựa vào Hình 2, nhóm tiến hành áp dụng kiểm thử phủ nhánh và phủ điều kiện cho hàm \texttt{validateCoupon}. Viết theo đúng cấu trúc source, các điểm kiểm tra và điều kiện tương ứng trong hàm được xác định như sau:
 \begin{itemize}
 	\item \textbf{1}: \texttt{!code}
@@ -37,48 +39,50 @@ V(G) = P + 1 = 14 + 1 = 15
 
 \textbf{Suy ra số test case.} Từ giá trị \(V(G)=15\), nhóm xác định bộ test case tương ứng như sau:
 
-\begin{table}[H]
-	\centering
-	\scriptsize
-	\renewcommand{\arraystretch}{1.25}
-	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.1cm}|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{4.4cm}|}
-		\hline
-		\textbf{STT TC} & \textbf{Đường dẫn} & \textbf{Đầu vào} & \textbf{Đầu ra mong muốn} \\
-		\hline
-		TC01 & \texttt{1: T} & \texttt{code = ""}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Coupon code is required} \\
-		\hline
-		TC02 & \texttt{1: F, 2: T} & \texttt{code = "XYZ"}, \texttt{coupon = null}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi không tồn tại} \\
-		\hline
-		TC03 & \texttt{1: F, 2: F, 3: T} & \texttt{code = "TEST10"}, coupon tồn tại, \texttt{isActive = false}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi đã bị vô hiệu hóa} \\
-		\hline
-		TC04 & \texttt{1: F, 2: F, 3: F, 4.1: T, 4.2: T} & \texttt{code = "TEST10"}, coupon tồn tại, \texttt{isActive = true}, \texttt{validFrom} ở tương lai, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi chưa có hiệu lực} \\
-		\hline
-		TC05 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: T, 5.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil} đã qua hạn, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi đã hết hạn} \\
-		\hline
-		TC06 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: T, 6.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = 10}, \texttt{usageCount = 10}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi đã hết lượt sử dụng} \\
-		\hline
-		TC07 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: T, 8: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = "U1"}, \texttt{perUserLimit = 1}, \texttt{usedBy = ["U1"]}, \texttt{subtotal = 100000} & Quăng lỗi \texttt{Bạn đã sử dụng mã khuyến mãi này} \\
-		\hline
-		TC08 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: T, 9.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{minimumOrderAmount = 100000}, \texttt{subtotal = 50000} & Quăng lỗi \texttt{Đơn hàng tối thiểu 100.000đ để sử dụng mã này} \\
-		\hline
-		TC09 & \texttt{1: F, 2: F, 3: F, 4.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null} & Bỏ qua cụm kiểm tra \texttt{validFrom}, đi tiếp sang các điều kiện sau \\
-		\hline
-		TC10 & \texttt{1: F, 2: F, 3: F, 4.1: T, 4.2: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom} ở quá khứ, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null} & Không lỗi tại cụm \texttt{validFrom}, đi tiếp sang các điều kiện sau \\
-		\hline
-		TC11 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null} & Bỏ qua cụm kiểm tra \texttt{validUntil}, đi tiếp \\
-		\hline
-		TC12 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{subtotal = 200000}, \texttt{userId = null} & Bỏ qua cụm kiểm tra giới hạn hệ thống, đi tiếp \\
-		\hline
-		TC13 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{subtotal = 200000} & Bỏ qua cụm kiểm tra theo user, đi tiếp \\
-		\hline
-		TC14 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = "U1"}, \texttt{perUserLimit = null}, \texttt{subtotal = 200000} & Bỏ qua kiểm tra \texttt{userUsageCount}, đi tiếp \\
-		\hline
-		TC15 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{minimumOrderAmount = 0}, \texttt{subtotal = 200000} & Mã hợp lệ, hàm trả về kết quả thành công với \texttt{valid = true} \\
-		\hline
-	\end{tabularx}
-	\caption{Phân tích test case suy ra từ độ phức tạp Cyclomatic của hàm \texttt{validateCoupon}}
-	\label{tab:validate-coupon-cyclomatic-testcases}
-\end{table}
+{\scriptsize
+\renewcommand{\arraystretch}{1.2}
+\begin{longtable}{|>{\centering\arraybackslash}p{1.1cm}|>{\raggedright\arraybackslash}p{2.8cm}|>{\raggedright\arraybackslash}p{6.0cm}|>{\raggedright\arraybackslash}p{4.1cm}|}
+	\caption{Phân tích test case suy ra từ độ phức tạp Cyclomatic của hàm \texttt{validateCoupon}}\label{tab:validate-coupon-cyclomatic-testcases} \\
+	\hline
+	\textbf{STT TC} & \textbf{Đường dẫn} & \textbf{Đầu vào} & \textbf{Đầu ra mong muốn} \\
+	\hline
+	\endfirsthead
+	\hline
+	\textbf{STT TC} & \textbf{Đường dẫn} & \textbf{Đầu vào} & \textbf{Đầu ra mong muốn} \\
+	\hline
+	\endhead
+	TC01 & \texttt{1: T} & \texttt{code = ""}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Coupon code is required} \\
+	\hline
+	TC02 & \texttt{1: F, 2: T} & \texttt{code = "XYZ"}, \texttt{coupon = null}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi không tồn tại} \\
+	\hline
+	TC03 & \texttt{1: F, 2: F, 3: T} & \texttt{code = "TEST10"}, coupon tồn tại, \texttt{isActive = false}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi đã bị vô hiệu hóa} \\
+	\hline
+	TC04 & \texttt{1: F, 2: F, 3: F, 4.1: T, 4.2: T} & \texttt{code = "TEST10"}, coupon tồn tại, \texttt{isActive = true}, \texttt{validFrom} ở tương lai, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi chưa có hiệu lực} \\
+	\hline
+	TC05 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: T, 5.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil} đã qua hạn, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi đã hết hạn} \\
+	\hline
+	TC06 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: T, 6.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = 10}, \texttt{usageCount = 10}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi đã hết lượt sử dụng} \\
+	\hline
+	TC07 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: T, 8: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = "U1"}, \texttt{perUserLimit = 1}, \texttt{usedBy = ["U1"]}, \texttt{subtotal = 100000} & Quăng lỗi \texttt{Bạn đã sử dụng mã khuyến mãi này} \\
+	\hline
+	TC08 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: T, 9.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{minimumOrderAmount = 100000}, \texttt{subtotal = 50000} & Quăng lỗi \texttt{Đơn hàng tối thiểu 100.000đ để sử dụng mã này} \\
+	\hline
+	TC09 & \texttt{1: F, 2: F, 3: F, 4.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null} & Bỏ qua cụm kiểm tra \texttt{validFrom}, đi tiếp sang các điều kiện sau \\
+	\hline
+	TC10 & \texttt{1: F, 2: F, 3: F, 4.1: T, 4.2: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom} ở quá khứ, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null} & Không lỗi tại cụm \texttt{validFrom}, đi tiếp sang các điều kiện sau \\
+	\hline
+	TC11 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null} & Bỏ qua cụm kiểm tra \texttt{validUntil}, đi tiếp \\
+	\hline
+	TC12 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{subtotal = 200000}, \texttt{userId = null} & Bỏ qua cụm kiểm tra giới hạn hệ thống, đi tiếp \\
+	\hline
+	TC13 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{subtotal = 200000} & Bỏ qua cụm kiểm tra theo user, đi tiếp \\
+	\hline
+	TC14 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = "U1"}, \texttt{perUserLimit = null}, \texttt{subtotal = 200000} & Bỏ qua kiểm tra \texttt{userUsageCount}, đi tiếp \\
+	\hline
+	TC15 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{minimumOrderAmount = 0}, \texttt{subtotal = 200000} & Mã hợp lệ, hàm trả về kết quả với \texttt{valid = true} \\
+	\hline
+\end{longtable}
+}
 
 \subsection{Phủ nhánh -- Chức năng đăng nhập}
 \textbf{Mô tả yêu cầu.} Ở góc nhìn mã nguồn, chức năng đăng nhập được đại diện bởi hàm \texttt{login(\{ email, password \})} trong \texttt{authService}. Hàm tiếp nhận thông tin đăng nhập, tìm người dùng theo email, kiểm tra mật khẩu và trả về thông tin người dùng kèm token nếu xác thực thành công.
