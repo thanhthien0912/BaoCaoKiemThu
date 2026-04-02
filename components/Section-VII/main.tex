@@ -72,3 +72,39 @@ Kết quả chính thu được gồm:
 	\caption{Kết quả chạy unit test cho chức năng quản lý tồn kho}
 	\label{fig:inventory-unit-test-result}
 \end{figure}
+
+\subsection{Unit test -- Chức năng profile}
+
+\textbf{Công cụ và phạm vi.}
+Nhóm sử dụng \textbf{Jest} để viết và chạy unit test cho các thành phần backend liên quan đến chức năng profile, gồm \code{userController}, \code{userService} và \code{userRepository}. Phạm vi kiểm thử tập trung vào bốn luồng chính là \code{getMe}, \code{updateMe}, \code{uploadAvatar} và \code{changePassword}, đồng thời bao phủ thêm các thao tác truy xuất và cập nhật dữ liệu người dùng ở tầng repository.
+
+\textbf{Kết quả chạy unit test.}
+Lệnh chạy test được sử dụng:
+\begin{center}
+	\code{npx jest --runInBand --verbose src/controllers/\_\_tests\_\_/userController.test.js src/services/\_\_tests\_\_/userService.test.js src/repositories/\_\_tests\_\_/userRepository.test.js}
+\end{center}
+Kết quả chính thu được gồm:
+\begin{itemize}
+	\item \textbf{3 test suites passed}
+	\item \textbf{54 tests passed}
+	\item Bao quát các ràng buộc và nhánh xử lý chính của profile đã phân tích ở các chương trước: lấy thông tin người dùng, chuẩn hóa \code{role/address/bio/avatar}, cập nhật hồ sơ với dữ liệu hợp lệ và không hợp lệ, trim dữ liệu đầu vào, upload avatar thành công hoặc lỗi Cloudinary, đổi mật khẩu với các trường hợp thiếu dữ liệu, mật khẩu mới ngắn hơn \code{8} ký tự, sai mật khẩu hiện tại, cùng các thao tác repository như chuẩn hóa email, chọn trường \code{password} có điều kiện và cập nhật theo \code{id}
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.95\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{image/unitest/unit-test-profile1.png}
+		\caption{Kết quả phần \code{userService} của bộ unit test profile}
+	\end{subfigure}
+
+	\vspace{0.4cm}
+
+	\begin{subfigure}{0.95\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{image/unitest/unit-test-profile2.png}
+		\caption{Kết quả phần \code{userController} và \code{userRepository} của bộ unit test profile}
+	\end{subfigure}
+	\caption{Kết quả chạy unit test cho chức năng profile}
+	\label{fig:profile-unit-test-result}
+\end{figure}

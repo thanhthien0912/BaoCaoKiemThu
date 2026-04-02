@@ -6,7 +6,7 @@ Trong giai đoạn hiện thực kiểm thử, nhóm sử dụng bốn nhóm cô
 \begin{itemize}
 	\item \textbf{Backend}: Node.js 20, Express, MongoDB/Mongoose, JWT, bcrypt, Cloudinary, Multer và express-validator.
 	\item \textbf{Frontend}: Next.js 16, React 19, TypeScript, Tailwind CSS.
-	\item \textbf{Unit test}: Jest được dùng để kiểm tra các hàm nghiệp vụ đã phân tích ở phần white box như \code{validateCoupon}, \code{login} và các xử lý chính của inventory.
+	\item \textbf{Unit test}: Jest được dùng để kiểm tra các hàm nghiệp vụ đã phân tích ở phần white box như \code{validateCoupon}, \code{login}, các xử lý của profile và các xử lý chính của inventory.
 	\item \textbf{Kiểm thử tự động}: Playwright với mô hình Page Object Model, dùng để chạy các kịch bản E2E đại diện và hỗ trợ demo khi trình bày báo cáo.
 \end{itemize}
 
@@ -28,7 +28,7 @@ Mục tiêu của chương này là cho thấy các nội dung ở Chương 2, C
 		\hline
 		Đăng nhập             & Jest và bước xác thực trong kịch bản demo & Phù hợp với phân vùng tương đương ở Chương 2 và phủ nhánh ở Chương 3, nên được dùng như luồng xác thực nền cho các bước trình diễn tiếp theo.                         \\
 		\hline
-		Profile               & Playwright                                & Thể hiện lại các ràng buộc biên và các điều kiện validate đã phân tích trước đó, đặc biệt là các trường bắt buộc, số điện thoại và giới hạn của \code{bio}.         \\
+		Profile               & Jest và Playwright                        & Kết nối từ phân tích giá trị biên và phủ điều kiện sang kết quả unit test backend, đồng thời thể hiện lại các ràng buộc validate quan trọng qua phần demo thực thi. \\
 		\hline
 		Inventory             & Jest và một số luồng quản trị chọn lọc    & Đây là phần bằng chứng thực thi được bổ sung ở cuối báo cáo; vì vậy chương này chỉ xem inventory như minh chứng mở rộng, không phải trục phân tích xuyên suốt từ đầu. \\
 		\hline
