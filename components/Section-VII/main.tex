@@ -4,18 +4,18 @@
 \subsection{Unit test -- Chức năng quản lý mã khuyến mãi}
 
 \textbf{Công cụ và phạm vi.}
-Nhóm sử dụng \textbf{Jest} để viết và chạy unit test trong backend. Phạm vi trình bày của chương được giới hạn đúng theo hàm \texttt{validateCoupon(code, subtotal, userId)} đã phân tích ở Chương 4.
+Nhóm sử dụng \textbf{Jest} để viết và chạy unit test trong backend. Phạm vi trình bày của chương được giới hạn đúng theo hàm \code{validateCoupon(code, subtotal, userId)} đã phân tích ở Chương 4.
 
 \textbf{Kết quả chạy unit test.}
 Lệnh chạy test được sử dụng:
 \begin{center}
-	\texttt{npx jest tests/validateCoupon.test.js --verbose}
+	\code{npx jest tests/validateCoupon.test.js --verbose}
 \end{center}
 Kết quả chính thu được gồm:
 \begin{itemize}
 	\item \textbf{1 test suite passed}
 	\item \textbf{9 tests passed}
-	\item Khớp với các nhánh và điều kiện đã phân tích ở Chương 4 như mã rỗng, mã không tồn tại, coupon vô hiệu hóa, chưa hiệu lực, hết hạn, hết lượt dùng, vượt \texttt{perUserLimit}, chưa đạt \texttt{minimumOrderAmount} và trường hợp hợp lệ
+	\item Khớp với các nhánh và điều kiện đã phân tích ở Chương 4 như mã rỗng, mã không tồn tại, coupon vô hiệu hóa, chưa hiệu lực, hết hạn, hết lượt dùng, vượt \code{perUserLimit}, chưa đạt \code{minimumOrderAmount} và trường hợp hợp lệ
 \end{itemize}
 
 \begin{figure}[H]
@@ -28,18 +28,18 @@ Kết quả chính thu được gồm:
 \subsection{Unit test -- Chức năng đăng nhập}
 
 \textbf{Công cụ và phạm vi.}
-Nhóm sử dụng \textbf{Jest} để viết unit test cho hàm \texttt{login(\{ email, password \})} trong \texttt{authService}. Các phụ thuộc được mock trong bộ test gồm \texttt{userRepository.findByEmail}, \texttt{bcrypt.compare} và \texttt{jsonwebtoken.sign} để chỉ kiểm tra đúng luồng xử lý của hàm.
+Nhóm sử dụng \textbf{Jest} để viết unit test cho hàm \code{login(\{ email, password \})} trong \code{authService}. Các phụ thuộc được mock trong bộ test gồm \code{userRepository.findByEmail}, \code{bcrypt.compare} và \code{jsonwebtoken.sign} để chỉ kiểm tra đúng luồng xử lý của hàm.
 
 \textbf{Kết quả chạy unit test.}
 Lệnh chạy test được sử dụng:
 \begin{center}
-	\texttt{npx jest tests/authService.login.test.js --verbose}
+	\code{npx jest tests/authService.login.test.js --verbose}
 \end{center}
 Kết quả chính thu được gồm:
 \begin{itemize}
 	\item \textbf{1 test suite passed}
 	\item \textbf{3 tests passed}
-	\item Khớp với ba nhánh đã phân tích ở Chương 4: email không tồn tại, email tồn tại nhưng mật khẩu sai, và đăng nhập thành công trả về \texttt{user} cùng \texttt{token}
+	\item Khớp với ba nhánh đã phân tích ở Chương 4: email không tồn tại, email tồn tại nhưng mật khẩu sai, và đăng nhập thành công trả về \code{user} cùng \code{token}
 \end{itemize}
 
 \begin{figure}[H]
@@ -52,18 +52,18 @@ Kết quả chính thu được gồm:
 \subsection{Unit test -- Chức năng quản lý tồn kho}
 
 \textbf{Công cụ và phạm vi.}
-Nhóm sử dụng \textbf{Jest} để viết và chạy unit test cho backend của phân hệ inventory. Phạm vi kiểm thử trong mục này tập trung vào các hàm xử lý chính gồm \texttt{normalizeQuantity}, \texttt{createProduct}, \texttt{updateProduct}, nhóm kiểm tra mức tồn kho và các trường hợp biên liên quan tới ép kiểu dữ liệu.
+Nhóm sử dụng \textbf{Jest} để viết và chạy unit test cho backend của phân hệ inventory. Phạm vi kiểm thử trong mục này tập trung vào các hàm xử lý chính gồm \code{normalizeQuantity}, \code{createProduct}, \code{updateProduct}, nhóm kiểm tra mức tồn kho và các trường hợp biên liên quan tới ép kiểu dữ liệu.
 
 \textbf{Kết quả chạy unit test.}
 Lệnh chạy test được sử dụng:
 \begin{center}
-	\texttt{npx jest src/\_\_tests\_\_/inventory.test.js --verbose}
+	\code{npx jest src/\_\_tests\_\_/inventory.test.js --verbose}
 \end{center}
 Kết quả chính thu được gồm:
 \begin{itemize}
 	\item \textbf{1 test suite passed}
 	\item \textbf{22 tests passed}
-	\item Bao quát các nhánh đã phân tích cho xử lý số lượng tồn kho: giá trị hợp lệ, giá trị rỗng, bắt buộc nhập nhưng bỏ trống, số âm, số thập phân, chuỗi không hợp lệ, cập nhật tồn kho, kiểm tra trạng thái hết hàng hoặc sắp hết, ép kiểu từ chuỗi số, số lượng rất lớn, \texttt{Infinity} và \texttt{NaN}
+	\item Bao quát các nhánh đã phân tích cho xử lý số lượng tồn kho: giá trị hợp lệ, giá trị rỗng, bắt buộc nhập nhưng bỏ trống, số âm, số thập phân, chuỗi không hợp lệ, cập nhật tồn kho, kiểm tra trạng thái hết hàng hoặc sắp hết, ép kiểu từ chuỗi số, số lượng rất lớn, \code{Infinity} và \code{NaN}
 \end{itemize}
 
 \begin{figure}[H]

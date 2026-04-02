@@ -2,30 +2,43 @@
 \section{\textbf{HIỆN THỰC VÀ DEMO KIỂM THỬ TỰ ĐỘNG}}
 
 \subsection{Công cụ và môi trường sử dụng}
-Hệ thống được hiện thực bằng ba khối chính:
+Trong giai đoạn hiện thực kiểm thử, nhóm sử dụng bốn nhóm công cụ chính để chuyển các phân tích ở những chương trước thành artifact có thể chạy được:
 \begin{itemize}
 	\item \textbf{Backend}: Node.js 20, Express, MongoDB/Mongoose, JWT, bcrypt, Cloudinary, Multer và express-validator.
 	\item \textbf{Frontend}: Next.js 16, React 19, TypeScript, Tailwind CSS.
-	\item \textbf{Kiểm thử tự động}: Playwright với mô hình Page Object Model, dùng để chạy các kịch bản E2E và hỗ trợ demo.
+	\item \textbf{Unit test}: Jest được dùng để kiểm tra các hàm nghiệp vụ đã phân tích ở phần white box như \code{validateCoupon}, \code{login} và các xử lý chính của inventory.
+	\item \textbf{Kiểm thử tự động}: Playwright với mô hình Page Object Model, dùng để chạy các kịch bản E2E đại diện và hỗ trợ demo khi trình bày báo cáo.
 \end{itemize}
 
 \subsection{Tóm tắt cách cài đặt và chạy hệ thống}
-Từ tài liệu dự án, quy trình cơ bản gồm ba bước: khởi động backend ở cổng \texttt{3001}, khởi động frontend ở cổng \texttt{3000}, sau đó cài đặt và chạy Playwright trong thư mục \texttt{playwright}. Các biến môi trường cần thiết gồm kết nối MongoDB, \texttt{JWT\_SECRET}, đường dẫn frontend và cấu hình Cloudinary cho các chức năng upload ảnh.
+Từ tài liệu dự án, quy trình cơ bản gồm ba bước: khởi động backend ở cổng \code{3001}, khởi động frontend ở cổng \code{3000}, sau đó cài đặt và chạy bộ test trong các thư mục tương ứng. Với phần backend, nhóm sử dụng Jest để chạy unit test cho các hàm đã phân tích; với phần giao diện, nhóm dùng Playwright để mô phỏng luồng người dùng. Các biến môi trường cần thiết gồm kết nối MongoDB, \code{JWT\_SECRET}, đường dẫn frontend và cấu hình Cloudinary cho các chức năng upload ảnh.
 
-\subsection{Định hướng demo kiểm thử tự động}
-Phần demo trực tiếp khi chấm báo cáo sẽ bám theo các test case đã xây dựng ở Chương 2, nhưng \textbf{không đưa chi tiết vào Word/PDF}. Nhóm nên ưu tiên demo các kịch bản đã có bằng chứng kiểm thử rõ hơn trong repo như áp mã giảm giá, thay đổi thông tin profile, phân quyền truy cập trang quản trị và một số luồng kiểm tra tồn kho sản phẩm. Hiện tại repo đã có một số spec Playwright cho coupon, profile, RBAC quản trị và inventory; vì vậy phần trình bày nên mô tả đây là phạm vi hỗ trợ demo hiện có, không diễn đạt như đã bao phủ hoàn chỉnh toàn bộ luồng nghiệp vụ.
+\subsection{Phạm vi hiện thực và demo kiểm thử tự động}
+Mục tiêu của chương này là cho thấy các nội dung ở Chương 2, Chương 3 và Chương 4 không chỉ dừng ở mức phân tích lý thuyết mà đã được hiện thực hóa thành các bộ kiểm thử có thể thực thi. Trong phạm vi báo cáo hiện tại, phần minh chứng mạnh nhất tập trung vào các chức năng đã có liên kết tương đối rõ giữa đặc tả, phân tích và kết quả chạy test, gồm quản lý mã khuyến mãi, đăng nhập và profile; riêng inventory được giữ như một phần mở rộng ở giai đoạn thực thi unit test.
+
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.25}
+	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{3.8cm}|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}X|}
+		\hline
+		\textbf{Chức năng}    & \textbf{Artifact thực thi}                & \textbf{Liên hệ với các chương trước}                                                                                                                                 \\
+		\hline
+		Quản lý mã khuyến mãi & Jest và demo E2E đại diện                 & Kế thừa trực tiếp từ bảng quyết định ở Chương 2, phân tích white box của hàm \code{validateCoupon} ở Chương 3 và kết quả unit test ở Chương 4.                      \\
+		\hline
+		Đăng nhập             & Jest và bước xác thực trong kịch bản demo & Phù hợp với phân vùng tương đương ở Chương 2 và phủ nhánh ở Chương 3, nên được dùng như luồng xác thực nền cho các bước trình diễn tiếp theo.                         \\
+		\hline
+		Profile               & Playwright                                & Thể hiện lại các ràng buộc biên và các điều kiện validate đã phân tích trước đó, đặc biệt là các trường bắt buộc, số điện thoại và giới hạn của \code{bio}.         \\
+		\hline
+		Inventory             & Jest và một số luồng quản trị chọn lọc    & Đây là phần bằng chứng thực thi được bổ sung ở cuối báo cáo; vì vậy chương này chỉ xem inventory như minh chứng mở rộng, không phải trục phân tích xuyên suốt từ đầu. \\
+		\hline
+	\end{tabularx}
+	\caption{Phạm vi hiện thực và demo kiểm thử tự động trong báo cáo}
+\end{table}
+
+Chức năng yêu thích hiện mới xuất hiện ở mức khung phân tích black box, còn thanh toán -- giỏ hàng chủ yếu dừng ở phần xác định phạm vi trong chương tổng quan. Vì vậy, khi trình bày demo, nhóm chỉ nên chọn các luồng đã có cơ sở phân tích và bằng chứng chạy test rõ ràng để đảm bảo tính nhất quán giữa phần viết và phần trình diễn.
 
 \subsection{Liên hệ giữa hiện thực và kiểm thử}
-Một ưu điểm của dự án Baby Bliss là phần frontend, backend và Playwright được tách độc lập thành ba module. Nhờ vậy, nhóm có thể sử dụng cùng một tập chức năng để đi từ thiết kế test case, phân tích hộp đen, hộp trắng đến demo tự động mà không cần đổi phạm vi giữa các chương.
+Một điểm quan trọng của dự án Baby Bliss là frontend, backend và bộ kiểm thử được tách thành các khối tương đối độc lập. Nhờ đó, nhóm có thể đi theo một chuỗi logic thống nhất: xác định chức năng cần kiểm thử, thiết kế test case, phân tích black box, phân tích white box, viết unit test và cuối cùng chọn ra các luồng phù hợp để demo tự động.
 
-\begin{figure}[H]
-	\centering
-	\fbox{\parbox{0.82\textwidth}{\centering
-			Vị trí chèn ảnh hoặc sơ đồ mô tả luồng demo kiểm thử tự động\\
-			(ví dụ: Login $\rightarrow$ Checkout $\rightarrow$ Apply Coupon $\rightarrow$ Create Order).}}
-	\caption{Minh họa luồng demo kiểm thử tự động khi chấm báo cáo}
-	\label{fig:auto-test-demo}
-\end{figure}
-
-\subsection{Lưu ý khi trình bày trước hội đồng}
-Khi demo, nhóm cần chuẩn bị sẵn dữ liệu test, tài khoản user hoặc admin, mã giảm giá còn hiệu lực và trạng thái đơn hàng phù hợp để tránh gián đoạn. Phần Word/PDF chỉ đóng vai trò tài liệu nền; còn tính thuyết phục của chương này đến từ việc chạy được kịch bản kiểm thử trên hệ thống thật.
+Trong chuỗi đó, chức năng quản lý mã khuyến mãi là phần hoàn chỉnh nhất vì xuất hiện xuyên suốt từ giai đoạn thiết kế test case đến white box, unit test và demo. Chức năng đăng nhập và profile đóng vai trò bổ sung, giúp chứng minh rằng các kỹ thuật kiểm thử được áp dụng trên nhiều loại đầu vào và nhiều tầng xử lý khác nhau. Cách tổ chức này làm cho chương hiện thực không tách rời khỏi phần phân tích, mà trở thành bước xác nhận rằng các kết luận ở các chương trước có thể được kiểm chứng trên hệ thống thực.

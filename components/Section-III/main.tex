@@ -9,15 +9,6 @@ Baby Bliss là hệ thống thương mại điện tử dành cho sản phẩm c
 \subsection{Kiến trúc và thành phần chính}
 Mã nguồn cho thấy backend được tổ chức theo kiến trúc phân lớp Routes $\rightarrow$ Controllers $\rightarrow$ Services $\rightarrow$ Repositories $\rightarrow$ Models. Frontend sử dụng App Router kết hợp các context để quản lý xác thực, giỏ hàng và danh sách yêu thích. Bộ kiểm thử Playwright được tách thành một dự án riêng, thuận tiện cho việc mô phỏng hành vi người dùng và kiểm thử giao diện đầu cuối.
 
-\begin{figure}[H]
-	\centering
-	\fbox{\parbox{0.85\textwidth}{\centering
-			Frontend Next.js 16 giao tiếp với Backend Express/MongoDB thông qua các API có xác thực bằng JWT cookie.\\
-			Các luồng nghiệp vụ chính được mở rộng sang khu quản trị và bộ kiểm thử Playwright.}}
-	\caption{Kiến trúc tổng thể của hệ thống Baby Bliss}
-	\label{fig:babybliss-architecture}
-\end{figure}
-
 \subsection{Các chức năng chính của hệ thống}
 Trong phạm vi báo cáo, nhóm lựa chọn 5 chức năng tiêu biểu để sử dụng cho các chương phân tích bên dưới.
 
@@ -27,17 +18,17 @@ Trong phạm vi báo cáo, nhóm lựa chọn 5 chức năng tiêu biểu để 
 	\renewcommand{\arraystretch}{1.3}
 	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{4.6cm}|>{\raggedright\arraybackslash}X|}
 		\hline
-		\textbf{Chức năng} & \textbf{Mô tả ngắn} \\
+		\textbf{Chức năng}    & \textbf{Mô tả ngắn}                                               \\
 		\hline
-		Quản lý mã khuyến mãi & Tạo, cập nhật, xóa và kiểm tra điều kiện áp dụng mã khuyến mãi. \\
+		Quản lý mã khuyến mãi & Tạo, cập nhật, xóa và kiểm tra điều kiện áp dụng mã khuyến mãi.   \\
 		\hline
-		Thanh toán - giỏ hàng & Quản lý giỏ hàng, áp dụng thanh toán và tạo đơn hàng. \\
+		Thanh toán - giỏ hàng & Quản lý giỏ hàng, áp dụng thanh toán và tạo đơn hàng.             \\
 		\hline
-		Yêu thích & Thêm hoặc bỏ sản phẩm khỏi danh sách yêu thích. \\
+		Yêu thích             & Thêm hoặc bỏ sản phẩm khỏi danh sách yêu thích.                   \\
 		\hline
-		Profile & Cập nhật thông tin cá nhân và quản lý tài khoản người dùng. \\
+		Profile               & Cập nhật thông tin cá nhân và quản lý tài khoản người dùng.       \\
 		\hline
-		Đăng ký đăng nhập & Đăng ký tài khoản, đăng nhập và xác thực người dùng. \\
+		Đăng nhập và xác thực & Đăng nhập hệ thống và kiểm tra các ràng buộc xác thực người dùng. \\
 		\hline
 	\end{tabularx}
 	\caption{Danh sách 5 chức năng chính được sử dụng trong báo cáo}

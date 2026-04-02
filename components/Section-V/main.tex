@@ -2,7 +2,7 @@
 \section{\textbf{ÁP DỤNG THIẾT KẾ TEST CASE BLACK BOX}}
 
 \subsection{Bảng quyết định -- Chức năng quản lý mã khuyến mãi}
-\textbf{Mô tả yêu cầu.} Dựa trên mã nguồn của hệ thống, chức năng quản lý khuyến mãi được triển khai tại trang quản trị \texttt{/admin/coupons}. Quản trị viên có thể tạo mới, chỉnh sửa, bật/tắt trạng thái và xóa mã khuyến mãi. Form nhập liệu gồm các trường chính: \texttt{code}, \texttt{name}, \texttt{description}, \texttt{discountType}, \texttt{discountValue}, \texttt{maximumDiscount}, \texttt{minimumOrderAmount}, \texttt{usageLimit}, \texttt{perUserLimit}, \texttt{validFrom}, \texttt{validUntil}, \texttt{isActive}. Ở tầng backend, hệ thống chỉ chấp nhận lưu khi mã và tên không rỗng, loại giảm giá hợp lệ, mã được chuẩn hóa sang chữ hoa và không bị trùng, giá trị phần trăm không vượt quá \texttt{100}, các giá trị số không âm, đồng thời bản ghi cần thao tác phải tồn tại. Riêng thao tác xóa chỉ được phép khi mã khuyến mãi chưa từng được sử dụng; nếu \texttt{usageCount > 0} thì hệ thống từ chối xóa và yêu cầu vô hiệu hóa thay thế.
+\textbf{Mô tả yêu cầu.} Dựa trên mã nguồn của hệ thống, chức năng quản lý khuyến mãi được triển khai tại trang quản trị \code{/admin/coupons}. Quản trị viên có thể tạo mới, chỉnh sửa, bật/tắt trạng thái và xóa mã khuyến mãi. Form nhập liệu gồm các trường chính: \code{code}, \code{name}, \code{description}, \code{discountType}, \code{discountValue}, \code{maximumDiscount}, \code{minimumOrderAmount}, \code{usageLimit}, \code{perUserLimit}, \code{validFrom}, \code{validUntil}, \code{isActive}. Ở tầng backend, hệ thống chỉ chấp nhận lưu khi mã và tên không rỗng, loại giảm giá hợp lệ, mã được chuẩn hóa sang chữ hoa và không bị trùng, giá trị phần trăm không vượt quá \code{100}, các giá trị số không âm, đồng thời bản ghi cần thao tác phải tồn tại. Riêng thao tác xóa chỉ được phép khi mã khuyến mãi chưa từng được sử dụng; nếu \code{usageCount > 0} thì hệ thống từ chối xóa và yêu cầu vô hiệu hóa thay thế.
 
 \textbf{Cơ sở chọn kỹ thuật.} Chức năng này phù hợp với \textbf{bảng quyết định} vì kết quả xử lý phụ thuộc vào nhiều điều kiện kết hợp như thao tác thực hiện, dữ liệu bắt buộc, mã trùng, giá trị phần trăm, bản ghi tồn tại và trạng thái đã sử dụng. Bảng quyết định giúp rút gọn các tổ hợp chính thành các luật đại diện để sinh test case trong file Excel.
 
@@ -10,8 +10,8 @@
 \begin{itemize}
 	\item \textbf{C1}: thao tác đang thực hiện là tạo/cập nhật hay xóa.
 	\item \textbf{C2}: dữ liệu bắt buộc hợp lệ, tối thiểu gồm mã và tên không rỗng.
-	\item \textbf{C3}: loại giảm giá hợp lệ theo tập \texttt{percentage}, \texttt{fixed\_amount}, \texttt{free\_shipping}.
-	\item \textbf{C4}: nếu loại giảm là \texttt{percentage} thì \texttt{discountValue} không vượt quá \texttt{100}.
+	\item \textbf{C3}: loại giảm giá hợp lệ theo tập \code{percentage}, \code{fixed\_amount}, \code{free\_shipping}.
+	\item \textbf{C4}: nếu loại giảm là \code{percentage} thì \code{discountValue} không vượt quá \code{100}.
 	\item \textbf{C5}: mã khuyến mãi không bị trùng với bản ghi khác sau khi chuẩn hóa sang chữ hoa.
 	\item \textbf{C6}: bản ghi mục tiêu tồn tại khi cập nhật hoặc xóa.
 	\item \textbf{C7}: mã khuyến mãi chưa có lượt sử dụng khi thực hiện xóa.
@@ -65,10 +65,10 @@
 	\parbox{0.98\textwidth}{\footnotesize\textit{Chú thích ký hiệu:} \textbf{Y} = điều kiện xảy ra hoặc thỏa mãn; \textbf{N} = điều kiện không xảy ra hoặc không thỏa mãn; \textbf{-} = điều kiện không áp dụng trong luật đó; \textbf{X} = hành động hoặc kết quả mong đợi được kích hoạt.}
 \end{table}
 
-\textbf{Hướng sinh test case từ bảng quyết định.} Từ tám luật trên, nhóm sinh các test case đại diện như tạo mã hợp lệ, tạo mã trùng, tạo mã phần trăm vượt \texttt{100\%}, cập nhật coupon không tồn tại, xóa coupon chưa dùng và xóa coupon đã có \texttt{usageCount}. Test case chi tiết được lưu trong file Excel; báo cáo chỉ giữ phần phân tích.
+\textbf{Hướng sinh test case từ bảng quyết định.} Từ tám luật trên, nhóm sinh các test case đại diện như tạo mã hợp lệ, tạo mã trùng, tạo mã phần trăm vượt \code{100\%}, cập nhật coupon không tồn tại, xóa coupon chưa dùng và xóa coupon đã có \code{usageCount}. Test case chi tiết được lưu trong file Excel; báo cáo chỉ giữ phần phân tích.
 
 \subsection{Phân vùng tương đương -- Chức năng đăng nhập}
-\textbf{Mô tả yêu cầu:} chức năng đăng nhập tại \texttt{/login} yêu cầu xác thực qua email và password. Hệ thống chỉ xử lý khi dữ liệu không trống và email đúng định dạng. Để bảo mật, mật khẩu được ẩn mặc định và mọi lỗi xác thực đều trả về thông báo chung ``Email hoặc mật khẩu không đúng''. Ngoài ra, giao diện hỗ trợ bật/tắt hiển thị mật khẩu và tự động xóa thông báo lỗi ngay khi người dùng bắt đầu chỉnh sửa lại thông tin.
+\textbf{Mô tả yêu cầu:} chức năng đăng nhập tại \code{/login} yêu cầu xác thực qua email và password. Hệ thống chỉ xử lý khi dữ liệu không trống và email đúng định dạng. Để bảo mật, mật khẩu được ẩn mặc định và mọi lỗi xác thực đều trả về thông báo chung ``Email hoặc mật khẩu không đúng''. Ngoài ra, giao diện hỗ trợ bật/tắt hiển thị mật khẩu và tự động xóa thông báo lỗi ngay khi người dùng bắt đầu chỉnh sửa lại thông tin.
 
 \textbf{Cơ sở chọn kỹ thuật:} chức năng này phù hợp với phân vùng tương đương do các trường đầu vào có tập hợp giá trị lớn. Kỹ thuật này giúp chia dữ liệu thành các nhóm đại diện hợp lệ và không hợp lệ, từ đó rút gọn số lượng test case mà vẫn đảm bảo bao phủ toàn bộ các nhánh xử lý của hệ thống, tránh việc kiểm thử lặp lại dư thừa.
 
@@ -160,13 +160,13 @@
 \end{table}
 
 \subsection{Giá trị biên -- Chức năng profile}
-\textbf{Mô tả yêu cầu.} Chức năng \texttt{/profile} cho phép người dùng đã đăng nhập xem và cập nhật thông tin cá nhân như họ tên, số điện thoại, địa chỉ và phần giới thiệu cá nhân. Dựa trên bộ test tổng hợp trong \texttt{profile.md}, hệ thống hỗ trợ hiển thị sẵn dữ liệu hiện tại, lưu thay đổi khi dữ liệu hợp lệ, chặn submit nếu trường bắt buộc bị bỏ trống hoặc vượt ràng buộc, đồng thời giữ trường \texttt{email} ở trạng thái chỉ đọc.
+\textbf{Mô tả yêu cầu.} Chức năng \code{/profile} cho phép người dùng đã đăng nhập xem và cập nhật thông tin cá nhân như họ tên, số điện thoại, địa chỉ và phần giới thiệu cá nhân. Dựa trên bộ test tổng hợp trong \code{profile.md}, hệ thống hỗ trợ hiển thị sẵn dữ liệu hiện tại, lưu thay đổi khi dữ liệu hợp lệ, chặn submit nếu trường bắt buộc bị bỏ trống hoặc vượt ràng buộc, đồng thời giữ trường \code{email} ở trạng thái chỉ đọc.
 
 \textbf{Phân tích.} Đối với chức năng profile, kỹ thuật \textbf{phân tích giá trị biên} phù hợp vì nhiều trường đầu vào có giới hạn hoặc điều kiện kiểm tra nằm ngay tại ranh giới hợp lệ và không hợp lệ. Thay vì chỉ kiểm thử một vài giá trị đại diện thông thường, nhóm ưu tiên chọn dữ liệu ở sát ngưỡng như rỗng, vừa đủ hợp lệ, chạm ngưỡng tối đa và vượt ngưỡng một đơn vị để tăng khả năng phát hiện lỗi validate.
 
-Trong phạm vi chức năng \texttt{/profile}, nhóm tập trung vào các trường có ràng buộc đầu vào rõ ràng và đã xuất hiện trong bộ test tổng hợp tại \texttt{profile.md}, gồm \texttt{name}, \texttt{phone}, \texttt{bio} và hành vi chỉ đọc của \texttt{email}. Theo kỹ thuật phân tích giá trị biên, các giá trị đại diện được chọn tại ngưỡng nhỏ nhất, cận dưới, giá trị hợp lệ điển hình, cận trên và vượt ngưỡng để tăng khả năng phát hiện lỗi validate ở biên thay vì chỉ kiểm tra dữ liệu thông thường.
+Trong phạm vi chức năng \code{/profile}, nhóm tập trung vào các trường có ràng buộc đầu vào rõ ràng và đã xuất hiện trong bộ test tổng hợp tại \code{profile.md}, gồm \code{name}, \code{phone}, \code{bio} và hành vi chỉ đọc của \code{email}. Theo kỹ thuật phân tích giá trị biên, các giá trị đại diện được chọn tại ngưỡng nhỏ nhất, cận dưới, giá trị hợp lệ điển hình, cận trên và vượt ngưỡng để tăng khả năng phát hiện lỗi validate ở biên thay vì chỉ kiểm tra dữ liệu thông thường.
 
-Từ các test case hiện có, có thể rút ra ba nhóm biên chính. Thứ nhất, trường \texttt{name} không được để trống theo test \texttt{TC-PROFILE-04}, do đó các giá trị biên tối thiểu cần xem xét là rỗng, một giá trị rất ngắn và một giá trị hợp lệ thông thường. Thứ hai, trường \texttt{phone} phải đúng định dạng số điện thoại, trong đó dữ liệu ngắn như \texttt{12345} bị từ chối còn các số như \texttt{0912345678} và \texttt{0987654321} được chấp nhận; vì vậy có thể suy ra cần kiểm tra quanh ngưỡng độ dài hợp lệ bằng các trường hợp ngắn hơn, đúng ngưỡng đang được hệ thống chấp nhận và dài hơn mức đó. Thứ ba, trường \texttt{bio} có giới hạn tối đa \texttt{300} ký tự theo test \texttt{TC-PROFILE-06}, nên bộ giá trị biên quan trọng là \texttt{299}, \texttt{300} và \texttt{301} ký tự. Riêng \texttt{email} là trường chỉ đọc theo \texttt{TC-PROFILE-07}, nên được xem như biên hành vi: người dùng có thể quan sát nhưng không thể chỉnh sửa giá trị này.
+Từ các test case hiện có, có thể rút ra ba nhóm biên chính. Thứ nhất, trường \code{name} không được để trống theo test \code{TC-PROFILE-04}, do đó các giá trị biên tối thiểu cần xem xét là rỗng, một giá trị rất ngắn và một giá trị hợp lệ thông thường. Thứ hai, trường \code{phone} phải đúng định dạng số điện thoại, trong đó dữ liệu ngắn như \code{12345} bị từ chối còn các số như \code{0912345678} và \code{0987654321} được chấp nhận; vì vậy có thể suy ra cần kiểm tra quanh ngưỡng độ dài hợp lệ bằng các trường hợp ngắn hơn, đúng ngưỡng đang được hệ thống chấp nhận và dài hơn mức đó. Thứ ba, trường \code{bio} có giới hạn tối đa \code{300} ký tự theo test \code{TC-PROFILE-06}, nên bộ giá trị biên quan trọng là \code{299}, \code{300} và \code{301} ký tự. Riêng \code{email} là trường chỉ đọc theo \code{TC-PROFILE-07}, nên được xem như biên hành vi: người dùng có thể quan sát nhưng không thể chỉnh sửa giá trị này.
 
 \begin{table}[H]
 	\centering
@@ -175,33 +175,219 @@ Từ các test case hiện có, có thể rút ra ba nhóm biên chính. Thứ n
 	\setlength{\tabcolsep}{4pt}
 	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.5cm}|>{\raggedright\arraybackslash}p{2.7cm}|>{\raggedright\arraybackslash}p{3.2cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{2.2cm}|}
 		\hline
-		\textbf{TC} & \textbf{Trường kiểm tra} & \textbf{Giá trị biên}        & \textbf{Ý nghĩa kiểm thử}                                         & \textbf{Kết quả mong đợi}                                                     \\
+		\textbf{TC} & \textbf{Trường kiểm tra} & \textbf{Giá trị biên}      & \textbf{Ý nghĩa kiểm thử}                                         & \textbf{Kết quả mong đợi}                                                     \\
 		\hline
-		TC1         & Họ tên                   & \texttt{<trống>}             & Kiểm tra biên dưới không hợp lệ của trường bắt buộc               & Hệ thống báo lỗi ``Vui lòng nhập họ tên''                                     \\
+		TC1         & Họ tên                   & \code{<trống>}             & Kiểm tra biên dưới không hợp lệ của trường bắt buộc               & Hệ thống báo lỗi ``Vui lòng nhập họ tên''                                     \\
 		\hline
-		TC2         & Họ tên                   & \texttt{A}                   & Kiểm tra giá trị rất ngắn, dùng như dữ liệu cận biên đề xuất      & Hệ thống dự kiến cho phép lưu nếu không có ràng buộc độ dài tối thiểu bổ sung \\
+		TC2         & Họ tên                   & \code{A}                   & Kiểm tra giá trị rất ngắn, dùng như dữ liệu cận biên đề xuất      & Hệ thống dự kiến cho phép lưu nếu không có ràng buộc độ dài tối thiểu bổ sung \\
 		\hline
-		TC3         & Số điện thoại            & \texttt{12345}               & Kiểm tra trường hợp ngắn hơn độ dài chuẩn                         & Hệ thống báo lỗi ``Số điện thoại không hợp lệ''                               \\
+		TC3         & Số điện thoại            & \code{12345}               & Kiểm tra trường hợp ngắn hơn độ dài chuẩn                         & Hệ thống báo lỗi ``Số điện thoại không hợp lệ''                               \\
 		\hline
-		TC4         & Số điện thoại            & \texttt{0912345678}          & Kiểm tra giá trị đúng định dạng đã xuất hiện trong bộ test hợp lệ & Hệ thống cho phép lưu thành công                                              \\
+		TC4         & Số điện thoại            & \code{0912345678}          & Kiểm tra giá trị đúng định dạng đã xuất hiện trong bộ test hợp lệ & Hệ thống cho phép lưu thành công                                              \\
 		\hline
-		TC5         & Số điện thoại            & \texttt{09123456789}         & Kiểm tra dữ liệu dài hơn ngưỡng đang được suy ra từ bộ test       & Hệ thống dự kiến báo lỗi ``Số điện thoại không hợp lệ''                       \\
+		TC5         & Số điện thoại            & \code{09123456789}         & Kiểm tra dữ liệu dài hơn ngưỡng đang được suy ra từ bộ test       & Hệ thống dự kiến báo lỗi ``Số điện thoại không hợp lệ''                       \\
 		\hline
-		TC6         & Bio                      & \texttt{299} ký tự           & Kiểm tra cận trên hợp lệ trước giới hạn tối đa                    & Hệ thống cho phép lưu thành công                                              \\
+		TC6         & Bio                      & \code{299} ký tự           & Kiểm tra cận trên hợp lệ trước giới hạn tối đa                    & Hệ thống cho phép lưu thành công                                              \\
 		\hline
-		TC7         & Bio                      & \texttt{300} ký tự           & Kiểm tra đúng biên trên hợp lệ                                    & Hệ thống cho phép lưu thành công                                              \\
+		TC7         & Bio                      & \code{300} ký tự           & Kiểm tra đúng biên trên hợp lệ                                    & Hệ thống cho phép lưu thành công                                              \\
 		\hline
-		TC8         & Bio                      & \texttt{301} ký tự           & Kiểm tra vượt biên trên một đơn vị                                & Hệ thống báo lỗi ``Giới thiệu không được vượt quá 300 ký tự''                 \\
+		TC8         & Bio                      & \code{301} ký tự           & Kiểm tra vượt biên trên một đơn vị                                & Hệ thống báo lỗi ``Giới thiệu không được vượt quá 300 ký tự''                 \\
 		\hline
-		TC9         & Email                    & Trạng thái \texttt{readonly} & Kiểm tra biên hành vi của trường không cho chỉnh sửa              & Người dùng không thể sửa email và giao diện hiển thị ghi chú phù hợp          \\
+		TC9         & Email                    & Trạng thái \code{readonly} & Kiểm tra biên hành vi của trường không cho chỉnh sửa              & Người dùng không thể sửa email và giao diện hiển thị ghi chú phù hợp          \\
 		\hline
 	\end{tabularx}
 	\caption{Bảng giá trị biên cho chức năng profile}
 \end{table}
 
-\textbf{Nhận xét.} Bảng trên ưu tiên các giá trị biên có thể suy ra trực tiếp từ bộ test hiện có để đảm bảo tính nhất quán với tài liệu kiểm thử. Với các trường như \texttt{name} và \texttt{phone}, một số giá trị đang được sử dụng theo hướng đề xuất kiểm thử cận biên dựa trên dữ liệu hiện có, chưa phải đặc tả nghiệp vụ đầy đủ. Khi phần mô tả yêu cầu được hoàn thiện thêm, nhóm có thể mở rộng tiếp các biên khác như độ dài tối đa của \texttt{name}, định dạng chi tiết của \texttt{phone}, hoặc ràng buộc với trường \texttt{address} nếu đặc tả nghiệp vụ cung cấp thêm giới hạn cụ thể.
+\textbf{Nhận xét.} Bảng trên ưu tiên các giá trị biên có thể suy ra trực tiếp từ bộ test hiện có để đảm bảo tính nhất quán với tài liệu kiểm thử. Với các trường như \code{name} và \code{phone}, một số giá trị đang được sử dụng theo hướng đề xuất kiểm thử cận biên dựa trên dữ liệu hiện có, chưa phải đặc tả nghiệp vụ đầy đủ. Khi phần mô tả yêu cầu được hoàn thiện thêm, nhóm có thể mở rộng tiếp các biên khác như độ dài tối đa của \code{name}, định dạng chi tiết của \code{phone}, hoặc ràng buộc với trường \code{address} nếu đặc tả nghiệp vụ cung cấp thêm giới hạn cụ thể.
 
 \subsection{Dịch chuyển trạng thái -- Chức năng yêu thích}
-\textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
+\textbf{Mô tả yêu cầu.} Chức năng \code{wishlist} cho phép người dùng thêm sản phẩm vào danh sách yêu thích, bỏ yêu thích theo cơ chế \textit{toggle}, xóa toàn bộ danh sách, thêm sản phẩm sang giỏ hàng hoặc điều hướng đến trang chi tiết sản phẩm. Với góc nhìn kiểm thử hộp đen, hành vi của chức năng này phù hợp với \textbf{kiểm thử dịch chuyển trạng thái} vì kết quả xử lý phụ thuộc mạnh vào trạng thái hiện tại của danh sách yêu thích và sự kiện mà người dùng thực hiện.
 
-\textbf{Phân tích.} Nội dung sẽ được bổ sung sau.
+\textbf{Cơ sở chọn kỹ thuật.} State Transition Testing giúp mô hình hóa rõ các trạng thái chính của wishlist, các sự kiện kích hoạt như thêm sản phẩm, xóa sản phẩm, thêm vào giỏ hàng hoặc chuyển sang trang chi tiết, cùng trạng thái đích mà hệ thống cần đạt tới. Nhờ đó, nhóm có thể thiết kế test case theo từng chuyển trạng thái thay vì chỉ kiểm tra rời rạc từng thao tác đơn lẻ.
+
+\textbf{Các trạng thái chính của chức năng yêu thích.}
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.25}
+	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.5cm}|>{\raggedright\arraybackslash}p{4.0cm}|>{\raggedright\arraybackslash}X|}
+		\hline
+		\textbf{Mã} & \textbf{Tên trạng thái} & \textbf{Mô tả}                                                                                                                                 \\
+		\hline
+		S0          & Wishlist trống          & Không có sản phẩm nào trong danh sách yêu thích, giao diện hiển thị trạng thái rỗng.                                                           \\
+		\hline
+		S1          & Có ít nhất 1 sản phẩm   & Wishlist có từ một sản phẩm trở lên, giao diện hiển thị danh sách sản phẩm đang được yêu thích.                                                \\
+		\hline
+		S2          & Trạng thái toggle       & Trạng thái trung gian khi người dùng bỏ yêu thích một sản phẩm bằng cách nhấn lại nút wishlist hoặc thực hiện thao tác xóa một phần danh sách. \\
+		\hline
+		S3          & Trang chi tiết sản phẩm & Người dùng rời khỏi wishlist và điều hướng sang trang chi tiết của một sản phẩm cụ thể.                                                        \\
+		\hline
+	\end{tabularx}
+	\caption{Các trạng thái chính của chức năng yêu thích}
+	\label{tab:wishlist-states}
+\end{table}
+
+\textbf{Bảng dịch chuyển trạng thái.}
+{\footnotesize
+	\renewcommand{\arraystretch}{1.2}
+	\setlength{\tabcolsep}{3pt}
+	\begin{longtable}{|>{\raggedright\arraybackslash}p{2.3cm}|>{\raggedright\arraybackslash}p{2.3cm}|>{\raggedright\arraybackslash}p{2.1cm}|>{\raggedright\arraybackslash}p{2.4cm}|>{\raggedright\arraybackslash}p{3.5cm}|}
+		\caption{Bảng dịch chuyển trạng thái cho chức năng yêu thích}\label{tab:wishlist-state-transitions}                                                                                                                \\
+		\hline
+		\textbf{Trạng thái hiện tại} & \textbf{Sự kiện (Event)}           & \textbf{Điều kiện (Guard)}       & \textbf{Trạng thái tiếp theo} & \textbf{Hành động (Action)}                                                 \\
+		\hline
+		\endfirsthead
+		\hline
+		\textbf{Trạng thái hiện tại} & \textbf{Sự kiện (Event)}           & \textbf{Điều kiện (Guard)}       & \textbf{Trạng thái tiếp theo} & \textbf{Hành động (Action)}                                                 \\
+		\hline
+		\endhead
+		S0: Wishlist trống           & Người dùng thêm sản phẩm           & Sản phẩm chưa có trong danh sách & S1: Có ít nhất 1 sản phẩm     & Thêm sản phẩm, cập nhật giao diện và lưu vào \code{storage}.                \\
+		\hline
+		S0: Wishlist trống           & Người dùng xóa hoặc \textit{clear} & Wishlist đã rỗng                 & S0: Wishlist trống            & Không thay đổi trạng thái.                                                  \\
+		\hline
+		S1: Có ít nhất 1 sản phẩm    & Thêm sản phẩm mới                  & Sản phẩm chưa tồn tại            & S1: Có ít nhất 1 sản phẩm     & Tăng số lượng sản phẩm hiển thị và cập nhật giao diện.                      \\
+		\hline
+		S1: Có ít nhất 1 sản phẩm    & Thêm sản phẩm đã có (toggle)       & Sản phẩm đã tồn tại              & S2: Trạng thái toggle         & Xóa sản phẩm đó khỏi wishlist và cập nhật giao diện.                        \\
+		\hline
+		S1: Có ít nhất 1 sản phẩm    & Xóa 1 sản phẩm                     & \code{count = 1}                 & S0: Wishlist trống            & Xóa sản phẩm cuối cùng và hiển thị trạng thái rỗng.                         \\
+		\hline
+		S1: Có ít nhất 1 sản phẩm    & Xóa 1 sản phẩm                     & \code{count > 1}                 & S1: Có ít nhất 1 sản phẩm     & Giảm số lượng sản phẩm và cập nhật giao diện.                               \\
+		\hline
+		S1: Có ít nhất 1 sản phẩm    & Xóa tất cả                         & Bất kỳ                           & S0: Wishlist trống            & Xóa toàn bộ danh sách, làm sạch \code{storage} và hiển thị trạng thái rỗng. \\
+		\hline
+		S1: Có ít nhất 1 sản phẩm    & Thêm vào giỏ hàng                  & Sản phẩm hợp lệ                  & S1: Có ít nhất 1 sản phẩm     & Gọi \code{cartService} và hiển thị thông báo thành công.                    \\
+		\hline
+		S1: Có ít nhất 1 sản phẩm    & Click vào sản phẩm                 & Sản phẩm có ID hợp lệ            & S3: Trang chi tiết sản phẩm   & Điều hướng sang \code{/products/\{id\}}.                                    \\
+		\hline
+		S2: Trạng thái toggle        & Hoàn tất thao tác xóa              & \code{count = 0} sau khi xóa     & S0: Wishlist trống            & Hiển thị trạng thái rỗng.                                                   \\
+		\hline
+		S2: Trạng thái toggle        & Hoàn tất thao tác xóa              & \code{count > 0} sau khi xóa     & S1: Có ít nhất 1 sản phẩm     & Cập nhật lại số lượng sản phẩm còn lại.                                     \\
+		\hline
+	\end{longtable}
+}
+
+\textbf{Phân tích.} Từ các trạng thái và các chuyển trạng thái ở Bảng~\ref{tab:wishlist-state-transitions}, nhóm xây dựng các test case đại diện để kiểm tra cả những chuyển đổi hợp lệ thường gặp lẫn các trường hợp biên như danh sách rỗng, xóa sản phẩm cuối cùng, \textit{toggle off} và điều hướng khỏi wishlist.
+
+\begin{table}[H]
+	\centering
+	\scriptsize
+	\renewcommand{\arraystretch}{1.25}
+	\setlength{\tabcolsep}{3pt}
+	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.3cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{1.7cm}|}
+		\hline
+		\textbf{ID} & \textbf{Trạng thái nguồn}          & \textbf{Sự kiện}                  & \textbf{Trạng thái đích}           & \textbf{Test case} \\
+		\hline
+		ST-01       & S0: Trống                          & Truy cập trang wishlist           & S0: Trống                          & TC01               \\
+		\hline
+		ST-02       & S0: Trống                          & Thêm 1 sản phẩm                   & S1: Có sản phẩm                    & TC02               \\
+		\hline
+		ST-03       & S0: Trống                          & Thêm 3 sản phẩm liên tiếp         & S1: Có sản phẩm (\code{count = 3}) & TC03               \\
+		\hline
+		ST-04       & S1: Có sản phẩm (\code{count = 1}) & Xóa sản phẩm duy nhất             & S0: Trống                          & TC04               \\
+		\hline
+		ST-05       & S1: Có sản phẩm (\code{count = 2}) & Xóa tất cả                        & S0: Trống                          & TC05               \\
+		\hline
+		ST-06       & S1: Có sản phẩm                    & Thêm vào giỏ hàng                 & S1: Có sản phẩm (không đổi)        & TC06               \\
+		\hline
+		ST-07       & S1: Có sản phẩm                    & Click sản phẩm                    & S3: Trang chi tiết                 & TC07               \\
+		\hline
+		ST-08       & S1: Có sản phẩm (\code{count = 1}) & Click wishlist lần 2 (toggle off) & S0: Trống                          & TC08               \\
+		\hline
+		ST-09       & S0: Trống                          & Click wishlist lần 1 (toggle on)  & S1: Có sản phẩm                    & TC08               \\
+		\hline
+		ST-10       & S1: Có sản phẩm (\code{count > 1}) & Xóa 1 sản phẩm                    & S1: Có sản phẩm (giảm 1)           & TC04 mở rộng       \\
+		\hline
+	\end{tabularx}
+	\caption{Các test case theo dịch chuyển trạng thái của chức năng yêu thích}
+	\label{tab:wishlist-transition-testcases}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[font=\small]
+		\tikzstyle{state}=[rectangle, rounded corners, draw, align=center, minimum width=3.3cm, minimum height=1.0cm]
+		\node[state] (s0) at (0,0) {S0\\Wishlist trống};
+		\node[state] (s1) at (6,0) {S1\\Có ít nhất 1 sản phẩm};
+		\node[state] (s2) at (6,-3) {S2\\Toggle / xóa 1};
+		\node[state] (s3) at (12,0) {S3\\Trang chi tiết sản phẩm};
+
+		\draw[->, thick] (s0) -- node[above]{Thêm SP} (s1);
+		\draw[->, thick] (s1) to[out=65,in=115,looseness=7] node[above]{Thêm SP mới / thêm vào giỏ} (s1);
+		\draw[->, thick] (s1) -- node[right]{Toggle off} (s2);
+		\draw[->, thick] (s2) -- node[left]{\code{count > 0}} (s1);
+		\draw[->, thick] (s2) -- node[below left]{\code{count = 0}} (s0);
+		\draw[->, thick, bend left=18] (s1) to node[above]{Xóa tất cả} (s0);
+		\draw[->, thick] (s1) -- node[above]{Click sản phẩm} (s3);
+	\end{tikzpicture}
+	\caption{Sơ đồ dịch chuyển trạng thái cho chức năng yêu thích}
+	\label{fig:wishlist-state-transition}
+\end{figure}
+
+\textbf{Bảng tổng hợp tất cả test case.}
+{\scriptsize
+	\renewcommand{\arraystretch}{1.2}
+	\setlength{\tabcolsep}{3pt}
+	\begin{longtable}{|>{\centering\arraybackslash}p{1.3cm}|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}p{2.0cm}|>{\raggedright\arraybackslash}p{1.9cm}|>{\raggedright\arraybackslash}p{3.8cm}|>{\centering\arraybackslash}p{1.3cm}|}
+		\caption{Bảng tổng hợp test case của chức năng yêu thích}\label{tab:wishlist-summary-testcases}                                                                                                 \\
+		\hline
+		\textbf{TC ID} & \textbf{Tên test case}            & \textbf{Kỹ thuật}        & \textbf{Trạng thái nguồn} & \textbf{Kết quả mong đợi}                                        & \textbf{Kết quả} \\
+		\hline
+		\endfirsthead
+		\hline
+		\textbf{TC ID} & \textbf{Tên test case}            & \textbf{Kỹ thuật}        & \textbf{Trạng thái nguồn} & \textbf{Kết quả mong đợi}                                        & \textbf{Kết quả} \\
+		\hline
+		\endhead
+		TC01           & Empty wishlist state              & White Box + ST           & S0                        & Hiển thị \textit{empty state} và nút khám phá.                   & PASS             \\
+		\hline
+		TC02           & Thêm 1 sản phẩm từ trang sản phẩm & White Box + ST           & S0 $\rightarrow$ S1       & Sản phẩm xuất hiện trong wishlist, \code{count = 1}.             & PASS             \\
+		\hline
+		TC03           & Thêm 3 sản phẩm liên tiếp         & White Box + ST           & S0 $\rightarrow$ S1       & \code{count = 3}, giao diện hiển thị ``3 sản phẩm''.             & PASS             \\
+		\hline
+		TC04           & Xóa 1 sản phẩm                    & White Box + ST           & S1 $\rightarrow$ S0/S1    & \code{count} giảm 1, nếu về 0 thì chuyển sang trạng thái rỗng.   & PASS             \\
+		\hline
+		TC05           & Xóa tất cả                        & White Box + ST           & S1 $\rightarrow$ S0       & Hiển thị trạng thái rỗng, dữ liệu trong \code{storage} được xóa. & PASS             \\
+		\hline
+		TC06           & Thêm vào giỏ từ wishlist          & White Box                & S1 $\rightarrow$ S1       & Hiển thị thông báo ``Đã thêm vào giỏ hàng''.                     & PASS             \\
+		\hline
+		TC07           & Điều hướng chi tiết sản phẩm      & State Transition         & S1 $\rightarrow$ S3       & Điều hướng đến URL \code{/products/\{id\}}.                      & PASS             \\
+		\hline
+		TC08           & Toggle wishlist (không duplicate) & White Box + ST           & S0 $\leftrightarrow$ S1   & Không phát sinh sản phẩm trùng lặp trong danh sách.              & PASS             \\
+		\hline
+		TC-WL-09       & Đồng bộ tài khoản (Auth storage)  & White Box                & S1                        & Sản phẩm vẫn được giữ sau thao tác đăng xuất và đăng nhập lại.   & Pending          \\
+		\hline
+		TC-WL-10       & Hiệu năng nút wishlist (UX)       & White Box -- Performance & S1                        & Biểu tượng wishlist đổi trạng thái trong dưới 200 ms.            & Pending          \\
+		\hline
+	\end{longtable}
+}
+
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.25}
+	\begin{tabularx}{0.72\textwidth}{|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{3.2cm}|}
+		\hline
+		\textbf{Tiêu chí}         & \textbf{Giá trị}          \\
+		\hline
+		Tổng số test case         & 10                        \\
+		\hline
+		Test case PASS            & 8 (80\%)                  \\
+		\hline
+		Test case Pending         & 2 (20\%)                  \\
+		\hline
+		Statement Coverage        & 100\%                     \\
+		\hline
+		Branch Coverage           & 100\%                     \\
+		\hline
+		Path Coverage (White Box) & 5/5 (100\%)               \\
+		\hline
+		State Transition Coverage & 10/10 transitions (100\%) \\
+		\hline
+		Cyclomatic Complexity (M) & 5                         \\
+		\hline
+	\end{tabularx}
+	\caption{Thống kê độ phủ của chức năng yêu thích}
+	\label{tab:wishlist-coverage}
+\end{table}
+
+\textbf{Nhận xét.} Mục 2.4 cho thấy chức năng yêu thích có thể được mô hình hóa rõ bằng các trạng thái \textbf{rỗng}, \textbf{có sản phẩm}, \textbf{toggle} và \textbf{điều hướng sang trang chi tiết}. Bộ test được xây dựng theo chuyển trạng thái bao phủ đầy đủ các chuyển đổi chính của wishlist; tuy nhiên hai trường hợp về đồng bộ tài khoản và hiệu năng giao diện vẫn đang ở trạng thái \textit{pending}, cần được hoàn thiện thêm ở các bước tiếp theo.

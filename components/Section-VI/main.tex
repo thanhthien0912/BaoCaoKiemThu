@@ -2,34 +2,34 @@
 \section{\textbf{ÁP DỤNG THIẾT KẾ TEST CASE WHITE BOX}}
 
 \subsection{Phủ nhánh và điều kiện -- Chức năng quản lý mã khuyến mãi}
-\textbf{Mô tả yêu cầu.} Ở góc nhìn mã nguồn, chức năng quản lý mã khuyến mãi được đại diện bởi hàm \texttt{validateCoupon(code, subtotal, userId)} trong tầng service. Hàm này xác thực mã khuyến mãi trước khi áp dụng vào đơn hàng. Kết quả chỉ hợp lệ khi mã không rỗng, coupon tồn tại, đang hoạt động, nằm trong thời gian hiệu lực, chưa vượt giới hạn sử dụng tổng, chưa vượt giới hạn theo người dùng và đơn hàng đạt mức tối thiểu yêu cầu.
+\textbf{Mô tả yêu cầu.} Ở góc nhìn mã nguồn, chức năng quản lý mã khuyến mãi được đại diện bởi hàm \code{validateCoupon(code, subtotal, userId)} trong tầng service. Hàm này xác thực mã khuyến mãi trước khi áp dụng vào đơn hàng. Kết quả chỉ hợp lệ khi mã không rỗng, coupon tồn tại, đang hoạt động, nằm trong thời gian hiệu lực, chưa vượt giới hạn sử dụng tổng, chưa vượt giới hạn theo người dùng và đơn hàng đạt mức tối thiểu yêu cầu.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{image/anhcodechuongwhitebox/new.png}
-	\caption{Mã nguồn hàm \texttt{validateCoupon} dùng cho phân tích}
+	\caption{Mã nguồn hàm \code{validateCoupon} dùng cho phân tích}
 	\label{fig:validate-coupon-code}
 \end{figure}
 
 \textbf{Link sơ đồ chi tiết:} \href{https://mermaid.live/edit#pako:eNqNlU9v2zYYxr8KwaGAEjiGqH-UNGDAmrSntZeml81FoUm0RVSiMkpq6gY59dDDLg2GYegtQVAULTasW3uyDjvIyPfQNxlpWZFNJdhkwPBLvs_D30vRL09gmEUE-nCaZMdhHPACHB5MGBDPo0JEmna3WfxZgOVZs3hf7uyAvb1vANI0tLMzYW3enTtgv74IAasXBUAjYIyAKfKvPjXVZSiF1a8UFHF9zmIQ17-L74LXfzMxRDIwrz-WIJTerRkSC4Dd3cPd3dVK95Dv-4TzjD8UmFsp99cphqYZPYyh6I2h3tjWm5pm9npT0ZtDvbmtt56K7bDGyoY01bsUPA8SGt3nWdqOi8xtd-upIaUr_K2EztuW3nbr3Sao9VlDvuukDZeb0R6zgibthK2y2ZLN7tlslc2RbE7PZg_Y7CGbrbI5N7CVeTAj39GUFu2Eo7I5ks3p2RyVDUs23LM5AzZnyOaobPgGtsc54WCDDatsWLLhng2rbJ5k83o2rLK5muYOJjfU7YyrFISHBbk3SJVyHlAGvk2zkq3L8dRyPFmO15fjqeUgXSycl2FI8rxf2htsuDvk89TikL4B-LCp3lIQlWzWdpakqX6j4Hl93vWSsP7CZm36PfTDYcyzYx_sZ-VRxoBsaoDmgJOfSspJ9GSdZ3R5D-pL8Cwu583iHwbS-pKKSPqBoql-Eb2pWVzQTmTeLlqeiaEfm-pnAfYFxLSpXpeiyX0OOq11uzaMrz4FoorPnU5U-FfYCe3_WDQWcSG_L1gncf6XJFk15gLkTfUHiMQpYLPOAHcGd6VtK9pIk1aKL6vP553a7dTLN1dCLV_SajvPZPcXFb4qwXg8Xp6troRXA-MNK6SLC0b3weHGi95qr8s3YsvFDJvFyw-BuKnmyfpMhUmQ5wdkCq7PGpjSJPG_mk5D8YzygmfPiAx18azDvWMaFbFvHb34WnHZONhrnzCUTtc-uh4Et_vkEqy9SDsMT36u5aZpwhGccRpBv-AlGcGU8DSQITyRHhMorsmUTKAvfkZkGpRJMYETdipkRwH7PsvSTsmzchZDfxokuYjKoygoyAENZjzoUwiLCN-X_3fom7rprUygfwJfQH_Psuwx1nXLQZ6DbeSiEZyLYYSwPXZMw3aRhy2E0ekIvlyta4xNz9FdbNiOiXVkWO7pv0znmj4}{Mermaid Live Editor}.
 
-\textbf{Phân tích.} Dựa vào Hình 2, nhóm tiến hành áp dụng kiểm thử phủ nhánh và phủ điều kiện cho hàm \texttt{validateCoupon}. Viết theo đúng cấu trúc source, các điểm kiểm tra và điều kiện tương ứng trong hàm được xác định như sau:
+\textbf{Phân tích.} Dựa vào Hình~\ref{fig:validate-coupon-code}, nhóm tiến hành áp dụng kiểm thử phủ nhánh và phủ điều kiện cho hàm \code{validateCoupon}. Viết theo đúng cấu trúc source, các điểm kiểm tra và điều kiện tương ứng trong hàm được xác định như sau:
 \begin{itemize}
-	\item \textbf{1}: \texttt{!code}
-	\item \textbf{2}: \texttt{!coupon}
-	\item \textbf{3}: \texttt{!coupon.isActive}
-	\item \textbf{4.1}: \texttt{coupon.validFrom}
-	\item \textbf{4.2}: \texttt{now < coupon.validFrom}
-	\item \textbf{5.1}: \texttt{coupon.validUntil}
-	\item \textbf{5.2}: \texttt{now > coupon.validUntil}
-	\item \textbf{6.1}: \texttt{coupon.usageLimit !== null}
-	\item \textbf{6.2}: \texttt{coupon.usageCount >= coupon.usageLimit}
-	\item \textbf{7.1}: \texttt{userId}
-	\item \textbf{7.2}: \texttt{coupon.perUserLimit}
-	\item \textbf{8}: \texttt{userUsageCount >= coupon.perUserLimit}
-	\item \textbf{9.1}: \texttt{coupon.minimumOrderAmount > 0}
-	\item \textbf{9.2}: \texttt{subtotal < coupon.minimumOrderAmount}
-	\item \textbf{10}: \texttt{return \{ valid: true, ... \}}
+	\item \textbf{1}: \code{!code}
+	\item \textbf{2}: \code{!coupon}
+	\item \textbf{3}: \code{!coupon.isActive}
+	\item \textbf{4.1}: \code{coupon.validFrom}
+	\item \textbf{4.2}: \code{now < coupon.validFrom}
+	\item \textbf{5.1}: \code{coupon.validUntil}
+	\item \textbf{5.2}: \code{now > coupon.validUntil}
+	\item \textbf{6.1}: \code{coupon.usageLimit !== null}
+	\item \textbf{6.2}: \code{coupon.usageCount >= coupon.usageLimit}
+	\item \textbf{7.1}: \code{userId}
+	\item \textbf{7.2}: \code{coupon.perUserLimit}
+	\item \textbf{8}: \code{userUsageCount >= coupon.perUserLimit}
+	\item \textbf{9.1}: \code{coupon.minimumOrderAmount > 0}
+	\item \textbf{9.2}: \code{subtotal < coupon.minimumOrderAmount}
+	\item \textbf{10}: \code{return \{ valid: true, ... \}}
 \end{itemize}
 
 \textbf{Độ phức tạp Cyclomatic:}
@@ -42,7 +42,7 @@
 {\scriptsize
 \renewcommand{\arraystretch}{1.2}
 \begin{longtable}{|>{\centering\arraybackslash}p{1.1cm}|>{\raggedright\arraybackslash}p{2.8cm}|>{\raggedright\arraybackslash}p{6.0cm}|>{\raggedright\arraybackslash}p{4.1cm}|}
-	\caption{Phân tích test case suy ra từ độ phức tạp Cyclomatic của hàm \texttt{validateCoupon}}\label{tab:validate-coupon-cyclomatic-testcases}                                                                                                                                                                                                                                              \\
+	\caption{Phân tích test case suy ra từ độ phức tạp Cyclomatic của hàm \code{validateCoupon}}\label{tab:validate-coupon-cyclomatic-testcases}                                                                                                                                                                                                                                              \\
 	\hline
 	\textbf{STT TC} & \textbf{Đường dẫn}                                                        & \textbf{Đầu vào}                                                                                                                                                                                                     & \textbf{Đầu ra mong muốn}                                              \\
 	\hline
@@ -51,52 +51,52 @@
 	\textbf{STT TC} & \textbf{Đường dẫn}                                                        & \textbf{Đầu vào}                                                                                                                                                                                                     & \textbf{Đầu ra mong muốn}                                              \\
 	\hline
 	\endhead
-	TC01            & \texttt{1: T}                                                             & \texttt{code = ""}, \texttt{subtotal = 100000}, \texttt{userId = null}                                                                                                                                               & Quăng lỗi \texttt{Coupon code is required}                             \\
+	TC01            & \code{1: T}                                                             & \code{code = ""}, \code{subtotal = 100000}, \code{userId = null}                                                                                                                                               & Quăng lỗi \code{Coupon code is required}                             \\
 	\hline
-	TC02            & \texttt{1: F, 2: T}                                                       & \texttt{code = "XYZ"}, \texttt{coupon = null}, \texttt{subtotal = 100000}, \texttt{userId = null}                                                                                                                    & Quăng lỗi \texttt{Mã khuyến mãi không tồn tại}                         \\
+	TC02            & \code{1: F, 2: T}                                                       & \code{code = "XYZ"}, \code{coupon = null}, \code{subtotal = 100000}, \code{userId = null}                                                                                                                    & Quăng lỗi \code{Mã khuyến mãi không tồn tại}                         \\
 	\hline
-	TC03            & \texttt{1: F, 2: F, 3: T}                                                 & \texttt{code = "TEST10"}, coupon tồn tại, \texttt{isActive = false}, \texttt{subtotal = 100000}, \texttt{userId = null}                                                                                              & Quăng lỗi \texttt{Mã khuyến mãi đã bị vô hiệu hóa}                     \\
+	TC03            & \code{1: F, 2: F, 3: T}                                                 & \code{code = "TEST10"}, coupon tồn tại, \code{isActive = false}, \code{subtotal = 100000}, \code{userId = null}                                                                                              & Quăng lỗi \code{Mã khuyến mãi đã bị vô hiệu hóa}                     \\
 	\hline
-	TC04            & \texttt{1: F, 2: F, 3: F, 4.1: T, 4.2: T}                                 & \texttt{code = "TEST10"}, coupon tồn tại, \texttt{isActive = true}, \texttt{validFrom} ở tương lai, \texttt{subtotal = 100000}, \texttt{userId = null}                                                               & Quăng lỗi \texttt{Mã khuyến mãi chưa có hiệu lực}                      \\
+	TC04            & \code{1: F, 2: F, 3: F, 4.1: T, 4.2: T}                                 & \code{code = "TEST10"}, coupon tồn tại, \code{isActive = true}, \code{validFrom} ở tương lai, \code{subtotal = 100000}, \code{userId = null}                                                               & Quăng lỗi \code{Mã khuyến mãi chưa có hiệu lực}                      \\
 	\hline
-	TC05            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: T, 5.2: T}                         & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil} đã qua hạn, \texttt{subtotal = 100000}, \texttt{userId = null}                                                                              & Quăng lỗi \texttt{Mã khuyến mãi đã hết hạn}                            \\
+	TC05            & \code{1: F, 2: F, 3: F, 4.1: F, 5.1: T, 5.2: T}                         & \code{code = "TEST10"}, \code{validFrom = null}, \code{validUntil} đã qua hạn, \code{subtotal = 100000}, \code{userId = null}                                                                              & Quăng lỗi \code{Mã khuyến mãi đã hết hạn}                            \\
 	\hline
-	TC06            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: T, 6.2: T}                 & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = 10}, \texttt{usageCount = 10}, \texttt{subtotal = 100000}, \texttt{userId = null}                              & Quăng lỗi \texttt{Mã khuyến mãi đã hết lượt sử dụng}                   \\
+	TC06            & \code{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: T, 6.2: T}                 & \code{code = "TEST10"}, \code{validFrom = null}, \code{validUntil = null}, \code{usageLimit = 10}, \code{usageCount = 10}, \code{subtotal = 100000}, \code{userId = null}                              & Quăng lỗi \code{Mã khuyến mãi đã hết lượt sử dụng}                   \\
 	\hline
-	TC07            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: T, 8: T}   & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = "U1"}, \texttt{perUserLimit = 1}, \texttt{usedBy = ["U1"]}, \texttt{subtotal = 100000} & Quăng lỗi \texttt{Bạn đã sử dụng mã khuyến mãi này}                    \\
+	TC07            & \code{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: T, 8: T}   & \code{code = "TEST10"}, \code{validFrom = null}, \code{validUntil = null}, \code{usageLimit = null}, \code{userId = "U1"}, \code{perUserLimit = 1}, \code{usedBy = ["U1"]}, \code{subtotal = 100000} & Quăng lỗi \code{Bạn đã sử dụng mã khuyến mãi này}                    \\
 	\hline
-	TC08            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: T, 9.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{minimumOrderAmount = 100000}, \texttt{subtotal = 50000}                 & Quăng lỗi \texttt{Đơn hàng tối thiểu 100.000đ để sử dụng mã này}       \\
+	TC08            & \code{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: T, 9.2: T} & \code{code = "TEST10"}, \code{validFrom = null}, \code{validUntil = null}, \code{usageLimit = null}, \code{userId = null}, \code{minimumOrderAmount = 100000}, \code{subtotal = 50000}                 & Quăng lỗi \code{Đơn hàng tối thiểu 100.000đ để sử dụng mã này}       \\
 	\hline
-	TC09            & \texttt{1: F, 2: F, 3: F, 4.1: F}                                         & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null}                                                              & Bỏ qua cụm kiểm tra \texttt{validFrom}, đi tiếp sang các điều kiện sau \\
+	TC09            & \code{1: F, 2: F, 3: F, 4.1: F}                                         & \code{code = "TEST10"}, coupon hợp lệ, \code{validFrom = null}, các điều kiện sau không vi phạm, \code{subtotal = 200000}, \code{userId = null}                                                              & Bỏ qua cụm kiểm tra \code{validFrom}, đi tiếp sang các điều kiện sau \\
 	\hline
-	TC10            & \texttt{1: F, 2: F, 3: F, 4.1: T, 4.2: F}                                 & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom} ở quá khứ, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null}                                                           & Không lỗi tại cụm \texttt{validFrom}, đi tiếp sang các điều kiện sau   \\
+	TC10            & \code{1: F, 2: F, 3: F, 4.1: T, 4.2: F}                                 & \code{code = "TEST10"}, coupon hợp lệ, \code{validFrom} ở quá khứ, các điều kiện sau không vi phạm, \code{subtotal = 200000}, \code{userId = null}                                                           & Không lỗi tại cụm \code{validFrom}, đi tiếp sang các điều kiện sau   \\
 	\hline
-	TC11            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F}                                 & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null}                                  & Bỏ qua cụm kiểm tra \texttt{validUntil}, đi tiếp                       \\
+	TC11            & \code{1: F, 2: F, 3: F, 4.1: F, 5.1: F}                                 & \code{code = "TEST10"}, coupon hợp lệ, \code{validFrom = null}, \code{validUntil = null}, các điều kiện sau không vi phạm, \code{subtotal = 200000}, \code{userId = null}                                  & Bỏ qua cụm kiểm tra \code{validUntil}, đi tiếp                       \\
 	\hline
-	TC12            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F}                         & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{subtotal = 200000}, \texttt{userId = null}                                       & Bỏ qua cụm kiểm tra giới hạn hệ thống, đi tiếp                         \\
+	TC12            & \code{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F}                         & \code{code = "TEST10"}, coupon hợp lệ, \code{validFrom = null}, \code{validUntil = null}, \code{usageLimit = null}, \code{subtotal = 200000}, \code{userId = null}                                       & Bỏ qua cụm kiểm tra giới hạn hệ thống, đi tiếp                         \\
 	\hline
-	TC13            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F}                 & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{subtotal = 200000}                                       & Bỏ qua cụm kiểm tra theo user, đi tiếp                                 \\
+	TC13            & \code{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F}                 & \code{code = "TEST10"}, coupon hợp lệ, \code{validFrom = null}, \code{validUntil = null}, \code{usageLimit = null}, \code{userId = null}, \code{subtotal = 200000}                                       & Bỏ qua cụm kiểm tra theo user, đi tiếp                                 \\
 	\hline
-	TC14            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: F}         & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = "U1"}, \texttt{perUserLimit = null}, \texttt{subtotal = 200000}         & Bỏ qua kiểm tra \texttt{userUsageCount}, đi tiếp                       \\
+	TC14            & \code{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: F}         & \code{code = "TEST10"}, coupon hợp lệ, \code{validFrom = null}, \code{validUntil = null}, \code{usageLimit = null}, \code{userId = "U1"}, \code{perUserLimit = null}, \code{subtotal = 200000}         & Bỏ qua kiểm tra \code{userUsageCount}, đi tiếp                       \\
 	\hline
-	TC15            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: F}         & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{minimumOrderAmount = 0}, \texttt{subtotal = 200000}                                                                                                                 & Mã hợp lệ, hàm trả về kết quả với \texttt{valid = true}                \\
+	TC15            & \code{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: F}         & \code{code = "TEST10"}, coupon hợp lệ, \code{minimumOrderAmount = 0}, \code{subtotal = 200000}                                                                                                                 & Mã hợp lệ, hàm trả về kết quả với \code{valid = true}                \\
 	\hline
 \end{longtable}
 }
 
 \subsection{Phủ nhánh -- Chức năng đăng nhập}
-\textbf{Mô tả yêu cầu.} Ở góc nhìn mã nguồn, chức năng đăng nhập được đại diện bởi hàm \texttt{login(\{ email, password \})} trong \texttt{authService}. Hàm tiếp nhận thông tin đăng nhập, tìm người dùng theo email, kiểm tra mật khẩu và trả về thông tin người dùng kèm token nếu xác thực thành công.
+\textbf{Mô tả yêu cầu.} Ở góc nhìn mã nguồn, chức năng đăng nhập được đại diện bởi hàm \code{login(\{ email, password \})} trong \code{authService}. Hàm tiếp nhận thông tin đăng nhập, tìm người dùng theo email, kiểm tra mật khẩu và trả về thông tin người dùng kèm token nếu xác thực thành công.
 
-\textbf{Hàm được chọn để phân tích.} Nhóm chọn hàm \texttt{login(\{ email, password \})} để thực hiện phân tích phủ nhánh cho chức năng đăng nhập.
+\textbf{Hàm được chọn để phân tích.} Nhóm chọn hàm \code{login(\{ email, password \})} để thực hiện phân tích phủ nhánh cho chức năng đăng nhập.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{image/anhcodechuongwhitebox/codelogin.png}
-	\caption{Mã nguồn hàm \texttt{login} dùng cho phân tích}
+	\caption{Mã nguồn hàm \code{login} dùng cho phân tích}
 	\label{fig:login-code}
 \end{figure}
 
-\textbf{Cơ sở chọn tiêu chí.} Hàm \texttt{login} phù hợp với \textbf{phủ nhánh} vì cấu trúc xử lý ngắn, rõ ràng và gồm ba nhánh nghiệp vụ chính:
+\textbf{Cơ sở chọn tiêu chí.} Hàm \code{login} phù hợp với \textbf{phủ nhánh} vì cấu trúc xử lý ngắn, rõ ràng và gồm ba nhánh nghiệp vụ chính:
 \begin{itemize}
 	\item không tìm thấy người dùng theo email
 	\item tìm thấy người dùng nhưng mật khẩu không khớp
@@ -105,12 +105,12 @@
 
 \textbf{Các nhánh chính cần bao phủ.}
 \begin{itemize}
-	\item \textbf{B1}: \texttt{!user}
-	\item \textbf{B2}: \texttt{!isMatch}
+	\item \textbf{B1}: \code{!user}
+	\item \textbf{B2}: \code{!isMatch}
 	\item \textbf{B3}: đăng nhập thành công, tạo token và trả về kết quả
 \end{itemize}
 
-\textbf{Sơ đồ luồng xử lý chính của hàm \texttt{login}.}
+\textbf{Sơ đồ luồng xử lý chính của hàm \code{login}.}
 \begin{figure}[H]
 	\centering
 	\resizebox{0.72\textwidth}{!}{
@@ -140,7 +140,7 @@
 			\draw[line] (match) -- node[yesno, above] {Không} (errpass);
 			\draw[line] (token) -- (success);
 		\end{tikzpicture}}
-	\caption{Sơ đồ luồng xử lý chính của hàm \texttt{login}}
+	\caption{Sơ đồ luồng xử lý chính của hàm \code{login}}
 	\label{fig:login-flow}
 \end{figure}
 
@@ -152,14 +152,14 @@
 		\hline
 		\textbf{Nhánh} & \textbf{Biểu thức trong mã}            & \textbf{Test case đại diện để bao phủ} & \textbf{Kết quả mong đợi}              \\
 		\hline
-		B1             & \texttt{!user}                         & Email không tồn tại trong hệ thống.    & Ném lỗi đăng nhập sai thông tin        \\
+		B1             & \code{!user}                         & Email không tồn tại trong hệ thống.    & Ném lỗi đăng nhập sai thông tin        \\
 		\hline
-		B2             & \texttt{!isMatch}                      & Email tồn tại nhưng mật khẩu sai.      & Ném lỗi đăng nhập sai thông tin        \\
+		B2             & \code{!isMatch}                      & Email tồn tại nhưng mật khẩu sai.      & Ném lỗi đăng nhập sai thông tin        \\
 		\hline
-		B3             & Nhánh thành công sau khi mật khẩu khớp & Email tồn tại và mật khẩu đúng.        & Trả về \texttt{user} và \texttt{token} \\
+		B3             & Nhánh thành công sau khi mật khẩu khớp & Email tồn tại và mật khẩu đúng.        & Trả về \code{user} và \code{token} \\
 		\hline
 	\end{tabularx}
-	\caption{Các nhánh cần bao phủ trong hàm \texttt{login}}
+	\caption{Các nhánh cần bao phủ trong hàm \code{login}}
 	\label{tab:login-branch-coverage}
 \end{table}
 
@@ -178,25 +178,25 @@
 		TC03        & Email đúng và mật khẩu đúng        & B3                       \\
 		\hline
 	\end{tabularx}
-	\caption{Bộ test case tương ứng với hàm \texttt{login}}
+	\caption{Bộ test case tương ứng với hàm \code{login}}
 	\label{tab:login-testcases}
 \end{table}
 
 \subsection{Phủ điều kiện -- Chức năng profile}
-\textbf{Mô tả yêu cầu.} Trong phạm vi tài liệu hiện có, chức năng \texttt{/profile} được thể hiện rõ nhất qua bộ test tổng hợp tại \texttt{profile.md}. Người dùng đã đăng nhập có thể cập nhật họ tên, số điện thoại, địa chỉ và phần giới thiệu cá nhân; hệ thống chỉ cho phép lưu khi dữ liệu hợp lệ, đồng thời hiển thị thông báo lỗi tương ứng nếu dữ liệu đầu vào vi phạm ràng buộc hoặc nếu request cập nhật thất bại ở phía server.
+\textbf{Mô tả yêu cầu.} Trong phạm vi tài liệu hiện có, chức năng \code{/profile} được thể hiện rõ nhất qua bộ test tổng hợp tại \code{profile.md}. Người dùng đã đăng nhập có thể cập nhật họ tên, số điện thoại, địa chỉ và phần giới thiệu cá nhân; hệ thống chỉ cho phép lưu khi dữ liệu hợp lệ, đồng thời hiển thị thông báo lỗi tương ứng nếu dữ liệu đầu vào vi phạm ràng buộc hoặc nếu request cập nhật thất bại ở phía server.
 
-\textbf{Cơ sở chọn tiêu chí.} Tiêu chí \textbf{phủ điều kiện} phù hợp với chức năng profile vì luồng xử lý cập nhật phụ thuộc vào nhiều điều kiện kiểm tra riêng lẻ trước khi gửi request, ví dụ tên không được rỗng, số điện thoại phải đúng định dạng và phần \texttt{bio} không vượt quá giới hạn ký tự. Theo định nghĩa phủ điều kiện trong học phần, mỗi điều kiện con cần được thực hiện ít nhất một lần ở trạng thái \texttt{true} và ít nhất một lần ở trạng thái \texttt{false}. Do workspace báo cáo hiện tại không chứa trực tiếp mã nguồn form profile, phần phân tích dưới đây được suy ra từ các tình huống kiểm thử đã được xác nhận trong \texttt{profile.md}.
+\textbf{Cơ sở chọn tiêu chí.} Tiêu chí \textbf{phủ điều kiện} phù hợp với chức năng profile vì luồng xử lý cập nhật phụ thuộc vào nhiều điều kiện kiểm tra riêng lẻ trước khi gửi request, ví dụ tên không được rỗng, số điện thoại phải đúng định dạng và phần \code{bio} không vượt quá giới hạn ký tự. Theo định nghĩa phủ điều kiện trong học phần, mỗi điều kiện con cần được thực hiện ít nhất một lần ở trạng thái \code{true} và ít nhất một lần ở trạng thái \code{false}. Do workspace báo cáo hiện tại không chứa trực tiếp mã nguồn form profile, phần phân tích dưới đây được suy ra từ các tình huống kiểm thử đã được xác nhận trong \code{profile.md}.
 
-\textbf{Phân tích.} Dựa trên các test \texttt{TC-PROFILE-04}, \texttt{TC-PROFILE-05}, \texttt{TC-PROFILE-06}, \texttt{TC-PROFILE-09} và \texttt{TC-PROFILE-10}, nhóm xác định các điều kiện xử lý chính của luồng cập nhật profile như sau:
+\textbf{Phân tích.} Dựa trên các test \code{TC-PROFILE-04}, \code{TC-PROFILE-05}, \code{TC-PROFILE-06}, \code{TC-PROFILE-09} và \code{TC-PROFILE-10}, nhóm xác định các điều kiện xử lý chính của luồng cập nhật profile như sau:
 
 \begin{itemize}
-	\item \textbf{C1}: \texttt{name == ""} -- trường họ tên bị bỏ trống.
-	\item \textbf{C2}: \texttt{phone invalid} -- số điện thoại không đúng định dạng hợp lệ.
-	\item \textbf{C3}: \texttt{bio.length > 300} -- phần giới thiệu vượt quá giới hạn cho phép.
-	\item \textbf{C4}: \texttt{server returns error} -- request cập nhật hồ sơ trả lỗi từ server.
+	\item \textbf{C1}: \code{name == ""} -- trường họ tên bị bỏ trống.
+	\item \textbf{C2}: \code{phone invalid} -- số điện thoại không đúng định dạng hợp lệ.
+	\item \textbf{C3}: \code{bio.length > 300} -- phần giới thiệu vượt quá giới hạn cho phép.
+	\item \textbf{C4}: \code{server returns error} -- request cập nhật hồ sơ trả lỗi từ server.
 \end{itemize}
 
-Nếu một trong các điều kiện \textbf{C1}, \textbf{C2}, \textbf{C3} xảy ra, hệ thống phải chặn submit và hiển thị thông báo lỗi tương ứng. Khi ba điều kiện validate đầu vào đều sai, request cập nhật được gửi đi; nếu \textbf{C4} xảy ra thì hiển thị lỗi submit, ngược lại hệ thống cập nhật thành công và gửi đúng payload đến API \texttt{PATCH /api/users/me}. Riêng điều kiện \texttt{email readonly} được ghi nhận trong tài liệu kiểm thử như một ràng buộc giao diện độc lập, nhưng không được đưa vào bộ phủ điều kiện chính vì artifact hiện có chỉ thể hiện một trạng thái duy nhất là không cho chỉnh sửa.
+Nếu một trong các điều kiện \textbf{C1}, \textbf{C2}, \textbf{C3} xảy ra, hệ thống phải chặn submit và hiển thị thông báo lỗi tương ứng. Khi ba điều kiện validate đầu vào đều sai, request cập nhật được gửi đi; nếu \textbf{C4} xảy ra thì hiển thị lỗi submit, ngược lại hệ thống cập nhật thành công và gửi đúng payload đến API \code{PATCH /api/users/me}. Riêng điều kiện \code{email readonly} được ghi nhận trong tài liệu kiểm thử như một ràng buộc giao diện độc lập, nhưng không được đưa vào bộ phủ điều kiện chính vì artifact hiện có chỉ thể hiện một trạng thái duy nhất là không cho chỉnh sửa.
 
 \begin{table}[H]
 	\centering
@@ -206,13 +206,13 @@ Nếu một trong các điều kiện \textbf{C1}, \textbf{C2}, \textbf{C3} xả
 		\hline
 		\textbf{Điều kiện} & \textbf{Biểu thức suy ra từ logic xử lý} & \textbf{Ý nghĩa}                              & \textbf{Kết quả khi điều kiện đúng}                  \\
 		\hline
-		C1                 & \texttt{name == ""}                      & Người dùng để trống trường họ tên             & Báo lỗi ``Vui lòng nhập họ tên''                     \\
+		C1                 & \code{name == ""}                      & Người dùng để trống trường họ tên             & Báo lỗi ``Vui lòng nhập họ tên''                     \\
 		\hline
-		C2                 & \texttt{phone invalid}                   & Người dùng nhập số điện thoại sai định dạng   & Báo lỗi ``Số điện thoại không hợp lệ''               \\
+		C2                 & \code{phone invalid}                   & Người dùng nhập số điện thoại sai định dạng   & Báo lỗi ``Số điện thoại không hợp lệ''               \\
 		\hline
-		C3                 & \texttt{bio.length > 300}                & Nội dung giới thiệu vượt giới hạn ký tự       & Báo lỗi ``Giới thiệu không được vượt quá 300 ký tự'' \\
+		C3                 & \code{bio.length > 300}                & Nội dung giới thiệu vượt giới hạn ký tự       & Báo lỗi ``Giới thiệu không được vượt quá 300 ký tự'' \\
 		\hline
-		C4                 & \texttt{server returns error}            & Request cập nhật hồ sơ thất bại ở phía server & Báo lỗi ``Không thể cập nhật hồ sơ''                 \\
+		C4                 & \code{server returns error}            & Request cập nhật hồ sơ thất bại ở phía server & Báo lỗi ``Không thể cập nhật hồ sơ''                 \\
 		\hline
 	\end{tabularx}
 	\caption{Các điều kiện cần bao phủ trong luồng cập nhật profile}
@@ -229,11 +229,11 @@ Nếu một trong các điều kiện \textbf{C1}, \textbf{C2}, \textbf{C3} xả
 		\hline
 		TC1         & T           & F           & F           & -           & Name rỗng, phone hợp lệ, bio hợp lệ                      & Hệ thống chặn submit và báo lỗi họ tên                     \\
 		\hline
-		TC2         & F           & T           & F           & -           & Name hợp lệ, phone = \texttt{12345}, bio hợp lệ          & Hệ thống chặn submit và báo lỗi số điện thoại              \\
+		TC2         & F           & T           & F           & -           & Name hợp lệ, phone = \code{12345}, bio hợp lệ          & Hệ thống chặn submit và báo lỗi số điện thoại              \\
 		\hline
 		TC3         & F           & F           & T           & -           & Name hợp lệ, phone hợp lệ, bio = 301 ký tự               & Hệ thống chặn submit và báo lỗi bio vượt giới hạn          \\
 		\hline
-		TC4         & F           & F           & F           & T           & Dữ liệu hợp lệ, server trả lỗi \texttt{500} khi cập nhật & Hiển thị thông báo ``Không thể cập nhật hồ sơ''            \\
+		TC4         & F           & F           & F           & T           & Dữ liệu hợp lệ, server trả lỗi \code{500} khi cập nhật & Hiển thị thông báo ``Không thể cập nhật hồ sơ''            \\
 		\hline
 		TC5         & F           & F           & F           & F           & Dữ liệu hợp lệ, server xử lý thành công                  & Hiển thị thông báo cập nhật thành công và gửi đúng payload \\
 		\hline
@@ -242,9 +242,72 @@ Nếu một trong các điều kiện \textbf{C1}, \textbf{C2}, \textbf{C3} xả
 	\label{tab:profile-condition-coverage}
 \end{table}
 
-\textbf{Nhận xét.} Với năm test case trên, mỗi điều kiện \textbf{C1}, \textbf{C2}, \textbf{C3}, \textbf{C4} đều xuất hiện ít nhất một lần ở trạng thái đúng và ít nhất một lần ở trạng thái sai, do đó đáp ứng mục tiêu phủ điều kiện theo nội dung lý thuyết của học phần. Bộ test này đồng thời giữ được sự nhất quán với các kịch bản đã có trong \texttt{profile.md}, thuận tiện cho việc đối chiếu giữa phần black-box và white-box của báo cáo.
+\textbf{Nhận xét.} Với năm test case trên, mỗi điều kiện \textbf{C1}, \textbf{C2}, \textbf{C3}, \textbf{C4} đều xuất hiện ít nhất một lần ở trạng thái đúng và ít nhất một lần ở trạng thái sai, do đó đáp ứng mục tiêu phủ điều kiện theo nội dung lý thuyết của học phần. Bộ test này đồng thời giữ được sự nhất quán với các kịch bản đã có trong \code{profile.md}, thuận tiện cho việc đối chiếu giữa phần black-box và white-box của báo cáo.
 
 \subsection{Phủ đường -- Chức năng inventory}
-\textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
+\textbf{Mô tả yêu cầu.} Tính năng \code{inventory} cho phép Admin theo dõi số lượng tồn kho của các sản phẩm, cập nhật tồn kho, hiển thị các trạng thái tồn kho như hết hàng, sắp hết hoặc ổn định, đồng thời tích hợp thông tin này với trang chi tiết sản phẩm phía người dùng. Các yêu cầu chính gồm hiển thị danh sách sản phẩm kèm dữ liệu tồn kho, cập nhật số lượng qua modal có validate đầu vào, xử lý ba ngưỡng \code{quantity = 0}, \code{quantity <= 5}, \code{quantity > 5}, kiểm soát quyền truy cập chỉ dành cho Admin và hỗ trợ hiển thị trạng thái tồn kho ở giao diện người dùng.
 
-\textbf{Phân tích.} Nội dung sẽ được bổ sung sau.
+\textbf{Cơ sở chọn tiêu chí.} Đối với phân hệ inventory, tiêu chí \textbf{phủ đường} phù hợp vì luồng xử lý backend không chỉ có một nhánh điều kiện đơn lẻ mà gồm nhiều đường đi khác nhau tùy theo dữ liệu số lượng đầu vào, trạng thái tồn tại của sản phẩm và ngưỡng tồn kho cần phân loại. Trong phạm vi báo cáo hiện tại, phần phân tích này được suy ra từ các hàm và nhóm test đã được ghi nhận ở Chương 4 như \code{normalizeQuantity}, \code{createProduct}, \code{updateProduct} và các kiểm tra mức tồn kho.
+
+\textbf{Phân tích.} Để đảm bảo chất lượng code backend của module inventory, nhóm thực hiện phủ đường ở mức các đường xử lý chính, tức là kiểm tra đầy đủ những trường hợp điển hình có thể xảy ra trong quá trình chuẩn hóa số lượng, tạo hoặc cập nhật sản phẩm và xác định trạng thái tồn kho. Từ các nhóm test đã có, có thể rút ra các đường đi đại diện sau:
+
+\begin{itemize}
+	\item \textbf{P1}: \code{normalizeQuantity} nhận giá trị nguyên không âm hợp lệ và hệ thống chấp nhận xử lý bình thường.
+	\item \textbf{P2}: giá trị số lượng để trống trong ngữ cảnh không bắt buộc, hệ thống trả về giá trị mặc định phù hợp thay vì báo lỗi.
+	\item \textbf{P3}: dữ liệu đầu vào không hợp lệ như số âm, số thập phân, chuỗi không hợp lệ, \code{Infinity} hoặc \code{NaN}, hệ thống từ chối và trả về lỗi validate.
+	\item \textbf{P4}: \code{createProduct} hoặc \code{updateProduct} nhận số lượng hợp lệ, bao gồm cả trường hợp cập nhật về \code{0}, và thao tác được thực hiện thành công.
+	\item \textbf{P5}: thao tác cập nhật thất bại do sản phẩm không tồn tại hoặc dữ liệu số lượng bắt buộc không hợp lệ.
+	\item \textbf{P6}: hệ thống phân loại trạng thái tồn kho theo ba mức \code{quantity = 0}, \code{quantity <= 5} và \code{quantity > 5} để làm cơ sở hiển thị hết hàng, sắp hết hoặc ổn định ở tầng giao diện.
+\end{itemize}
+
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.25}
+	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.4cm}|>{\raggedright\arraybackslash}p{5.0cm}|>{\raggedright\arraybackslash}X|}
+		\hline
+		\textbf{Đường} & \textbf{Mô tả đường đi / điều kiện kích hoạt}                                                               & \textbf{Kết quả mong đợi}                                                                        \\
+		\hline
+		P1             & Nhập \code{quantity} là số nguyên không âm hợp lệ.                                                        & Hệ thống chấp nhận giá trị và tiếp tục xử lý ở các bước tạo hoặc cập nhật sản phẩm.              \\
+		\hline
+		P2             & Để trống \code{quantity} trong trường hợp không bắt buộc.                                                 & Hàm chuẩn hóa trả về giá trị mặc định hoặc \code{undefined}, không phát sinh lỗi sai ngữ cảnh. \\
+		\hline
+		P3             & Nhập giá trị không hợp lệ như số âm, số thập phân, chuỗi không hợp lệ, \code{Infinity} hoặc \code{NaN}. & Hệ thống chặn xử lý và ném lỗi validate tương ứng.                                               \\
+		\hline
+		P4             & Tạo mới hoặc cập nhật sản phẩm với \code{quantity} hợp lệ, kể cả trường hợp cập nhật về \code{0}.       & Dữ liệu được lưu thành công và trạng thái tồn kho được cập nhật đúng.                            \\
+		\hline
+		P5             & Thực hiện cập nhật khi sản phẩm không tồn tại hoặc khi trường số lượng bắt buộc bị sai.                     & Hệ thống trả về lỗi, không ghi đè dữ liệu không hợp lệ.                                          \\
+		\hline
+		P6             & Kiểm tra ngưỡng tồn kho theo \code{0}, nhỏ hoặc bằng \code{5}, và lớn hơn \code{5}.                   & Hệ thống phân loại đúng trạng thái hết hàng, sắp hết và ổn định để phục vụ hiển thị.             \\
+		\hline
+	\end{tabularx}
+	\caption{Các đường xử lý chính của chức năng inventory}
+	\label{tab:inventory-path-list}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.25}
+	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.3cm}|>{\centering\arraybackslash}p{1.3cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{4.2cm}|}
+		\hline
+		\textbf{TC} & \textbf{Đường phủ} & \textbf{Dữ liệu / tình huống}                                                            & \textbf{Kết quả mong đợi}                                             \\
+		\hline
+		TC1         & P1                 & \code{normalizeQuantity} nhận số nguyên không âm hợp lệ.                               & Giá trị được chấp nhận và trả về đúng kiểu mong muốn.                 \\
+		\hline
+		TC2         & P2                 & Để trống \code{quantity} trong ngữ cảnh không bắt buộc khi tạo sản phẩm.               & Hệ thống dùng giá trị mặc định phù hợp, không phát sinh lỗi.          \\
+		\hline
+		TC3         & P3                 & Nhập số âm, số thập phân, chuỗi không hợp lệ, \code{Infinity} hoặc \code{NaN}.       & Hệ thống chặn thao tác và báo lỗi validate.                           \\
+		\hline
+		TC4         & P4                 & Tạo mới sản phẩm với số lượng hợp lệ hoặc cập nhật số lượng về \code{0}.               & Thao tác thành công, dữ liệu tồn kho được cập nhật đúng.              \\
+		\hline
+		TC5         & P5                 & Gọi \code{updateProduct} với sản phẩm không tồn tại hoặc dữ liệu thiếu bắt buộc.       & Hệ thống trả về lỗi tương ứng và không cập nhật dữ liệu sai.          \\
+		\hline
+		TC6         & P6                 & Kiểm tra ba ngưỡng \code{quantity = 0}, \code{quantity <= 5}, \code{quantity > 5}. & Hệ thống phân loại chính xác trạng thái hết hàng, sắp hết và ổn định. \\
+		\hline
+	\end{tabularx}
+	\caption{Bộ test case đại diện cho phủ đường của chức năng inventory}
+	\label{tab:inventory-path-testcases}
+\end{table}
+
+\textbf{Nhận xét.} Với sáu đường xử lý đại diện trên, phần inventory đã bao phủ được các luồng chính liên quan tới chuẩn hóa dữ liệu số lượng, tạo hoặc cập nhật tồn kho, xử lý lỗi và phân loại trạng thái tồn kho. Mức phủ này phù hợp với các bằng chứng thực thi đã được trình bày ở Chương 4, đồng thời đủ để cho thấy tiêu chí phủ đường có thể áp dụng hiệu quả cho một phân hệ backend có nhiều trường hợp xử lý dữ liệu đầu vào khác nhau.
