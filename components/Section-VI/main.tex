@@ -34,7 +34,7 @@
 
 \textbf{Độ phức tạp Cyclomatic:}
 \[
-V(G) = P + 1 = 14 + 1 = 15
+	V(G) = P + 1 = 14 + 1 = 15
 \]
 
 \textbf{Suy ra số test case.} Từ giá trị \(V(G)=15\), nhóm xác định bộ test case tương ứng như sau:
@@ -42,44 +42,44 @@ V(G) = P + 1 = 14 + 1 = 15
 {\scriptsize
 \renewcommand{\arraystretch}{1.2}
 \begin{longtable}{|>{\centering\arraybackslash}p{1.1cm}|>{\raggedright\arraybackslash}p{2.8cm}|>{\raggedright\arraybackslash}p{6.0cm}|>{\raggedright\arraybackslash}p{4.1cm}|}
-	\caption{Phân tích test case suy ra từ độ phức tạp Cyclomatic của hàm \texttt{validateCoupon}}\label{tab:validate-coupon-cyclomatic-testcases} \\
+	\caption{Phân tích test case suy ra từ độ phức tạp Cyclomatic của hàm \texttt{validateCoupon}}\label{tab:validate-coupon-cyclomatic-testcases}                                                                                                                                                                                                                                              \\
 	\hline
-	\textbf{STT TC} & \textbf{Đường dẫn} & \textbf{Đầu vào} & \textbf{Đầu ra mong muốn} \\
+	\textbf{STT TC} & \textbf{Đường dẫn}                                                        & \textbf{Đầu vào}                                                                                                                                                                                                     & \textbf{Đầu ra mong muốn}                                              \\
 	\hline
 	\endfirsthead
 	\hline
-	\textbf{STT TC} & \textbf{Đường dẫn} & \textbf{Đầu vào} & \textbf{Đầu ra mong muốn} \\
+	\textbf{STT TC} & \textbf{Đường dẫn}                                                        & \textbf{Đầu vào}                                                                                                                                                                                                     & \textbf{Đầu ra mong muốn}                                              \\
 	\hline
 	\endhead
-	TC01 & \texttt{1: T} & \texttt{code = ""}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Coupon code is required} \\
+	TC01            & \texttt{1: T}                                                             & \texttt{code = ""}, \texttt{subtotal = 100000}, \texttt{userId = null}                                                                                                                                               & Quăng lỗi \texttt{Coupon code is required}                             \\
 	\hline
-	TC02 & \texttt{1: F, 2: T} & \texttt{code = "XYZ"}, \texttt{coupon = null}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi không tồn tại} \\
+	TC02            & \texttt{1: F, 2: T}                                                       & \texttt{code = "XYZ"}, \texttt{coupon = null}, \texttt{subtotal = 100000}, \texttt{userId = null}                                                                                                                    & Quăng lỗi \texttt{Mã khuyến mãi không tồn tại}                         \\
 	\hline
-	TC03 & \texttt{1: F, 2: F, 3: T} & \texttt{code = "TEST10"}, coupon tồn tại, \texttt{isActive = false}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi đã bị vô hiệu hóa} \\
+	TC03            & \texttt{1: F, 2: F, 3: T}                                                 & \texttt{code = "TEST10"}, coupon tồn tại, \texttt{isActive = false}, \texttt{subtotal = 100000}, \texttt{userId = null}                                                                                              & Quăng lỗi \texttt{Mã khuyến mãi đã bị vô hiệu hóa}                     \\
 	\hline
-	TC04 & \texttt{1: F, 2: F, 3: F, 4.1: T, 4.2: T} & \texttt{code = "TEST10"}, coupon tồn tại, \texttt{isActive = true}, \texttt{validFrom} ở tương lai, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi chưa có hiệu lực} \\
+	TC04            & \texttt{1: F, 2: F, 3: F, 4.1: T, 4.2: T}                                 & \texttt{code = "TEST10"}, coupon tồn tại, \texttt{isActive = true}, \texttt{validFrom} ở tương lai, \texttt{subtotal = 100000}, \texttt{userId = null}                                                               & Quăng lỗi \texttt{Mã khuyến mãi chưa có hiệu lực}                      \\
 	\hline
-	TC05 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: T, 5.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil} đã qua hạn, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi đã hết hạn} \\
+	TC05            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: T, 5.2: T}                         & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil} đã qua hạn, \texttt{subtotal = 100000}, \texttt{userId = null}                                                                              & Quăng lỗi \texttt{Mã khuyến mãi đã hết hạn}                            \\
 	\hline
-	TC06 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: T, 6.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = 10}, \texttt{usageCount = 10}, \texttt{subtotal = 100000}, \texttt{userId = null} & Quăng lỗi \texttt{Mã khuyến mãi đã hết lượt sử dụng} \\
+	TC06            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: T, 6.2: T}                 & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = 10}, \texttt{usageCount = 10}, \texttt{subtotal = 100000}, \texttt{userId = null}                              & Quăng lỗi \texttt{Mã khuyến mãi đã hết lượt sử dụng}                   \\
 	\hline
-	TC07 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: T, 8: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = "U1"}, \texttt{perUserLimit = 1}, \texttt{usedBy = ["U1"]}, \texttt{subtotal = 100000} & Quăng lỗi \texttt{Bạn đã sử dụng mã khuyến mãi này} \\
+	TC07            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: T, 8: T}   & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = "U1"}, \texttt{perUserLimit = 1}, \texttt{usedBy = ["U1"]}, \texttt{subtotal = 100000} & Quăng lỗi \texttt{Bạn đã sử dụng mã khuyến mãi này}                    \\
 	\hline
-	TC08 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: T, 9.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{minimumOrderAmount = 100000}, \texttt{subtotal = 50000} & Quăng lỗi \texttt{Đơn hàng tối thiểu 100.000đ để sử dụng mã này} \\
+	TC08            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: T, 9.2: T} & \texttt{code = "TEST10"}, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{minimumOrderAmount = 100000}, \texttt{subtotal = 50000}                 & Quăng lỗi \texttt{Đơn hàng tối thiểu 100.000đ để sử dụng mã này}       \\
 	\hline
-	TC09 & \texttt{1: F, 2: F, 3: F, 4.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null} & Bỏ qua cụm kiểm tra \texttt{validFrom}, đi tiếp sang các điều kiện sau \\
+	TC09            & \texttt{1: F, 2: F, 3: F, 4.1: F}                                         & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null}                                                              & Bỏ qua cụm kiểm tra \texttt{validFrom}, đi tiếp sang các điều kiện sau \\
 	\hline
-	TC10 & \texttt{1: F, 2: F, 3: F, 4.1: T, 4.2: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom} ở quá khứ, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null} & Không lỗi tại cụm \texttt{validFrom}, đi tiếp sang các điều kiện sau \\
+	TC10            & \texttt{1: F, 2: F, 3: F, 4.1: T, 4.2: F}                                 & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom} ở quá khứ, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null}                                                           & Không lỗi tại cụm \texttt{validFrom}, đi tiếp sang các điều kiện sau   \\
 	\hline
-	TC11 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null} & Bỏ qua cụm kiểm tra \texttt{validUntil}, đi tiếp \\
+	TC11            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F}                                 & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, các điều kiện sau không vi phạm, \texttt{subtotal = 200000}, \texttt{userId = null}                                  & Bỏ qua cụm kiểm tra \texttt{validUntil}, đi tiếp                       \\
 	\hline
-	TC12 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{subtotal = 200000}, \texttt{userId = null} & Bỏ qua cụm kiểm tra giới hạn hệ thống, đi tiếp \\
+	TC12            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F}                         & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{subtotal = 200000}, \texttt{userId = null}                                       & Bỏ qua cụm kiểm tra giới hạn hệ thống, đi tiếp                         \\
 	\hline
-	TC13 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{subtotal = 200000} & Bỏ qua cụm kiểm tra theo user, đi tiếp \\
+	TC13            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F}                 & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = null}, \texttt{subtotal = 200000}                                       & Bỏ qua cụm kiểm tra theo user, đi tiếp                                 \\
 	\hline
-	TC14 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = "U1"}, \texttt{perUserLimit = null}, \texttt{subtotal = 200000} & Bỏ qua kiểm tra \texttt{userUsageCount}, đi tiếp \\
+	TC14            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: T, 7.2: F}         & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{validFrom = null}, \texttt{validUntil = null}, \texttt{usageLimit = null}, \texttt{userId = "U1"}, \texttt{perUserLimit = null}, \texttt{subtotal = 200000}         & Bỏ qua kiểm tra \texttt{userUsageCount}, đi tiếp                       \\
 	\hline
-	TC15 & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: F} & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{minimumOrderAmount = 0}, \texttt{subtotal = 200000} & Mã hợp lệ, hàm trả về kết quả với \texttt{valid = true} \\
+	TC15            & \texttt{1: F, 2: F, 3: F, 4.1: F, 5.1: F, 6.1: F, 7.1: F, 9.1: F}         & \texttt{code = "TEST10"}, coupon hợp lệ, \texttt{minimumOrderAmount = 0}, \texttt{subtotal = 200000}                                                                                                                 & Mã hợp lệ, hàm trả về kết quả với \texttt{valid = true}                \\
 	\hline
 \end{longtable}
 }
@@ -114,32 +114,32 @@ V(G) = P + 1 = 14 + 1 = 15
 \begin{figure}[H]
 	\centering
 	\resizebox{0.72\textwidth}{!}{
-	\begin{tikzpicture}[
-		node distance=8mm and 12mm,
-		proc/.style={rectangle, rounded corners, draw, align=center, minimum width=34mm, minimum height=8mm},
-		dec/.style={diamond, draw, aspect=2, align=center, inner sep=1pt, text width=24mm},
-		line/.style={->, thick},
-		yesno/.style={font=\footnotesize}
-	]
-	\node[proc] (start) {Bắt đầu};
-	\node[proc, below=of start] (find) {Tìm user theo email};
-	\node[dec, below=of find] (user) {Tồn tại\\user?};
-	\node[proc, right=23mm of user] (erruser) {Lỗi:\\Email hoặc mật khẩu\\không đúng};
-	\node[proc, below=of user] (compare) {So sánh mật khẩu\\với bcrypt};
-	\node[dec, below=of compare] (match) {Mật khẩu\\khớp?};
-	\node[proc, right=23mm of match] (errpass) {Lỗi:\\Email hoặc mật khẩu\\không đúng};
-	\node[proc, below=of match] (token) {Tạo token};
-	\node[proc, below=of token] (success) {Trả về user\\và token};
+		\begin{tikzpicture}[
+				node distance=8mm and 12mm,
+				proc/.style={rectangle, rounded corners, draw, align=center, minimum width=34mm, minimum height=8mm},
+				dec/.style={diamond, draw, aspect=2, align=center, inner sep=1pt, text width=24mm},
+				line/.style={->, thick},
+				yesno/.style={font=\footnotesize}
+			]
+			\node[proc] (start) {Bắt đầu};
+			\node[proc, below=of start] (find) {Tìm user theo email};
+			\node[dec, below=of find] (user) {Tồn tại\\user?};
+			\node[proc, right=23mm of user] (erruser) {Lỗi:\\Email hoặc mật khẩu\\không đúng};
+			\node[proc, below=of user] (compare) {So sánh mật khẩu\\với bcrypt};
+			\node[dec, below=of compare] (match) {Mật khẩu\\khớp?};
+			\node[proc, right=23mm of match] (errpass) {Lỗi:\\Email hoặc mật khẩu\\không đúng};
+			\node[proc, below=of match] (token) {Tạo token};
+			\node[proc, below=of token] (success) {Trả về user\\và token};
 
-	\draw[line] (start) -- (find);
-	\draw[line] (find) -- (user);
-	\draw[line] (user) -- node[yesno, left] {Có} (compare);
-	\draw[line] (user) -- node[yesno, above] {Không} (erruser);
-	\draw[line] (compare) -- (match);
-	\draw[line] (match) -- node[yesno, left] {Có} (token);
-	\draw[line] (match) -- node[yesno, above] {Không} (errpass);
-	\draw[line] (token) -- (success);
-	\end{tikzpicture}}
+			\draw[line] (start) -- (find);
+			\draw[line] (find) -- (user);
+			\draw[line] (user) -- node[yesno, left] {Có} (compare);
+			\draw[line] (user) -- node[yesno, above] {Không} (erruser);
+			\draw[line] (compare) -- (match);
+			\draw[line] (match) -- node[yesno, left] {Có} (token);
+			\draw[line] (match) -- node[yesno, above] {Không} (errpass);
+			\draw[line] (token) -- (success);
+		\end{tikzpicture}}
 	\caption{Sơ đồ luồng xử lý chính của hàm \texttt{login}}
 	\label{fig:login-flow}
 \end{figure}
@@ -150,13 +150,13 @@ V(G) = P + 1 = 14 + 1 = 15
 	\renewcommand{\arraystretch}{1.25}
 	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{2.0cm}|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{2.6cm}|}
 		\hline
-		\textbf{Nhánh} & \textbf{Biểu thức trong mã} & \textbf{Test case đại diện để bao phủ} & \textbf{Kết quả mong đợi} \\
+		\textbf{Nhánh} & \textbf{Biểu thức trong mã}            & \textbf{Test case đại diện để bao phủ} & \textbf{Kết quả mong đợi}              \\
 		\hline
-		B1 & \texttt{!user} & Email không tồn tại trong hệ thống. & Ném lỗi đăng nhập sai thông tin \\
+		B1             & \texttt{!user}                         & Email không tồn tại trong hệ thống.    & Ném lỗi đăng nhập sai thông tin        \\
 		\hline
-		B2 & \texttt{!isMatch} & Email tồn tại nhưng mật khẩu sai. & Ném lỗi đăng nhập sai thông tin \\
+		B2             & \texttt{!isMatch}                      & Email tồn tại nhưng mật khẩu sai.      & Ném lỗi đăng nhập sai thông tin        \\
 		\hline
-		B3 & Nhánh thành công sau khi mật khẩu khớp & Email tồn tại và mật khẩu đúng. & Trả về \texttt{user} và \texttt{token} \\
+		B3             & Nhánh thành công sau khi mật khẩu khớp & Email tồn tại và mật khẩu đúng.        & Trả về \texttt{user} và \texttt{token} \\
 		\hline
 	\end{tabularx}
 	\caption{Các nhánh cần bao phủ trong hàm \texttt{login}}
@@ -169,13 +169,13 @@ V(G) = P + 1 = 14 + 1 = 15
 	\renewcommand{\arraystretch}{1.25}
 	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{3.6cm}|}
 		\hline
-		\textbf{TC} & \textbf{Dữ liệu / tình huống} & \textbf{Nhánh tương ứng} \\
+		\textbf{TC} & \textbf{Dữ liệu / tình huống}      & \textbf{Nhánh tương ứng} \\
 		\hline
-		TC01 & Email không tồn tại trong hệ thống & B1 \\
+		TC01        & Email không tồn tại trong hệ thống & B1                       \\
 		\hline
-		TC02 & Email đúng nhưng mật khẩu sai & B2 \\
+		TC02        & Email đúng nhưng mật khẩu sai      & B2                       \\
 		\hline
-		TC03 & Email đúng và mật khẩu đúng & B3 \\
+		TC03        & Email đúng và mật khẩu đúng        & B3                       \\
 		\hline
 	\end{tabularx}
 	\caption{Bộ test case tương ứng với hàm \texttt{login}}
@@ -183,9 +183,66 @@ V(G) = P + 1 = 14 + 1 = 15
 \end{table}
 
 \subsection{Phủ điều kiện -- Chức năng profile}
-\textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
+\textbf{Mô tả yêu cầu.} Trong phạm vi tài liệu hiện có, chức năng \texttt{/profile} được thể hiện rõ nhất qua bộ test tổng hợp tại \texttt{profile.md}. Người dùng đã đăng nhập có thể cập nhật họ tên, số điện thoại, địa chỉ và phần giới thiệu cá nhân; hệ thống chỉ cho phép lưu khi dữ liệu hợp lệ, đồng thời hiển thị thông báo lỗi tương ứng nếu dữ liệu đầu vào vi phạm ràng buộc hoặc nếu request cập nhật thất bại ở phía server.
 
-\textbf{Phân tích.} Nội dung sẽ được bổ sung sau.
+\textbf{Cơ sở chọn tiêu chí.} Tiêu chí \textbf{phủ điều kiện} phù hợp với chức năng profile vì luồng xử lý cập nhật phụ thuộc vào nhiều điều kiện kiểm tra riêng lẻ trước khi gửi request, ví dụ tên không được rỗng, số điện thoại phải đúng định dạng và phần \texttt{bio} không vượt quá giới hạn ký tự. Theo định nghĩa phủ điều kiện trong học phần, mỗi điều kiện con cần được thực hiện ít nhất một lần ở trạng thái \texttt{true} và ít nhất một lần ở trạng thái \texttt{false}. Do workspace báo cáo hiện tại không chứa trực tiếp mã nguồn form profile, phần phân tích dưới đây được suy ra từ các tình huống kiểm thử đã được xác nhận trong \texttt{profile.md}.
+
+\textbf{Phân tích.} Dựa trên các test \texttt{TC-PROFILE-04}, \texttt{TC-PROFILE-05}, \texttt{TC-PROFILE-06}, \texttt{TC-PROFILE-09} và \texttt{TC-PROFILE-10}, nhóm xác định các điều kiện xử lý chính của luồng cập nhật profile như sau:
+
+\begin{itemize}
+	\item \textbf{C1}: \texttt{name == ""} -- trường họ tên bị bỏ trống.
+	\item \textbf{C2}: \texttt{phone invalid} -- số điện thoại không đúng định dạng hợp lệ.
+	\item \textbf{C3}: \texttt{bio.length > 300} -- phần giới thiệu vượt quá giới hạn cho phép.
+	\item \textbf{C4}: \texttt{server returns error} -- request cập nhật hồ sơ trả lỗi từ server.
+\end{itemize}
+
+Nếu một trong các điều kiện \textbf{C1}, \textbf{C2}, \textbf{C3} xảy ra, hệ thống phải chặn submit và hiển thị thông báo lỗi tương ứng. Khi ba điều kiện validate đầu vào đều sai, request cập nhật được gửi đi; nếu \textbf{C4} xảy ra thì hiển thị lỗi submit, ngược lại hệ thống cập nhật thành công và gửi đúng payload đến API \texttt{PATCH /api/users/me}. Riêng điều kiện \texttt{email readonly} được ghi nhận trong tài liệu kiểm thử như một ràng buộc giao diện độc lập, nhưng không được đưa vào bộ phủ điều kiện chính vì artifact hiện có chỉ thể hiện một trạng thái duy nhất là không cho chỉnh sửa.
+
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.25}
+	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.5cm}|>{\raggedright\arraybackslash}p{4.3cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{3.2cm}|}
+		\hline
+		\textbf{Điều kiện} & \textbf{Biểu thức suy ra từ logic xử lý} & \textbf{Ý nghĩa}                              & \textbf{Kết quả khi điều kiện đúng}                  \\
+		\hline
+		C1                 & \texttt{name == ""}                      & Người dùng để trống trường họ tên             & Báo lỗi ``Vui lòng nhập họ tên''                     \\
+		\hline
+		C2                 & \texttt{phone invalid}                   & Người dùng nhập số điện thoại sai định dạng   & Báo lỗi ``Số điện thoại không hợp lệ''               \\
+		\hline
+		C3                 & \texttt{bio.length > 300}                & Nội dung giới thiệu vượt giới hạn ký tự       & Báo lỗi ``Giới thiệu không được vượt quá 300 ký tự'' \\
+		\hline
+		C4                 & \texttt{server returns error}            & Request cập nhật hồ sơ thất bại ở phía server & Báo lỗi ``Không thể cập nhật hồ sơ''                 \\
+		\hline
+	\end{tabularx}
+	\caption{Các điều kiện cần bao phủ trong luồng cập nhật profile}
+	\label{tab:profile-condition-list}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.25}
+	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.3cm}|>{\centering\arraybackslash}p{1.0cm}|>{\centering\arraybackslash}p{1.0cm}|>{\centering\arraybackslash}p{1.0cm}|>{\centering\arraybackslash}p{1.0cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{3.8cm}|}
+		\hline
+		\textbf{TC} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{Dữ liệu / tình huống}                            & \textbf{Kết quả mong đợi}                                  \\
+		\hline
+		TC1         & T           & F           & F           & -           & Name rỗng, phone hợp lệ, bio hợp lệ                      & Hệ thống chặn submit và báo lỗi họ tên                     \\
+		\hline
+		TC2         & F           & T           & F           & -           & Name hợp lệ, phone = \texttt{12345}, bio hợp lệ          & Hệ thống chặn submit và báo lỗi số điện thoại              \\
+		\hline
+		TC3         & F           & F           & T           & -           & Name hợp lệ, phone hợp lệ, bio = 301 ký tự               & Hệ thống chặn submit và báo lỗi bio vượt giới hạn          \\
+		\hline
+		TC4         & F           & F           & F           & T           & Dữ liệu hợp lệ, server trả lỗi \texttt{500} khi cập nhật & Hiển thị thông báo ``Không thể cập nhật hồ sơ''            \\
+		\hline
+		TC5         & F           & F           & F           & F           & Dữ liệu hợp lệ, server xử lý thành công                  & Hiển thị thông báo cập nhật thành công và gửi đúng payload \\
+		\hline
+	\end{tabularx}
+	\caption{Bộ test case phủ điều kiện cho chức năng profile}
+	\label{tab:profile-condition-coverage}
+\end{table}
+
+\textbf{Nhận xét.} Với năm test case trên, mỗi điều kiện \textbf{C1}, \textbf{C2}, \textbf{C3}, \textbf{C4} đều xuất hiện ít nhất một lần ở trạng thái đúng và ít nhất một lần ở trạng thái sai, do đó đáp ứng mục tiêu phủ điều kiện theo nội dung lý thuyết của học phần. Bộ test này đồng thời giữ được sự nhất quán với các kịch bản đã có trong \texttt{profile.md}, thuận tiện cho việc đối chiếu giữa phần black-box và white-box của báo cáo.
 
 \subsection{Phủ đường -- Chức năng inventory}
 \textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
