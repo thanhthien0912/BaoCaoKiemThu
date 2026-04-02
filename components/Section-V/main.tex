@@ -25,39 +25,39 @@
 	\setlength{\tabcolsep}{3pt}
 	\begin{tabular}{|>{\raggedright\arraybackslash}p{5.3cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|>{\centering\arraybackslash}m{0.72cm}|}
 		\hline
-		\textbf{Điều kiện / Hành động} & \textbf{R1} & \textbf{R2} & \textbf{R3} & \textbf{R4} & \textbf{R5} & \textbf{R6} & \textbf{R7} & \textbf{R8} \\
+		\textbf{Điều kiện / Hành động}                     & \textbf{R1} & \textbf{R2} & \textbf{R3} & \textbf{R4} & \textbf{R5} & \textbf{R6} & \textbf{R7} & \textbf{R8} \\
 		\hline
-		\multicolumn{9}{|l|}{\textbf{Nhóm điều kiện}} \\
+		\multicolumn{9}{|l|}{\textbf{Nhóm điều kiện}}                                                                                                                      \\
 		\hline
-		C1. Thao tác là tạo hoặc cập nhật & Y & Y & Y & Y & Y & N & N & N \\
+		C1. Thao tác là tạo hoặc cập nhật                  & Y           & Y           & Y           & Y           & Y           & N           & N           & N           \\
 		\hline
-		C1. Thao tác là xóa & N & N & N & N & N & Y & Y & Y \\
+		C1. Thao tác là xóa                                & N           & N           & N           & N           & N           & Y           & Y           & Y           \\
 		\hline
-		C2. Dữ liệu bắt buộc hợp lệ & Y & Y & Y & Y & Y & - & - & - \\
+		C2. Dữ liệu bắt buộc hợp lệ                        & Y           & Y           & Y           & Y           & Y           & -           & -           & -           \\
 		\hline
-		C3. Loại giảm giá hợp lệ & Y & Y & Y & Y & Y & - & - & - \\
+		C3. Loại giảm giá hợp lệ                           & Y           & Y           & Y           & Y           & Y           & -           & -           & -           \\
 		\hline
-		C4. Nếu là percentage thì discountValue $\leq$ 100 & Y & Y & N & Y & Y & - & - & - \\
+		C4. Nếu là percentage thì discountValue $\leq$ 100 & Y           & Y           & N           & Y           & Y           & -           & -           & -           \\
 		\hline
-		C5. Mã không trùng & Y & N & Y & Y & Y & - & - & - \\
+		C5. Mã không trùng                                 & Y           & N           & Y           & Y           & Y           & -           & -           & -           \\
 		\hline
-		C6. Bản ghi mục tiêu tồn tại & - & - & - & Y & N & Y & Y & N \\
+		C6. Bản ghi mục tiêu tồn tại                       & -           & -           & -           & Y           & N           & Y           & Y           & N           \\
 		\hline
-		C7. Chưa phát sinh usageCount & - & - & - & - & - & Y & N & - \\
+		C7. Chưa phát sinh usageCount                      & -           & -           & -           & -           & -           & Y           & N           & -           \\
 		\hline
-		\multicolumn{9}{|l|}{\textbf{Nhóm hành động / kết quả mong đợi}} \\
+		\multicolumn{9}{|l|}{\textbf{Nhóm hành động / kết quả mong đợi}}                                                                                                   \\
 		\hline
-		Lưu thành công & X &  &  & X &  &  &  &  \\
+		Lưu thành công                                     & X           &             &             & X           &             &             &             &             \\
 		\hline
-		Xóa thành công &  &  &  &  &  & X &  &  \\
+		Xóa thành công                                     &             &             &             &             &             & X           &             &             \\
 		\hline
-		Báo lỗi trùng mã &  & X &  &  &  &  &  &  \\
+		Báo lỗi trùng mã                                   &             & X           &             &             &             &             &             &             \\
 		\hline
-		Báo lỗi dữ liệu giảm giá không hợp lệ &  &  & X &  &  &  &  &  \\
+		Báo lỗi dữ liệu giảm giá không hợp lệ              &             &             & X           &             &             &             &             &             \\
 		\hline
-		Báo lỗi không tìm thấy bản ghi &  &  &  &  & X &  &  & X \\
+		Báo lỗi không tìm thấy bản ghi                     &             &             &             &             & X           &             &             & X           \\
 		\hline
-		Từ chối xóa, yêu cầu vô hiệu hóa thay thế &  &  &  &  &  &  & X &  \\
+		Từ chối xóa, yêu cầu vô hiệu hóa thay thế          &             &             &             &             &             &             & X           &             \\
 		\hline
 	\end{tabular}
 
@@ -93,27 +93,27 @@
 	\setlength{\tabcolsep}{5pt}
 	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{3.0cm}|>{\centering\arraybackslash}p{2.1cm}|}
 		\hline
-		\textbf{TC} & \textbf{Kết quả} & \textbf{Lớp tương đương} & \textbf{Đánh dấu} \\
+		\textbf{TC} & \textbf{Kết quả}       & \textbf{Lớp tương đương} & \textbf{Đánh dấu} \\
 		\hline
-		TC01 & Thành công & Hợp lệ & V1 \\
+		TC01        & Thành công             & Hợp lệ                   & V1                \\
 		\hline
-		TC02 & Báo lỗi sai thông tin & Không hợp lệ & I1 \\
+		TC02        & Báo lỗi sai thông tin  & Không hợp lệ             & I1                \\
 		\hline
-		TC03 & Báo lỗi sai thông tin & Không hợp lệ & I2 \\
+		TC03        & Báo lỗi sai thông tin  & Không hợp lệ             & I2                \\
 		\hline
-		TC04 & Báo lỗi trống Email & Không hợp lệ & I3 \\
+		TC04        & Báo lỗi trống Email    & Không hợp lệ             & I3                \\
 		\hline
-		TC05 & Báo lỗi trống Pass & Không hợp lệ & I4 \\
+		TC05        & Báo lỗi trống Pass     & Không hợp lệ             & I4                \\
 		\hline
-		TC06 & Báo lỗi cả 2 trường & Không hợp lệ & I5 \\
+		TC06        & Báo lỗi cả 2 trường    & Không hợp lệ             & I5                \\
 		\hline
-		TC07 & Báo lỗi định dạng & Không hợp lệ & I6 \\
+		TC07        & Báo lỗi định dạng      & Không hợp lệ             & I6                \\
 		\hline
-		TC08 & Hiển thị dạng password & Hợp lệ & V2 \\
+		TC08        & Hiển thị dạng password & Hợp lệ                   & V2                \\
 		\hline
-		TC09 & Đổi ẩn và hiện & Hợp lệ & V3 \\
+		TC09        & Đổi ẩn và hiện         & Hợp lệ                   & V3                \\
 		\hline
-		TC10 & Thông báo lỗi biến mất & Hợp lệ & V4 \\
+		TC10        & Thông báo lỗi biến mất & Hợp lệ                   & V4                \\
 		\hline
 	\end{tabularx}
 	\caption{Phân vùng tương đương cho chức năng đăng nhập}
@@ -133,36 +133,73 @@
 	\setlength{\tabcolsep}{4pt}
 	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.6cm}|>{\raggedright\arraybackslash}p{3.8cm}|>{\raggedright\arraybackslash}X|}
 		\hline
-		\textbf{Đánh dấu} & \textbf{Đầu vào} & \textbf{Kết quả mong đợi} \\
+		\textbf{Đánh dấu} & \textbf{Đầu vào}       & \textbf{Kết quả mong đợi} \\
 		\hline
-		V1 & \makecell[l]{Email:\\admin@gmail.com\\Password:\\Aa@123456} & Đăng nhập thành công và chuyển hướng về trang chủ \\
+		V1                & \makecell[l]{Email:                                \\admin@gmail.com\\Password:\\Aa@123456} & Đăng nhập thành công và chuyển hướng về trang chủ \\
 		\hline
-		I1 & \makecell[l]{Email:\\admin@gmail.com\\Password:\\WrongPassword} & Hiển thị thông báo lỗi: ``Email hoặc mật khẩu không đúng'' \\
+		I1                & \makecell[l]{Email:                                \\admin@gmail.com\\Password:\\WrongPassword} & Hiển thị thông báo lỗi: ``Email hoặc mật khẩu không đúng'' \\
 		\hline
-		I2 & \makecell[l]{Email:\\notexist@gmail.com\\Password:\\Aa@123456} & Hiển thị thông báo lỗi: ``Email hoặc mật khẩu không đúng'' \\
+		I2                & \makecell[l]{Email:                                \\notexist@gmail.com\\Password:\\Aa@123456} & Hiển thị thông báo lỗi: ``Email hoặc mật khẩu không đúng'' \\
 		\hline
-		I3 & \makecell[l]{Email:\\<trống>\\Password:\\Aa@123456} & Hiển thị thông báo lỗi ngay dưới ô Email: ``Vui lòng nhập email'' \\
+		I3                & \makecell[l]{Email:                                \\<trống>\\Password:\\Aa@123456} & Hiển thị thông báo lỗi ngay dưới ô Email: ``Vui lòng nhập email'' \\
 		\hline
-		I4 & \makecell[l]{Email:\\admin@gmail.com\\Password:\\<trống>} & Hiển thị thông báo lỗi ngay dưới ô Mật khẩu: ``Vui lòng nhập mật khẩu'' \\
+		I4                & \makecell[l]{Email:                                \\admin@gmail.com\\Password:\\<trống>} & Hiển thị thông báo lỗi ngay dưới ô Mật khẩu: ``Vui lòng nhập mật khẩu'' \\
 		\hline
-		I5 & \makecell[l]{Email:\\<trống>\\Password:\\<trống>} & Hiển thị thông báo lỗi tại cả hai trường nhập liệu \\
+		I5                & \makecell[l]{Email:                                \\<trống>\\Password:\\<trống>} & Hiển thị thông báo lỗi tại cả hai trường nhập liệu \\
 		\hline
-		I6 & \makecell[l]{Email:\\invalid-email.com\\Password:\\Aa@123456} & Hiển thị thông báo: ``Email không hợp lệ'' \\
+		I6                & \makecell[l]{Email:                                \\invalid-email.com\\Password:\\Aa@123456} & Hiển thị thông báo: ``Email không hợp lệ'' \\
 		\hline
-		V2 & \makecell[l]{Password:\\Aa@123456} & Ký tự mật khẩu phải được ẩn mặc định \\
+		V2                & \makecell[l]{Password:                             \\Aa@123456} & Ký tự mật khẩu phải được ẩn mặc định \\
 		\hline
-		V3 & \makecell[l]{Click vào\\icon con mắt} & Mật khẩu chuyển đổi ẩn và hiện \\
+		V3                & \makecell[l]{Click vào                             \\icon con mắt} & Mật khẩu chuyển đổi ẩn và hiện \\
 		\hline
-		V4 & \makecell[l]{Email:\\admin@gmail.com} & Thông báo lỗi đỏ phải tự động biến mất \\
+		V4                & \makecell[l]{Email:                                \\admin@gmail.com} & Thông báo lỗi đỏ phải tự động biến mất \\
 		\hline
 	\end{tabularx}
 	\caption{Chi tiết các lớp tương đương của chức năng đăng nhập}
 \end{table}
 
 \subsection{Giá trị biên -- Chức năng profile}
-\textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
+\textbf{Mô tả yêu cầu.} Chức năng \texttt{/profile} cho phép người dùng đã đăng nhập xem và cập nhật thông tin cá nhân như họ tên, số điện thoại, địa chỉ và phần giới thiệu cá nhân. Dựa trên bộ test tổng hợp trong \texttt{profile.md}, hệ thống hỗ trợ hiển thị sẵn dữ liệu hiện tại, lưu thay đổi khi dữ liệu hợp lệ, chặn submit nếu trường bắt buộc bị bỏ trống hoặc vượt ràng buộc, đồng thời giữ trường \texttt{email} ở trạng thái chỉ đọc.
 
-\textbf{Phân tích.} Nội dung sẽ được bổ sung sau.
+\textbf{Phân tích.} Đối với chức năng profile, kỹ thuật \textbf{phân tích giá trị biên} phù hợp vì nhiều trường đầu vào có giới hạn hoặc điều kiện kiểm tra nằm ngay tại ranh giới hợp lệ và không hợp lệ. Thay vì chỉ kiểm thử một vài giá trị đại diện thông thường, nhóm ưu tiên chọn dữ liệu ở sát ngưỡng như rỗng, vừa đủ hợp lệ, chạm ngưỡng tối đa và vượt ngưỡng một đơn vị để tăng khả năng phát hiện lỗi validate.
+
+Trong phạm vi chức năng \texttt{/profile}, nhóm tập trung vào các trường có ràng buộc đầu vào rõ ràng và đã xuất hiện trong bộ test tổng hợp tại \texttt{profile.md}, gồm \texttt{name}, \texttt{phone}, \texttt{bio} và hành vi chỉ đọc của \texttt{email}. Theo kỹ thuật phân tích giá trị biên, các giá trị đại diện được chọn tại ngưỡng nhỏ nhất, cận dưới, giá trị hợp lệ điển hình, cận trên và vượt ngưỡng để tăng khả năng phát hiện lỗi validate ở biên thay vì chỉ kiểm tra dữ liệu thông thường.
+
+Từ các test case hiện có, có thể rút ra ba nhóm biên chính. Thứ nhất, trường \texttt{name} không được để trống theo test \texttt{TC-PROFILE-04}, do đó các giá trị biên tối thiểu cần xem xét là rỗng, một giá trị rất ngắn và một giá trị hợp lệ thông thường. Thứ hai, trường \texttt{phone} phải đúng định dạng số điện thoại, trong đó dữ liệu ngắn như \texttt{12345} bị từ chối còn các số như \texttt{0912345678} và \texttt{0987654321} được chấp nhận; vì vậy có thể suy ra cần kiểm tra quanh ngưỡng độ dài hợp lệ bằng các trường hợp ngắn hơn, đúng ngưỡng đang được hệ thống chấp nhận và dài hơn mức đó. Thứ ba, trường \texttt{bio} có giới hạn tối đa \texttt{300} ký tự theo test \texttt{TC-PROFILE-06}, nên bộ giá trị biên quan trọng là \texttt{299}, \texttt{300} và \texttt{301} ký tự. Riêng \texttt{email} là trường chỉ đọc theo \texttt{TC-PROFILE-07}, nên được xem như biên hành vi: người dùng có thể quan sát nhưng không thể chỉnh sửa giá trị này.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+	\renewcommand{\arraystretch}{1.25}
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.5cm}|>{\raggedright\arraybackslash}p{2.7cm}|>{\raggedright\arraybackslash}p{3.2cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{2.2cm}|}
+		\hline
+		\textbf{TC} & \textbf{Trường kiểm tra} & \textbf{Giá trị biên}        & \textbf{Ý nghĩa kiểm thử}                                         & \textbf{Kết quả mong đợi}                                                     \\
+		\hline
+		TC1         & Họ tên                   & \texttt{<trống>}             & Kiểm tra biên dưới không hợp lệ của trường bắt buộc               & Hệ thống báo lỗi ``Vui lòng nhập họ tên''                                     \\
+		\hline
+		TC2         & Họ tên                   & \texttt{A}                   & Kiểm tra giá trị rất ngắn, dùng như dữ liệu cận biên đề xuất      & Hệ thống dự kiến cho phép lưu nếu không có ràng buộc độ dài tối thiểu bổ sung \\
+		\hline
+		TC3         & Số điện thoại            & \texttt{12345}               & Kiểm tra trường hợp ngắn hơn độ dài chuẩn                         & Hệ thống báo lỗi ``Số điện thoại không hợp lệ''                               \\
+		\hline
+		TC4         & Số điện thoại            & \texttt{0912345678}          & Kiểm tra giá trị đúng định dạng đã xuất hiện trong bộ test hợp lệ & Hệ thống cho phép lưu thành công                                              \\
+		\hline
+		TC5         & Số điện thoại            & \texttt{09123456789}         & Kiểm tra dữ liệu dài hơn ngưỡng đang được suy ra từ bộ test       & Hệ thống dự kiến báo lỗi ``Số điện thoại không hợp lệ''                       \\
+		\hline
+		TC6         & Bio                      & \texttt{299} ký tự           & Kiểm tra cận trên hợp lệ trước giới hạn tối đa                    & Hệ thống cho phép lưu thành công                                              \\
+		\hline
+		TC7         & Bio                      & \texttt{300} ký tự           & Kiểm tra đúng biên trên hợp lệ                                    & Hệ thống cho phép lưu thành công                                              \\
+		\hline
+		TC8         & Bio                      & \texttt{301} ký tự           & Kiểm tra vượt biên trên một đơn vị                                & Hệ thống báo lỗi ``Giới thiệu không được vượt quá 300 ký tự''                 \\
+		\hline
+		TC9         & Email                    & Trạng thái \texttt{readonly} & Kiểm tra biên hành vi của trường không cho chỉnh sửa              & Người dùng không thể sửa email và giao diện hiển thị ghi chú phù hợp          \\
+		\hline
+	\end{tabularx}
+	\caption{Bảng giá trị biên cho chức năng profile}
+\end{table}
+
+\textbf{Nhận xét.} Bảng trên ưu tiên các giá trị biên có thể suy ra trực tiếp từ bộ test hiện có để đảm bảo tính nhất quán với tài liệu kiểm thử. Với các trường như \texttt{name} và \texttt{phone}, một số giá trị đang được sử dụng theo hướng đề xuất kiểm thử cận biên dựa trên dữ liệu hiện có, chưa phải đặc tả nghiệp vụ đầy đủ. Khi phần mô tả yêu cầu được hoàn thiện thêm, nhóm có thể mở rộng tiếp các biên khác như độ dài tối đa của \texttt{name}, định dạng chi tiết của \texttt{phone}, hoặc ràng buộc với trường \texttt{address} nếu đặc tả nghiệp vụ cung cấp thêm giới hạn cụ thể.
 
 \subsection{Dịch chuyển trạng thái -- Chức năng yêu thích}
 \textbf{Mô tả yêu cầu.} Nội dung sẽ được bổ sung sau.
