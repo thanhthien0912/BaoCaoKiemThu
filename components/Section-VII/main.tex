@@ -48,3 +48,27 @@ Kết quả chính thu được gồm:
 	\caption{Kết quả chạy unit test cho chức năng đăng nhập}
 	\label{fig:login-unit-test-result}
 \end{figure}
+
+\subsection{Unit test -- Chức năng quản lý tồn kho}
+
+\textbf{Công cụ và phạm vi.}
+Nhóm sử dụng \textbf{Jest} để viết và chạy unit test cho backend của phân hệ inventory. Phạm vi kiểm thử trong mục này tập trung vào các hàm xử lý chính gồm \texttt{normalizeQuantity}, \texttt{createProduct}, \texttt{updateProduct}, nhóm kiểm tra mức tồn kho và các trường hợp biên liên quan tới ép kiểu dữ liệu.
+
+\textbf{Kết quả chạy unit test.}
+Lệnh chạy test được sử dụng:
+\begin{center}
+	\texttt{npx jest src/\_\_tests\_\_/inventory.test.js --verbose}
+\end{center}
+Kết quả chính thu được gồm:
+\begin{itemize}
+	\item \textbf{1 test suite passed}
+	\item \textbf{22 tests passed}
+	\item Bao quát các nhánh đã phân tích cho xử lý số lượng tồn kho: giá trị hợp lệ, giá trị rỗng, bắt buộc nhập nhưng bỏ trống, số âm, số thập phân, chuỗi không hợp lệ, cập nhật tồn kho, kiểm tra trạng thái hết hàng hoặc sắp hết, ép kiểu từ chuỗi số, số lượng rất lớn, \texttt{Infinity} và \texttt{NaN}
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{image/anhrchuongtestunittest/image.png}
+	\caption{Kết quả chạy unit test cho chức năng quản lý tồn kho}
+	\label{fig:inventory-unit-test-result}
+\end{figure}
